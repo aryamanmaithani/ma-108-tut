@@ -1,0 +1,124 @@
+\documentclass[handout, aspectratio=169]{beamer}
+\mode<presentation>{}
+\usepackage[utf8]{inputenc}
+\newcommand{\fl}[1]{\left\lfloor #1 \right\rfloor}
+\usepackage{ulem}
+
+\title{MA 108 : ODE\\ Closed, exact, and simply connected}  % change
+\author{Aryaman Maithani}
+\date[06-03-2019]{6th March, 2020}               % change
+\institute[IITB]{IIT Bombay}
+\usetheme{Warsaw}
+\usecolortheme{beetle}
+\newtheorem{defn}{Definition}
+\begin{document}
+\begin{frame}
+	\titlepage
+\end{frame}
+\begin{frame}{Simply connected sets}
+	Let $m \in \mathbb{N}$ and $D \subset \mathbb{R}^m.$\\
+	We know that a curve in $D$ is simply a $\mathcal{C}^1$ function $c:[a, b]\to D$ where $a,\;b\in\mathbb{R}$ with $a < b.$\\
+	For the purpose of this discussion, we shall assume $a = 0$ and $b = 1.$\\
+	We say that $c$ can be \emph{continuously} shrunk to a point $d \in D$ if there is a continuous function $H:[0, 1]\times[0, 1]\to D$ such that
+	\begin{enumerate} 
+		\item $H(0, s) = c(s)$ for every $s \in [0, 1],$
+		\item $H(1, s) = d$ for every $s \in [0, 1],$ and
+		\item $H(t, 1) = H(t, 0)$ for every $t \in [0, 1].$
+	\end{enumerate}
+	This map $H$ is called a homotopy in $D$ between the curve $c$ and the constant curve $d.$\\
+	The domain $D$ is said to be simply-connected if for every simply closed curve $c$ in $D,$ we have a homotopy $H$ between $c$ and \emph{some} $d \in D.$
+\end{frame}
+\begin{frame}{Interpretation of the last slide} 
+	The map $H$ can be interpreted as follows:\\
+	It is a function of two variables. The first function may be thought of as ``time''.\\
+	For every fixed instant of time $t_0 \in [0, 1],$ we get a curve $H(t_0, s)$ as $s$ varies from $0$ to $1.$ This is capturing the ``continuous shrink.''\\
+	Let us look what the three points are saying:
+	\begin{enumerate} 
+		\item At time $t_0 = 0,$ the curve drawn is the initial curve $c$ that we started with.
+		\item At time $t_0 = 1,$ the curve is the final point $d.$
+		\item At any given time $t_0 \in [0, 1],$ the curve is still a loop, that is, we aren't opening it up.
+	\end{enumerate}
+\end{frame}
+\begin{frame}{Alternate definition}
+	The previous definition can also be written in a slightly more concise (but equivalent) way.\\
+	Let $D$ and $c$ have the same meaning as before. Moreover, let $S^1 := \{(x, y) \in \mathbb{R}^2 : x^2 + y^2 = 1\}$ and $U^2 := \{(x, y) \in \mathbb{R}^2 : x^2 + y^2 \le 1\}.$\\~\\
+	%
+	We say that $D$ is simply-connected if any loop in $D$ defined by $f:S^1 \to D$ can be contracted to a point: there exists a continuous map $F:U^2 \to D$ such that $F$ restricted to $S^1$ is $f.$
+
+	\hrulefill
+
+	This is admittedly a terser definition. It's okay if you don't understand it right away.
+\end{frame}
+\begin{frame}{A more intuitive idea} 
+	For the purpose of MA 108, we will be concerned about the case that $m = 2.$ That is, our domains are (open) subsets of $\mathbb{R}^2.$ To recall, a subset $\Omega \subset \mathbb{R}^2$ is said to be open if for every $p \in \Omega,$ there exists some $r > 0$ such that the open disc of radius $r$ centered at $p$ is a subset of $\Omega.$ (You can draw a small enough circle about every point within $\Omega.$)\\~\\
+	Loosely speaking, a subset $D \subset \mathbb{R}^2$ will be simply connected if for every (closed) loop $C \subset D,$ we have that the points ``inside'' $C$ are also points of $D.$\\~\\
+	That gives us that any closed loop in the domain can be continuously shrunk (without opening the loop) to a point in the domain.
+\end{frame}
+\begin{frame}{Examples} 
+	The following subsets of $\mathbb{R}^2$ \textbf{are} simply connected:
+	\begin{enumerate} 
+		\item $\mathbb{R}^2,$
+		\item $\mathbb{R}^2 \setminus (\mathbb{R}\times\{0\})$ (the plane after removing the $x-$axis),
+		\item $\{(x, y)\in \mathbb{R}^2 : (x - 2)^2 + y^2 < 1\} \cup \{(x, y)\in \mathbb{R}^2 : (x + 2)^2 + y^2 < 1\}$ \\
+		(union of two disjoint open discs).\\~\\
+	\end{enumerate}
+	The following subsets of $\mathbb{R}^2$ are \textbf{not} simply connected:
+	\begin{enumerate} 
+		\item $\mathbb{R}^2 \setminus \{(0, 0)\}$ (the plane after removing the origin),
+		\item the plane after removing any finite set of points,
+		\item $\mathbb{R}^2 \setminus S^1,$ where $S^1 = \{(x, y) \in \mathbb{R}^2 : x^2 + y^2 = 1\}$ is the unit circle.
+	\end{enumerate}
+	Verify that all the examples given above are open subsets of $\mathbb{R}^2.$
+\end{frame}
+\begin{frame}{Closed and Exact Forms} 
+	\begin{defn} 
+		A first order ODE $M(x, y) + N(x, y)y^1 = 0$ is called exact if there is a function $u(x, y)$ such that
+		\[\frac{\partial u}{\partial x} = M \text{ and } \frac{\partial u}{\partial y} = N.\]
+	\end{defn}
+	\begin{defn} 
+		The differential form
+		\[M(x, y)dx + N(x, y)dy\]
+		is called closed if
+		\[\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}.\]
+	\end{defn}
+\end{frame}
+\begin{frame}{Their connection} 
+	Recall that if $M$ and $N$ are ``nice enough'', then exact $\implies$ closed.\\
+	More precisely, if $M, N: D \to \mathbb{R}$ are such that their first partial derivatives exist and are continuous, then $M + Ny^1 = 0$ being exact implies that $M_y = N_x.$\\~\\
+	The idea behind the proof was to note that we have $M = u_x$ and $N = u_y.$ By hypothesis, we have that $u$ has all of its second partial derivatives continuous. The mixed partials theorem from MA 105 told us that this implies $u_{xy} = u_{yx}$ which gives us the desired equality.\\
+	(If you have forgotten the theorem, it is there on the last slide.)
+\end{frame}
+\begin{frame}{Their connection} 
+	Let $M, N, D$ be as before. Now, we additionally assume that $D$ is simply connected. Then we have the following:
+	\[M + Ny^1 = 0 \text{ is exact } \iff Mdx + Ndy \text{ is closed}.\]
+	Note that we already had exact $\implies$ closed. Thus, we only need to prove that closed $\implies$ exact.\\
+	The idea behind the proof was the following:\\
+	Take any closed loop $C \subset D$. Then, the points contained ``within'' $C$ are also points in $D.$ Thus, the vector field $(M, N)$ is defined completely ``within'' $C.$ Then, we used Green's Theorem to compute $\displaystyle\oint(M, N)\cdot d\mathbf{r},$ which turns out to be zero as $N_x - M_y = 0.$\\
+	Thus, we got that the line integrals of $(M, N)$ are path-independent in $D$ and hence, $(M, N)$ is the gradient of a scalar field.
+\end{frame}
+\begin{frame}{An example} 
+	Note that the additional hypothesis of $D$ being simply connected was indeed required. To see this recall the following tutorial question from MA 105:\\
+	Let $D = \mathbb{R}^2\setminus\{(0, 0)\}.$ Let $M, N:D\to\mathbb{R}$ be given by
+	\[(M(x, y), N(x, y)) := \left(-\frac{y}{x^2 + y^2}, \frac{x}{x^2 + y^2}\right).\]
+	Then, $\dfrac{\partial M}{\partial y} = \dfrac{\partial N}{\partial x}.$ However, $(M, N)$ is not the gradient of any scalar field on $D.$\\~\\
+	(How had we shown this? Hint: integrate $(M, N)$ along the unit circle centered at origin.)
+\end{frame}
+\begin{frame}{Summary} 
+	If $M$ and $N$ are good enough functions, then we have 
+	\[\text{exact} \implies \text{closed}.\]
+	If the domain is simply connected, then we have
+	\[\text{exact} \iff \text{closed}.\]
+\end{frame}
+\begin{frame}{Exercise} 
+	Note that the domain $D = \{(x, y) \in \mathbb{R}^2 : y > 0\}$ is simply connected. (The upper half plane.)\\
+	Let $M, N:D \to \mathbb{R}$ be defined as in the earlier example. Find a scalar field $u$ such that $\nabla u = (M, N).$ (The existence of such a field is guaranteed as we have a closed form on a simply connected domain.)\\~\\
+	Do the above for the case that $D = \{(x, y) \in \mathbb{R}^2 : x > 0\}.$ (The right half plane.)\\
+\end{frame}
+\begin{frame}{Mixed Partial Theorem} 
+	\begin{theorem} 
+		Let $D \subset \mathbb{R}^2$ and let $(x_0, y_0)$ be an interior point of $D.$ Then there is $r > 0$ such that 
+		\[S := \{(x, y) \in \mathbb{R}^2 : |x - x_0| < r \text{ and } |y - y_0| < r\} \subset D.\]
+		Consider $f:S\to \mathbb{R}$ and suppose $f_x$ and $f_y$ exist on $S.$ If one of the mixed partials $f_{xy}$ or $f_{yx}$ exists on $S,$ and it is continuous at $(x_0, y_0),$ then the other mixed partial exists at $(x_0, y_0),$ and $f_{xy}(x_0, y_0) = f_{yx}(x_0, y_0).$
+	\end{theorem}
+\end{frame}
+\end{document}
