@@ -1,0 +1,306 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsfonts, amsthm, mathtools}
+\usepackage[utf8]{inputenc}
+\usepackage[inline]{enumitem}
+\usepackage{cancel}
+\usepackage{soul}
+\usepackage{hyperref}
+\usepackage{centernot}
+\usepackage{pifont}
+
+\newtheorem{theorem}{Theorem}
+\setlength\parindent{0pt}
+\let\emptyset\varnothing
+
+\usepackage{xcolor}
+\definecolor{mybgcolor}{RGB}{50, 50, 50} %46, 51, 63
+
+\usepackage{pagecolor}
+\pagecolor{mybgcolor}
+\color{white}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]
+  {\normalfont\scshape}{\S\thesection}{0.25cm}{\large}
+
+\usepackage{geometry}
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=20mm,
+	top=20mm,
+}
+
+\title{Tutorial 1}				% change
+\author{Aryaman Maithani}%\\
+%\small TA for D1-T5}
+\date{11th March 2020}		% change
+
+\begin{document}
+\maketitle
+
+\hrulefill
+
+\begin{center}
+	\textsc{Disclaimer}
+\end{center}
+These are \textbf{not} complete solutions and should not be regarded as such. The purpose of this is to basically get you started and you must fill in the gaps. To be more explicit, if what you care about is marks, then just the solutions written here won't suffice.
+
+\hrulefill
+
+\begin{enumerate}[label = Q.\arabic*.] 
+	\item 
+	\begin{enumerate}[label = (\roman*)] 
+		\item Order: 3, non-linear. Non-linearity is due to the $\left(\dfrac{dy}{dx}\right)^2$ term.
+		\item Order: 1, linear.
+		\item Order: 2, non-linear. Non-linearity is due to the $y\dfrac{d^2y}{dx^2}$ term.
+		\item Order: 4, linear.
+		\item Order: 6, non-linear. Non-linearity is due to the $(1 + y^2)\left(\dfrac{d^2y}{dt^2}\right)$ term. In particular, the $y\dfrac{d^2y}{dt^2}$ term that one would get on multiplying out.
+	\end{enumerate}
+	Note that saying ``non-linearity is due to ...'' is not the mathematically precise justification. For an ODE to be linear, we should have that if $y_1$ and $y_2$ are solutions, then so is $\lambda y_1 + (1 - \lambda)y_2$ for any $\lambda \in \mathbb{R}.$
+	\item \begin{enumerate}[label = (\roman*)] 
+		\item \begin{align*} 
+			& y = ax^2\\
+			\implies & y' = 2ax\\
+			\implies & xy' = 2ax^2\\
+			\implies & xy' = 2y
+		\end{align*}
+		\item \begin{align*} 
+			& y - a^2 = a(x - b)^2\\
+			\implies & y' = 2a(x - b)\\
+			\implies & y^{(2)} = 2a
+		\end{align*}
+		Conclude from the above.
+		\item $x + yy' = 0.$
+		\item 
+		\begin{align} 
+			& (x - a)^2 + (y - b)^2 = a^2 \label{eq:1}\\
+			&\text{differentiate wrt } x: \nonumber\\
+			\implies & (x - a) + (y - b)y' = 0 \label{eq:2}\\
+			&\text{differentiate wrt } x: \nonumber\\
+			\implies & 1 + (y - b)y^{(2)} + y'^2 = 0 \nonumber\\
+			\implies & (y - b) = -\frac{y'^2 + 1}{y^{(2)}} \label{eq:3}
+		\end{align}
+		Substitute (\ref{eq:3}) into (\ref{eq:2}) and solve for $x - a$ in terms of $x, y, y', y^{(2)}.$ Call this relation (4).\\
+		Then, substitute (\ref{eq:3}) and 4 into (\ref{eq:1}) to get the desired second order ODE.
+		\item 
+		\begin{align} \label{eq:sincos}
+			y = a\sin x + b\cos x + a
+		\end{align}
+		\begin{align*} 
+			\implies & y' = a\cos x - b\sin x\\
+			\implies & y^{(2)} = -a\sin x - b\cos x
+		\end{align*}
+		Note that the last two equations allow us to solve for $a$ and $b$ in terms of $y'$ and $y^{(2)}.$\\
+		On solving, we get $a = (\cos x)y' - (\sin x)y^{(2)}$ and $b = (-\sin x)y' - (\cos x)y^{(2)}.$\\
+		Substituting this in (\ref{eq:sincos}) gives us the desired ODE.
+		\item 
+		\begin{align} \label{eq:cubic}
+			y = a(1 - x^2) + bx + cx^3
+		\end{align}
+		\begin{align*} 
+			\implies & y' = -2ax + b + 3cx^2\\
+			\implies & y^{(2)} = -2a + 6cx\\
+			\implies & y^{(3)} = 6c
+		\end{align*}
+		The above three equations let us solve for $a, b, c$ in terms of $x, y', y^{(2)}, y^{(3)}.$ Find them and substitute in (\ref{eq:cubic}) to get the desired ODE.
+		\item 
+		\begin{align*} 
+			& y = cx + f(c)\\
+			\implies & y' = c
+		\end{align*}
+		Thus, $y = y'x + f(y')$ is the desired ODE.
+	\end{enumerate}
+	%
+	\item 
+	\begin{align*} 
+		& (\sin y)y' = \frac{2}{x^3}\\
+		\implies & -\cos y = -\frac{1}{x^2} + C\\
+		\implies & \cos y = \frac{1}{x^2} + C'
+	\end{align*}
+	Letting $x \to \infty$ on both sides gives us that $C' = \cos\left(\frac{\pi}{2}\right) = 0.$
+	%
+	\item Let $C$ be a curve with the property that all normals pass through a fixed point. Let this point have coordinates $(x_0, y_0).$\\
+	Let $(x, y)$ be an arbitrary point on $C.$ The slope of the tangent at that point is given by $y'$ and the normal by $-\dfrac{1}{y'}.$\\
+	We know that this normal passes through $(x_0, y_0).$ Equating slopes gives us:
+	\[-\dfrac{1}{y'} = \dfrac{y_0 - y}{x_0 - x}.\]
+	Rearranging gives us
+	\[(x - x_0) + (y - y_0)y' = 0.\]
+	Conclude.
+	%
+	\item 
+	\begin{enumerate}[label = (\alph*)] 
+		\item These are constant coefficient linear ODEs which you will study in more detail later.
+		\begin{enumerate}[label = (\roman*)] 
+			\item Substitute $y = e^{mx}$ to get:
+			\[m^2e^{mx} + me^{mx} - 6e^{mx} = 0.\]
+			One may cancel $e^{mx}$ (how?) to get that:
+			\[m^2 + m - 6 = 0.\]
+			The above is a quadratic equation which can be solved to obtain that $m \in \{2, -3\}.$
+			\item Similar as before. This time, we get the equation $m^3 - 3m^2 + 2m = 0$ which can be easily reduced to a quadratic after noting that $m = 0$ is a root. We finally get $m \in \{0, 1, 2\}.$
+		\end{enumerate}	
+		\item These are called Cauchy-Euler equations which you will study in more detail later.
+		\begin{enumerate}[label = (\roman*)] 
+			\item Substitute $y = x^m$ to get:
+			\[m(m - 1)x^{m} - 4mx^{m} + 4x^{m} = 0.\]
+			One may cancel $x^m$ (how?) to get that:
+			\[m(m - 1) - 4m + 4 = 0.\]
+			The above is a quadratic equation which can be solved to obtain that $m \in \{1, 4\}.$
+			\item Similar as before. This time, we get the equation $m(m - 1)(m - 2) - m(m - 1) + m = 0$ which can be easily reduced to a quadratic after noting that $m = 0$ is a root. We finally get $m \in \{0, 2\}.$ \\
+			(Note that $2$ is a repeated root. One may note that $x^2\ln x$ is also a solution of the above. Any ideas in case of a triple root?)
+		\end{enumerate}	
+	\end{enumerate}
+	%
+	\item Just do it. \checkmark
+	%
+	\item To show that $\varphi_1 + \varphi_2$ is a solution:\\
+	\begin{align*} 
+		(\varphi_1 + \varphi_2)' + a(\varphi_1 + \varphi_2) &= \varphi_1' + \varphi_2' + a\varphi_1 + a\varphi_2\\
+		&= \varphi_1' + a\varphi_1 + \varphi_2 + a\varphi_2\\
+		&= b_1(x) + b_2(x) & \blacksquare
+	\end{align*}
+	Thus, it suffices to find solutions for $y' + y = \sin x$ and $y' + y = 3\cos 2x$ separately and then add.\\
+	(Note that the above shouldn't be surprising at all since all we're verifying is linearity.)\\
+	Either using linear ODE method or by simple observation, get that the solution of the first equation is of the form $\varphi_1(x) = ae^{-x} + \frac{1}{2}(\sin x - \cos x)$ and of the second is of the form $\varphi_2(x) = be^{-x} + \frac{3}{5}(\cos2x + 2\sin 2x).$\\~\\
+	Thus, a general solution of the equation given is $y(x) = ce^{-x} + \frac{1}{2}(\sin x - \cos x) + \frac{3}{5}(\cos2x + 2\sin 2x).$\\
+	The condition given is $y(0) = 0.$ Using this, find the value of $c.$
+	%
+	\item 
+	\begin{enumerate}[label = (\roman*)] 
+		\item 
+		\begin{align*} 
+			& (x^2 + 1)dy + (y^2 + 4)dx = 0\\
+			\implies & \dfrac{1}{y^2 + 4}dy + \dfrac{1}{x^2 + 1}dx = 0\\~\\
+			\implies & \dfrac{1}{2}\tan^{-1}\left(\dfrac{y}{2}\right) + \tan^{-1}x = C
+		\end{align*}
+		$y(1) = 0$ gives us that $C = \tan^{-1}(1) = \pi/4$ and we are done.
+		\item Simple integration. Separate the variables and integrate to get $\ln|y| = \ln|\sin x| + C.$\\
+		The condition given tells us that $C = 0$ and thus, $|y| = |\sin x|.$ As $y(\pi/2) = 1 > 0,$ we see that $y = \sin x$ is the desired solution.
+		\item First we note the following partial fractions decomposition:
+		\[\dfrac{1}{y(y^2 - 1)} = -\dfrac{1}{y} + \dfrac{1}{2}\dfrac{1}{y - 1} + \dfrac{1}{2}\dfrac{1}{y + 1},\]
+		for $y \notin \{0, 1, -1\}.$\\
+		Using that, one may integrate the ODE given to obtain
+		\[-\ln|y| + \dfrac{1}{2}\ln|y^2 - 1| = x + C.\]
+		For $y(0) = 2,$ one gets $C = \dfrac{1}{2}\ln 3 - \ln 2.$ Rearrange and ``open the mods with a positive sign" to get the answer. (Why positive?)\\
+		For $y(0) = 0$ or $1,$ note that the constant functions are solutions.
+		%
+		\item Substitute $y = vx$ and solve. Note that $y' = v + v'x.$
+		\item Substitute $y - x = Y$ and solve. Note that $y' = Y' + 1.$
+		\item 
+		\begin{align*} 
+			& 2(y\sin 2x + \cos 2x)dx = \cos 2xdy\\
+			\implies & 2(y\sin 2x + \cos 2x)dx + (-\cos 2x)dy = 0
+		\end{align*}
+		Note that the above ODE is closed and hence, exact. \hfill (Why? What is the domain?)\\
+		Thus, we may find a scalar field $u$ such that $u_x = 2(y\sin 2x + \cos 2x)$ and $u_y = (-\cos 2x).$\\
+		Use whatever method you want and get that $u(x, y) = -y\cos 2x + \sin 2x$ is one such field.\\
+		Thus, the general solution is given by:
+		\[-y\cos 2x + \sin 2x = C.\]
+		Use the condition given to conclude that $C = 0.$
+		\item Partial fractions.
+	\end{enumerate}
+	%
+	\item Just do it. \checkmark
+	%
+	\item Let us first analyse the fraction given:
+	\[\frac{ax + by + m}{cx + d'y + n}.\]
+	(For obvious reasons, I'm just $d'$ instead of $d$ for the constant.)\\
+	Let us make the substitution $x = X + h$ and $y = Y + k$ in the fraction to get
+	\[\frac{aX + bY + (ah + bk + m)}{cX + d'Y + (ch + d'k + n)}.\]
+	Now, noting that $ad' - bc \neq 0,$ we get that there is a unique solution for $(h, k)$ to the following homogeneous system of linear equations:
+	\begin{align*} 
+		ah + bk + m &= 0\\
+		ch + d'k + n &= 0
+	\end{align*}
+	Let this solution be $(h_0, k_0).$ Then, for the substitution $X = x - h_0$ and $Y = y - k_0,$ we have:
+	\begin{align*} 
+		\dfrac{dX}{dY} = \dfrac{aX + bY}{cX + d'Y}.
+	\end{align*}
+	\begin{enumerate}[label = (\roman*)] 
+		\item We have the following
+		\begin{align*} 
+			y' = \dfrac{-x + 2y - 1}{4x - 3y - 6}.
+		\end{align*}
+		With same notation as above, we get the following linear equations in $(h, k)$:
+		\begin{align*} 
+			-h + 2k - 1 &= 0\\
+			4h - 3k - 6 &= 0
+		\end{align*}
+		Solving the above gives us $h_0 = 9/5$ and $k_0 = 2/5.$\\
+		Then, we have the ODE
+		\[\dfrac{dY}{dX} = \dfrac{-X + 2Y}{4X - 3Y}.\]
+		To solve this, we make the substitution $Y = vX$ which gives us $dY = vdX + Xdv.$ Thus, the ODE changes to
+		\begin{align*} 
+			& v + X\dfrac{dv}{dX} = \dfrac{2v - 1}{-3v + 4}\\
+			\implies & X\dfrac{dv}{dX} = \dfrac{3v^2 -2v - 1}{-3v + 4}\\
+			\implies & \dfrac{-3v + 4}{3v^2 - 2v - 1}dv = \dfrac{1}{X}dX
+		\end{align*}
+		Solve the above to get $Y$ in terms of $X.$ Then, substitute $Y$ and $X$ back in terms of $y$ and $x.$
+		\item Same as above.
+		\item Same as above.
+	\end{enumerate}
+	\item The equation can be easily separated to get the ODE:
+	\[\frac{1}{\sqrt{1 - x^2}}dx + \frac{1}{\sqrt{1 - y^2}}dy = 0.\]
+	Integrating gives us $\sin^{-1}x + \sin^{-1}y = c.$\\
+	Substituting the two conditions gives us two curves:
+	\begin{align*} 
+		\sin^{-1}x + \sin^{-1}y &= \frac{\pi}{3}\\
+		\sin^{-1}x + \sin^{-1}y &= -\frac{\pi}{3}
+	\end{align*}
+	\item Differentiating the equation given gives
+	\begin{align*} 
+		y' &= xy'' + y' + f'(y')y''\\
+		\implies 0 &= xy'' + f'(y')y'' = (x + f'(y'))y''
+	\end{align*}
+	If $y'' = 0,$ then we get $y = cx + b.$ As $y$ satisfies the original ODE, we get that $cx + b = cx + f(c)$ or $b = f(c).$\\
+	Thus, the solution is $y = cx + f(c).$\\
+	The case $x + f'(y') = 0$ is precisely the singular solution described.
+	%
+	\item 
+	\begin{enumerate}[label = (\roman*)] 
+		\item This is a Clairaut equation with $f(x) = 1/x.$\\
+		Thus, the general solution is $x = cx + 1/c.$\\
+		Singular solution:\\
+		First, we compute $f'(x) = -1/x^2.$\\
+		Thus, we get $-1/y'^2 = -x$ or $y' = \frac{1}{\sqrt{x}}.$\\
+		Integrating gives us $y = 2\sqrt{x} + c.$\\
+		However, substituting the above in the original ODE gives us that $c = 0.$ Hence, the special solution is simply $y = 2\sqrt{x}.$
+		\item This is a Clairaut equation with $f(x) = -\dfrac{x}{\sqrt{1 + x^2}}.$\\~\\
+		Thus, the general solution is $x = cx -\dfrac{c}{\sqrt{1 + c^2}}.$\\~\\
+		Singular solution:\\
+		First, we compute $f'(x) = -\dfrac{1}{(1 + x^2)^{3/2}}.$\\~\\
+		Thus, we get $-\dfrac{1}{(1 + y'^2)^{3/2}} = -x$ or $\dfrac{1}{\sqrt{1 + y'^2}} = x^{1/3}$ or $y' = \pm\sqrt{\dfrac{1}{x^{2/3}} - 1}.$\\~\\
+		Taking the positive solution and substituting in the original ODE gives us:
+		\begin{align*} 
+			y &= x\sqrt{\dfrac{1}{x^{2/3}} - 1} - x^{1/3}\sqrt{\dfrac{1}{x^{2/3}} - 1}\\
+			& = (x - x^{1/3})\sqrt{\dfrac{1 - x^{2/3}}{x^{2/3}}}\\
+			&= (x^{2/3} - 1)\sqrt{1 - x^{2/3}}\\
+			&= -(1 - x^{2/3})^{3/2}
+		\end{align*}
+		Taking the negative solution, we get $y = (1 - x^{2/3})^{3/2}.$\\
+		Note that while both the solutions are defined on $[-1, 1],$ they only satisfy the ODE for $x \in [0, 1].$ \hfill (Why? In the calculations above, you can see where we need $x > 0.$)
+	\end{enumerate}
+	\item The desired equation of the tangent is $y - c^2 = 2c(x - c).$ (The slope $2c$ came from the fact that $y' = 2x.$)\\
+	Rearranging gives us $y = 2xc - c^2.$\\
+	Derive the ODE of the above to be $y = xy' - y'^2/4.$\\
+	This is a Clairaut equation with $f(x) = -x^2/4.$\\~\\
+	Do the same for your favourite curve. In fact, let $g:\mathbb{R}\to\mathbb{R}$ be any function. Take the curve $y = g(x)$ and perform this exercise.
+	%
+	\item Let us find the envelope to the above family.\\
+	Let $F(t, x, y) = y - 2xt + t^2.$ For shorthand, we denote this by $F.$\\~\\
+	Then, we have $\dfrac{\partial}{\partial t}F(t, x, y) = -2x + 2t.$ For shorthand, we denote this by $F_t.$\\~\\
+	We eliminate $t$ from the equations $F = 0$ and $F_t = 0$ to get the equation of the envelope.\\
+	$F_t = 0$ gives $t = x.$ Substituting this in $F = 0$ gives $y - 2x(x) + x^2 = 0$ or $y = x^2.$ \hfill (Interesting.)\\
+	Now, we verify that $y = x^2$ satisfies Clairaut's equation.\\
+	Note that $y' = 2x$ and thus, $xy' - y'^2 = x(2x) - (2x)^2/4 = x^2 = y,$ as desired.
+	%
+	\item Just plug $A/\sqrt{x}$ in the ODE given. This gives us
+	\[-\frac{1}{2}\frac{A}{x^{3/2}} - \frac{A^3}{x^{3/2}} = \dfrac{2}{x^{3/2}},\]
+	or
+	\[A^3 + \dfrac{1}{2}A + 2 = 0.\]
+	Let the expression on the left be $f(A).$ Then, $f(A) \to \infty$ as $A \to \infty$ and $f(A) \to -\infty$ as $A \to \infty.$ From this, we may conclude that $f(A) = 0$ for some $A \in \mathbb{R}.$ This shows the existence of a real solution.\\
+	For uniqueness, note that $f'(A) = 3A^2 + 0.5 > 0$ for all $A \in \mathbb{R}.$ If $f$ had two distinct real roots, then $A'$ would have to be zero between them, by Rolle's, but that is not possible. Thus, $f$ has a unique real root.\\
+	Argue that $f$ must have two distinct (non-real) complex roots concluding that there are three distinct solutions of $f(A) = 0.$\\~\\
+	As $A/\sqrt{x}$ is a solution iff $f(A) = 0,$ we are done.
+\end{enumerate}
+\end{document}
