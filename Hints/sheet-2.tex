@@ -1,0 +1,336 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsfonts, amsthm, mathtools}
+\usepackage[utf8]{inputenc}
+\usepackage[inline]{enumitem}
+\usepackage{cancel}
+\usepackage{soul}
+\usepackage{hyperref}
+\usepackage{centernot}
+\usepackage{pifont}
+
+\newtheorem{theorem}{Theorem}
+\setlength\parindent{0pt}
+\let\emptyset\varnothing
+
+\usepackage{xcolor}
+\definecolor{mybgcolor}{RGB}{50, 50, 50} %46, 51, 63
+
+\usepackage{pagecolor}
+\pagecolor{mybgcolor}
+\color{white}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]
+  {\normalfont\scshape}{\S\thesection}{0.25cm}{\large}
+
+\usepackage{geometry}
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=20mm,
+	top=20mm,
+}
+
+\title{Tutorial 2}				% change
+\author{Aryaman Maithani}
+\date{18th March 2020}		% change
+
+\begin{document}
+\maketitle
+
+\hrulefill
+
+\begin{center}
+	\textsc{Disclaimer}
+\end{center}
+These are \textbf{not} complete solutions and should not be regarded as such. The purpose of this is to basically get you started and you must fill in the gaps. To be more explicit, if what you care about is marks, then just the solutions written here won't suffice.
+
+\hrulefill
+
+\begin{enumerate}[label = Q.\arabic*.] 
+	\item All of the ODEs are of the form $Mdx + Ndy = 0.$\\
+	We just have to fine the condition where $N_x = M_y.$ Note that this implies that the ODE is closed. However, all the functions in the question are defined on $\mathbb{R}^2$, which is convex and thus, exact is the same as closed. (In fact, we only need the domain to be simply-connected.)
+	\begin{enumerate}[label = (\roman*)] 
+		\item $M = f(x) + g(y)$ and $M_y = g'(y).$ Similarly, $N_x = h'(x).$ Thus, we need $g'(y) = h'(x).$ However, note that the LHS is a function purely of $y$ and the RHS purely of $x.$ Thus, $g'(y) = h'(x) = c$ for some $c \in \mathbb{R}.$ Thus, $g(y) = cy + c_1$ and $h(x) = cx + c_2$ for some constants $c_1$ and $c_2.$
+		\item $M_y = 2xy$ and $N_x = 2axy + 2by^2.$ Thus, $a = 1$ and $b = 0.$
+		\item $M_y = 2bx + 2cy$ and $N_x = 2bx + 2cy.$ Thus, the ODE is exact for any real values of $a, b, c,$ and $g.$
+	\end{enumerate}
+	%
+	\item Given that $Mdx + Ndy = 0$ is exact, we need to find a scalar function $u(x, y)$ such that $u_x = M$ and $u_y = N.$ (The existence of such a $u$ is guaranteed by theory.)\\
+	Then, the general solution is given by $u(x, y) = c.$\\
+	The procedure to find such a $u$ is also not difficult and I illustrate it with one question. The other can similarly be solved.
+	\begin{enumerate}[label = (\roman*)] 
+		\item 
+		\begin{align} 
+			u_x &= 3x^2y - 6x \label{eq:ux}\\
+			u_y = x^3 + 2y \label{eq:uy}\\
+		\end{align}
+		Integrating the first equation with respect to $x$ gives us $u(x, y) = x^3y - 3x^2 + g(y).$\\
+		Calculating $u_y$ using this gives $u_y = x^3 + g'(y).$ \\
+		Substituting in (\ref{eq:uy}) gives us that $g'(y) = 2y.$\\
+		Thus, one choice of $u(x, y)$ is $u(x, y) = x^3y - 3x^2 + y^2.$\\
+		The general solution is thus, $x^3y - 3x^2 + y^2 = c.$
+	\end{enumerate}
+	\item In the following, $M$ and $N$ will have the usual meaning. That is, $M$ and $N$ will be chosen such that the ODE in question is $Mdx + Ndy.$
+	\begin{enumerate}[label = (\roman*)] 
+		\item Already exact.
+		\item Already exact.
+		\item $x^2$
+		\item Note that $M_y = e^{x/y}(1 - x/y)$ and $N_x = -e^{x/y}(1 + x/y).$\\
+		Thus, $\dfrac{N_x - M_y}{M} = \dfrac{2}{y}$ is a function of $y$ alone.\\
+		Thus, we may assume $\mu$ to be an IF depending only on $y.$ This sets up the equation
+		\begin{align*} 
+			\frac{d\mu}{dy} &= \frac{2}{y}\mu\\
+			\implies \frac{1}{\mu}d\mu &= \frac{2}{y}dy\\
+			\implies \ln|\mu| &= 2\ln|y| + C
+		\end{align*}
+		Thus, $\mu = y^2$ is one possible IF.\\
+		\item Already exact.
+		\item Note that $M_y = 2y$ and $N_x = y.$\\
+		Then, $\dfrac{M_y - N_x}{N} = \dfrac{y}{xy} = \dfrac{1}{x},$ is a function of $x$ only.\\
+		Same idea as before gives $\mu = x$ as a possible integrating factor.
+	\end{enumerate}
+	\item \begin{align*} 
+		& Mdx + Ndy = 0\\
+		\implies & Mx\frac{dx}{x} + Ny\frac{dy}{y} = 0\\
+		\implies & 2Mx\frac{dx}{x} + 2Ny\frac{dy}{y} = 0\\
+		\implies & Mx\frac{dx}{x} + Mx\frac{dx}{x} + Mx\frac{dy}{y} - Mx\frac{dy}{y} + Ny\frac{dx}{x} - Ny\frac{dx}{x} + Ny\frac{dy}{y} + Ny\frac{dy}{y} = 0\\
+		\implies & (Mx + Ny)\left(\frac{dx}{x} + \frac{dy}{y}\right) + (Mx - Ny)\left(\frac{dx}{x} - \frac{dy}{y}\right) = 0\\
+		\implies & (Mx + Ny)d(\ln(xy)) + (Mx - Ny)d\left(\ln\left(\frac{x}{y}\right)\right) = 0\\
+		\implies & \frac{1}{2}(Mx + Ny)d(\ln(xy)) + \frac{1}{2}(Mx - Ny)d\left(\ln\left(\frac{x}{y}\right)\right) = 0.		 
+	\end{align*}
+	\begin{enumerate}[label = (\roman*)] 
+		\item In the case that $Mx + Ny = 0,$ the given ODE transforms to $\dfrac{1}{2}(Mx - Ny)d\left(\ln\left(\frac{x}{y}\right)\right) = 0.$\\~\\
+		Multiplying with the given factor gives $\dfrac{1}{2}d\left(\ln\left(\frac{x}{y}\right)\right) = 0,$ which is clearly exact. Thus, the given factor is indeed an IF.
+		\item Same as above.
+	\end{enumerate}
+	%
+	\item If $\mu$ is an IF of the given ODE, we then have
+	\begin{align*} 
+		\mu_yM + \mu M_y &= \mu_xN + \mu N_x\\
+		\implies M_y - N_x &= N\frac{\mu_x}{\mu} - M\frac{\mu_y}{\mu}.
+	\end{align*}
+	Noting that $\dfrac{\partial}{\partial x}\ln|\mu| = \dfrac{\mu_x}{\mu}$ and $\dfrac{\partial}{\partial y}\ln|\mu| = \dfrac{\mu_y}{\mu}$ gives the result.\\
+	\begin{enumerate}[label = (\alph*)] 
+		\item $M_y - N_x = Nf(x).$\\
+		In this case, the above equation transforms to
+		\[M\left(\frac{\mu_y}{\mu}\right) = N\left(\frac{\mu_x}{\mu} - f(x)\right).\]
+		If $\mu = \exp\left(\displaystyle\int_{a}^{x} f(x') \text{d}x'\right),$ then the bracketed term on both sides is $0.$
+		\item Same as above.
+		\item $M_y - N_x = Nf(x) - Mg(y).$\\
+		In this case, the above equation transforms to
+		\[M\left(g(y) - \frac{\mu_y}{\mu}\right) = N\left(\frac{\mu_x}{\mu} - f(x)\right).\]
+		If $\mu = \exp\left(\displaystyle\int_{a}^{x} f(x') \text{d}x' + \int_{a}^{y'} g(y') \text{d}y'\right),$ then the bracketed term on both sides is $0.$
+	\end{enumerate}
+	\begin{enumerate}[label = (\roman*)] 
+		\item In this case, we have $M_y - N_x = 4(x - 3y) = \dfrac{2}{x}[2x(x - 3y)].$\\
+		Thus, this is case (a) with $f(x) = 2x^{-1}.$ Solve it.
+		\item In this case, we have $M_y - N_x = (-1)[3(x^2 + y^2)].$\\
+		Thus, this is case (b) with $g(y) = -1.$ Solve it. (Note that the $-$ will get canceled.)
+		\item In this case, we have $M_y - N_x = 2x + 4y = \dfrac{2}{x}[x(x + 2y)].$\\
+		Thus, this is case (a) with $f(x) = 2x^{-1}.$ Solve it.		
+	\end{enumerate}
+	\item 
+	\begin{enumerate}[label = (\roman*)] 
+		\item Can be rearranged to give
+		\[\frac{1}{x - a} = \frac{1}{y + ay^2}y'.\]
+		Solve using partial fractions.
+		\item % TBD
+		\item We have $M_y - N_x = 4y\sqrt{x^2 + y^2} = \left(-\dfrac{4}{x}\right)N.$\\
+		Conclude.
+		\item Substitute $Y = x + y.$ Note that $y' = Y' - 1.$
+		\item Rearrange to get
+		\[\frac{1}{y + y^2}y' = \frac{1}{x}.\]\\
+		Solve using partial fractions.
+		\item 
+		\begin{align*} 
+			&x^2y' + 2xy = \sinh 3x\\
+			\implies &\frac{d}{dx}(x^2y) = \sinh 3x\\
+			\implies &x^2y = \frac{1}{3}\cosh 3x + c
+		\end{align*}
+		\item Multiplying both sides with $\sec x$ gives an exact ODE. Solve it.
+		\item Use Q. 10. from the previous sheet.
+	\end{enumerate}
+	\item Substitute $y = vx$ in each and solve. Note that $y' = v + v'x.$
+	\item All of the ODEs are first order linear ODEs of the form $y' + p(x)y = g(x).$\\
+	From the theory done in class, we know that $\exp\left(\displaystyle\int_{x_0}^{x} p(t) \text{d}t\right)$ is an IF.\\
+	Moreover, we know that the final solution is given as 
+	\[y = \exp\left(-\displaystyle\int_{x_0}^{x} p(t) \text{d}t\right)\left(\int_{x_1}^{x} \exp\left(-\displaystyle\int_{x_0}^{t} p(u) \text{d}u\right)g(t) \text{d}t + c\right).\]
+	Note that the constants $x_0$ and $x_1$ are arbitrary and one may choose them according to convenience. (This is effectively doing the same as indefinite integration without keeping the constant.)\\
+	The first has been done for illustration. The others are done similarly. Only the IFs have been written.
+	\begin{enumerate}[label = (\roman*)] 
+		\item In standard form, we have
+		\[y' + -\frac{2}{x}y = x^3.\]
+		Thus, the IF is $\displaystyle\exp\left(\int_{1}^{x} \left(-\frac{2}{t}\right) \text{d}t\right) = \dfrac{1}{x^2}.$\\~\\
+		Thus, the solution is given by
+		\[y = x^2\int x \text{d}x = x^3 + Cx^2.\]
+		\item IF = $e^{2x}.$
+		\item IF = $\cos^3 x.$
+		\item IF = $\operatorname{cosec} x.$
+		\item IF = $\sin x.$
+		\item IF = $e^{-mx}.$
+	\end{enumerate}
+	\item Under the transformation $y^{1 - \alpha} = u,$ we have that $(1 - \alpha)y^{-\alpha} y' = u'.$\\
+	Also, diving the original equation by $y^\alpha$ and multiplying with $1 - \alpha$ gives us
+	\[y^{-\alpha}(1 - \alpha)y' + f(x)(1 - \alpha)y^{1-\alpha} = (1 - \alpha)g(x).\]
+	The above is equivalent to
+	\[u' + (1 - \alpha)f(x)u = (1 - \alpha)g(x).\]
+	The above is a first order linear ODE.
+	\begin{enumerate}[label = (\roman*)] 
+		\item Not sure why this is given here as this is not a Bernoulli equation. However, the spirit of derivation is the same.\\
+		Make the substitution $e^y = u$ to arrive at
+		\[u' - u = 2x - x^2.\]
+		This is a first order linear ODE. Solve this and substitute back. (IF = $e^{-x}.$)
+		\item First make the substitution $y + 1 = Y$ to get $2YY' - \dfrac{2}{x}Y^2 = x^4.$\\
+		This is (almost) a Bernoulli equation. Substitute $Y^2 = u$ to get a first order linear ODE. Solve that then substitute back to get things in terms of $y.$
+		\item Divide by $x$ to get
+		\[y' + \left(\dfrac{1}{x} + 1\right)y = 1.\]
+		This is clearly a first order linear ODE. Solve.
+		\item %TBD
+		\item Clearly a Bernoulli equation after subtracting $xy$ from both sides. Do the substitution mentioned at the beginning with $\alpha = 3.$ Solve.
+		\item Divide by $x$ to get a Bernoulli equation with $\alpha = 4.$ Solve.
+		\item Rearrange to get
+		\[\frac{dx}{dy} + \left(-\frac{1}{6y}\right)x = \left(\frac{1}{3y^2}\right)x^4.\]
+		This is a Bernoulli equation (in the other way). Substitute $x^{-3} = v.$
+	\end{enumerate}
+	\item 
+	\begin{enumerate}[label = (\roman*)] 
+		\item Rearrange to get
+		\[\dfrac{dy}{dx} + \left(-\frac{3}{2x}\right)y = \frac{x}{4y}.\]
+		This is clearly a Bernoulli equation with $\alpha = -1.$ Substitute $y^2 = u$ and solve.
+		\item With separation of variables, we run into a problem as we divide by $y.$ We had seen this in the last tutorial's Q.8.(iii).\\
+		As a Bernoulli equation, we again have the problem of substituting $y^{-1} = u.$\\
+		Now, let us make the substitution given to obtain $-u' = (1 - u)u$ or $u' + u = u^2.$\\
+		Substituting $u^{-1} = v$ gives us $-v' + v = 1$ or $(e^{-x}v)' = -e^x.$\\
+		Thus, the solution is $v = 1 + Ce^x.$\\
+		Substituting back gives $u = (1 + Ce^x)^{-1}.$ The initial condition gives $1 = (1 + C)^{-1}$ or $C = 0.$ Thus, the solution is $u(x) = 1.$ This tells us that the solution of the original ODE was $y(x) = 0.$\\
+		No wonder dividing by $y$ was a problem.
+		\item Rearrange the given equation as
+		\[\frac{dx}{dy} +  \left(-\frac{1}{2y}\right)x = \left(-\frac{\ln y}{2y}\right)x^3.\]
+		This is clearly a Bernoulli equation. Substitute $x^{-2} = v.$
+		\item Following the hint given, we get
+		\[\cos ydz + (\cos^2y - z)dy = 0.\]
+		Rearrange to get
+		\[\frac{dz}{dy} + \left(-\sec y\right)z = -\cos y.\]
+		This is a linear first order ODE. Solve.
+	\end{enumerate}
+	\item The idea is to find the ODE of the given family of curves by eliminating the arbitrary constant. Then, we replace $y'$ with $-(y')^{-1}$ and then solve the ODE obtained to find the orthogonal family of curves.\\
+	I shall do the first example.
+	\begin{enumerate}[label = (\roman*)] 
+		\item $x^2 - y^2 = c^2.$ Differentiating wrt $x$ gives:\\
+		$x - yy' = 0.$\\
+		$y \mapsto -\dfrac{1}{y'}$ gives us\\~\\
+		$xy' + y = 0.$ Dividing with $xy$ separates the variables to give\\
+		$\dfrac{1}{y}y' + \dfrac{1}{x} = 0.$\\~\\
+		Integrate to obtain $\ln|xy| = C$ or $xy = K.$
+	\end{enumerate}
+	\item First, let us find the ODE of the given family. Note that only $\lambda$ is to be eliminated. $a$ and $b$ are fixed. $\lambda$ is the parameter that varies to give us the family.\\~\\
+	\begin{align*} 
+		\frac{x^2}{a^2 + \lambda} & + \frac{y^2}{b^2 + \lambda} = 1\\
+		\text{Differentiating} & \text{ wrt } x\\
+		\frac{x}{a^2 + \lambda} & + \frac{yy'}{b^2 + \lambda} = 0\\
+		\frac{b^2 + \lambda}{a^2 + \lambda} & = -\frac{yy'}{x}\\
+		1 + \frac{b^2 - a^2}{a^2 + \lambda} & = -\frac{yy'}{x}\\
+		1 + \frac{yy'}{x} & = \frac{a^2 - b^2}{a^2 + \lambda}\\
+		a^2 + \lambda & = \frac{(a^2 - b^2)x}{x + yy'}\\
+		b^2 + \lambda & = b^2 - a^2 + \frac{(a^2 - b^2)x}{x + yy'} = \frac{(b^2 - a^2)yy'}{x + yy'}
+	\end{align*}
+	Now, we substitute the values of $a^2 + \lambda$ and $b^2 + \lambda$ from the last two equations in the original curve equation to get:
+	\begin{align*} 
+		\frac{x^2(x + yy')}{(a^2 - b^2)x} - \frac{y^2(x + yy')}{(a^2 - b^2)yy'} &= 1\\
+		x(x + yy') - \frac{y(x + yy')}{y'} &= a^2 - b^2\\
+		\frac{(xy' - y)(x + yy')}{y'} &= a^2 - b^2
+	\end{align*}
+	The above is the ODE of the given family of curves. Now, we substitute $y' \mapsto -\dfrac{1}{y'}.$\\~\\
+	However, before doing so, we take a good look at the ODE obtained.\\
+	Hopefully, you've taken a good look.\\
+	Now, without further adieu, we proceed to obtain the ODE of the orthogonal family of curves as:
+	\begin{align*} 
+		\frac{(-x/y' - y)(x - y/y')}{-1/y'} &= a^2 - b^2\\
+		\iff \frac{[(x + yy')/y'][(xy' - y)/y']}{1/y'} &= a^2 - b^2\\
+		\iff \frac{(x + yy')(xy' - y)}{y'} &= a^2 - b^2
+	\end{align*}
+	Et viola! If you had indeed taken a good look earlier, you may have noticed that we have obtained the same ODE. Thus, the family of orthogonal curves is
+	\[\frac{x^2}{a^2 + \lambda} + \frac{y^2}{b^2 + \lambda} = 1.\]
+	A paradox?
+	\item \begin{enumerate}[label = (\roman*)] 
+		\item We have $y' = 1 + (-x^3)y + x^2y^2.$ Thus, $P(x) = 1, Q(x) = -x^3,$ and $R(x) = x^2.$\\
+		The Bernoulli equation then reads
+		\[u' - x^3u = x^2u^2.\]
+		To solve this, we make the substitution $u^{-1} = v$ to obtain
+		\[v' + x^3v = -x^2.\]
+		We get the IF as $\exp\left(\dfrac{1}{4}x^4\right).$\\~\\
+		Thus, the solution is given by
+		\[v = \exp\left(-\dfrac{1}{4}x^4\right)\int x^2\exp\left(\dfrac{x^4}{4}\right) \text{d}x.\]
+		The last integral cannot be explicitly solved in terms of elementary functions, so we leave it as it is.\\
+		Using $uv = 1$ gives us $u.$ Thus, the general solution $y(x) = y_1(x) + u(x)$ is given as
+		\[y(x) = x + \dfrac{\exp\left(\dfrac{1}{4}x^4\right)}{\displaystyle\int x^2\exp\left(\dfrac{x^4}{4}\right) \text{d}x}.\]
+		\item Same idea.
+	\end{enumerate}
+	\item 
+	\begin{enumerate}[label = (\roman*)] 
+		\item We have $y' = 2\sqrt{y} =: f(t, y).$\\
+		Thus, the corresponding integral equation is
+		\[\phi(t) = \int_{0}^{t} 2\sqrt{\phi(s)} \text{d}s\]
+		\begin{align*} 
+			\phi_0(t) &= 0\\
+			\phi_1(t) &= \int_{0}^{t} f(s, \phi_0(s)) \text{d}s\\
+			&= \int_{0}^{t} 0 \text{d}s\\
+			&= 0
+		\end{align*}
+		... oh. Clearly, we shall keep getting $\phi_n(x) = 0$ for all $n \in \mathbb{N}.$\\
+		One may verify that $y(x) = 0$ for all $x \in \mathbb{R}$ is indeed a solution to the given IVP.\\
+		However, one may note that $\frac{\partial f}{\partial y}$ is not continuous on any rectangle containing the point $(1, 0).$ (It is not even defined at $(1, 0)$.) Thus, the hypothesis of Picard's theorem is not satisfied. It is not surprising that we miss out on the solution $y(x) = x^2$ for $x \ge 0.$
+		\item $y' = xy + 1$ and $y(0) = 1.$\\
+		We try to solve the integral equation
+		\[\phi(t) = 1 + \int_{0}^{t} (s\phi(s) + 1) \text{d}s.\]
+		We define the Picard iterates as
+		\begin{align*} 
+			\phi_0(t) &= 1\\
+			\phi_1(t) &= 1 + \int_{0}^{t} (s\phi_0(s) + 1) \text{d}s\\
+			&= 1 + \int_{0}^{t} (s + 1) \text{d}s\\
+			&= 1 + t + \frac{t^2}{2}\\~\\
+			\phi_2(t) &= 1 + \int_{0}^{t} \left(s\left(1 + s + \frac{s^2}{2}\right) + 1\right) \text{d}s\\
+			&= 1 + t + \frac{t^2}{2} + \frac{t^3}{3} + \frac{t^4}{8}\\~\\
+			\phi_3(t) &= 1 + t + \frac{t^2}{2} + \frac{t^3}{3} + \frac{t^4}{8} + \frac{t^5}{15} + \frac{t^6}{48}\\
+			&\vdots\\
+			\phi_n(t) &= \sum_{k=0}^{2n}\frac{t^{k}}{k!!}
+		\end{align*}
+		Where $n!!$ is the double factorial of $n.$ (Not the factorial of the factorial of $n.$)\\
+		The double factorial is recursively defined as $n!! = n\cdot(n - 2)!!$ with base cases $0!! = 1!! = 1.$\\~\\
+		To compare with the exact solution, notice that $y(x)$ defined as
+		\[y(x) = \sum_{n=0}^{\infty}\frac{x^n}{n!!}\]
+		satisfies the ODE given. To check, simply plug it in the equation and verify. Assume that the series does converge for all real $x$ and that term-by-term differentiation is valid.
+		\item %TBD
+	\end{enumerate}
+	%
+	\item First we prove the following claim:\\
+	\textbf{Claim.} $|\sin y_2 - \sin y_1| \le |y_2 - y_1|$ for all $y_1, y_2 \in \mathbb{R}.$
+	\begin{proof} 
+		If $y_1 = y_2,$ then the claim is certainly true.\\
+		Assume $y_1 \neq y_2.$ Then, by LMVT, we have
+		\[\frac{\sin y_2 - \sin y_1}{y_2 - y_1} = \sin'(y_3) = \cos(y_3),\]
+		for some $y_3$ between $y_1$ and $y_2.$\\
+		(Note that we're not assuming $y_1 < y_2.$)\\
+		As $|\cos y_3| \le 1,$ the claim follows.
+	\end{proof}
+	Armed with this claim, we may proceed as follows:
+	\begin{align*} 
+		|f(x, y_1) - f(x, y_2)| &= ||\sin y_1| - |\sin y_2||\\
+		&\le |\sin y_1 - \sin y_2|\\
+		&\le |y_1 - y_2|.
+	\end{align*}
+	This proves the claim about being Lipschitz with $M = 1.$\\~\\
+	Now, we show that $f_y$ does not exist at $(x_0, 0)$ for any $x_0 \in \mathbb{R}.$\\
+	Recall, from calculus, the definition of $f_y$ as
+	\begin{align*} 
+		f_y(x_0, 0) = \lim_{k\to 0}\dfrac{f(x_0, 0 + k) - f(x_0, 0)}{k},
+	\end{align*}
+	if the limit exists. We show that it does not. For $k \neq 0,$ we may note that
+	\begin{align*} 
+		\dfrac{f(x_0, 0 + k) - f(x_0, 0)}{k} &= \dfrac{|\sin k| + x_0 - 0 - x_0}{k}\\
+		&= \frac{|\sin k|}{k}
+	\end{align*}
+	It is clear that the limit of the above expression as $k \to 0$ does not exist.
+\end{enumerate}
+\end{document}
