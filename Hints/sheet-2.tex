@@ -33,7 +33,7 @@
 
 \title{Tutorial 2}				% change
 \author{Aryaman Maithani}
-\date{18th March 2020}		% change
+\date{Post-Corona someday}		% change
 
 \begin{document}
 \maketitle
@@ -135,7 +135,8 @@ These are \textbf{not} complete solutions and should not be regarded as such. Th
 		\item Can be rearranged to give
 		\[\frac{1}{x - a} = \frac{1}{y + ay^2}y'.\]
 		Solve using partial fractions.
-		\item % TBD
+		\item Note that $\frac{1}{x^2 + y^2}$ is an IF.\\
+		I'm not sure if we can get a closed form, though. Also, note that $(0, 0)$ is a problem with using the above IF. However, removing the origin makes the domain not-simply connected. So this method would require solving it on a smaller domain. For example, only the top half plane.
 		\item We have $M_y - N_x = 4y\sqrt{x^2 + y^2} = \left(-\dfrac{4}{x}\right)N.$\\
 		Conclude.
 		\item Substitute $Y = x + y.$ Note that $y' = Y' - 1.$
@@ -186,7 +187,11 @@ These are \textbf{not} complete solutions and should not be regarded as such. Th
 		\item Divide by $x$ to get
 		\[y' + \left(\dfrac{1}{x} + 1\right)y = 1.\]
 		This is clearly a first order linear ODE. Solve.
-		\item %TBD
+		\item Keep in mind that a change of perspective always helps in life.\\
+		Rewriting the equation as
+		\[\frac{dx}{dy} + (-y)x = y^3x^3\]
+		and viewing it as a Bernoulli in $x$ will lead to the answer.\\
+		In fact, this is the same as the next question with $x$ and $y$ replaced.
 		\item Clearly a Bernoulli equation after subtracting $xy$ from both sides. Do the substitution mentioned at the beginning with $\alpha = 3.$ Solve.
 		\item Divide by $x$ to get a Bernoulli equation with $\alpha = 4.$ Solve.
 		\item Rearrange to get
@@ -300,7 +305,8 @@ These are \textbf{not} complete solutions and should not be regarded as such. Th
 		The double factorial is recursively defined as $n!! = n\cdot(n - 2)!!$ with base cases $0!! = 1!! = 1.$\\~\\
 		To compare with the exact solution, notice that $y(x)$ defined as
 		\[y(x) = \sum_{n=0}^{\infty}\frac{x^n}{n!!}\]
-		satisfies the ODE given. To check, simply plug it in the equation and verify. Assume that the series does converge for all real $x$ and that term-by-term differentiation is valid.
+		satisfies the ODE given. To check, simply plug it in the equation and verify. Assume that the series does converge for all real $x$ and that term-by-term differentiation is valid.\\
+		(Instead of assuming convergence, show the convergence using the Ratio test.)
 		\item %TBD
 	\end{enumerate}
 	%
