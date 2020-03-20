@@ -1,4 +1,4 @@
-\documentclass[a6paper, landscape]{article}
+\documentclass[a5paper, landscape]{article}
 \usepackage{amsmath, amssymb, amsfonts, amsthm, mathtools}
 \usepackage[utf8]{inputenc}
 \usepackage[inline]{enumitem}
@@ -25,12 +25,12 @@
   {\normalfont\scshape}{\S\thesection}{0.25cm}{\large}
 
 \usepackage{geometry}
-%\geometry{
+\geometry{
 	%a4paper,
-%	total={170mm,100mm},
-%	left=20mm,
-%	top=20mm,
-%}
+	total={170mm,150mm},
+	left=20mm,
+	top=0mm,
+}
 
 \title{Assignment 1 - MA 108}				% change
 \author{Aryaman Maithani
@@ -40,10 +40,29 @@
 \begin{document}
 \maketitle
 
+\hrulefill
+
+If you're finding Q.1. really difficult, you may attempt Q.0. as well. This will help me in figuring out what you didn't understand. If you're fairly confident with Q.1., then you need not do it.\\
+There is no need to submit the additional questions.
+
+\hrulefill
+
 \begin{enumerate}[label = Q.\arabic*.] 
+	\setcounter{enumi}{-1}
+	\item Let $S \subset \mathbb{R}^2.$ State what it means for $S$ to be star-shaped.
 	\item Show that $\mathbb{R}^2\setminus\{(0, 0)\}$ is not star shaped.\\
 	\emph{Bonus.} Let $S$ be any finite subset of $\mathbb{R}^2.$ \\
-	Prove or disprove that $\mathbb{R}\setminus S$ is star-shaped.
-	\item Solve Q.10.(i) to completion.
+	Prove or disprove that $\mathbb{R}^2\setminus S$ is star-shaped.
+	\item Solve Q.10.(i) of Sheet-1 to completion.
+\end{enumerate}
+Additional:
+\begin{enumerate}[nosep] 
+	\item Let $S$ be a nonempty subset of $\mathbb{R}^2.$\\
+	Show that if $S$ is convex, then $S$ is star-shaped.
+	\item Show that the converse of the above is not true.
+	\item Let $T:\mathbb{R}^2\to\mathbb{R}^2$ be a linear transformation. Let $S \subset \mathbb{R}^2$ be convex. \\
+	Show that $T(S) = \{T(s) \mid s \in S\}$ is also convex.\\
+	That is, a linear transformation maps convex domains to convex domains.
+	\item Is the above true if we replace ``convex'' with ``star-shaped''?
 \end{enumerate}
 \end{document}
