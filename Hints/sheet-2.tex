@@ -276,16 +276,16 @@ These are \textbf{not} complete solutions and should not be regarded as such. Th
 	\begin{enumerate}[label = (\roman*)] 
 		\item We have $y' = 2\sqrt{y} =: f(t, y).$\\
 		Thus, the corresponding integral equation is
-		\[\phi(t) = \int_{0}^{t} 2\sqrt{\phi(s)} \text{d}s\]
+		\[\phi(t) = 0 + \int_{1}^{t} 2\sqrt{\phi(s)} \text{d}s\]
 		\begin{align*} 
 			\phi_0(t) &= 0\\
-			\phi_1(t) &= \int_{0}^{t} f(s, \phi_0(s)) \text{d}s\\
-			&= \int_{0}^{t} 0 \text{d}s\\
+			\phi_1(t) &= \int_{1}^{t} f(s, \phi_0(s)) \text{d}s\\
+			&= \int_{1}^{t} 0 \text{d}s\\
 			&= 0
 		\end{align*}
 		... oh. Clearly, we shall keep getting $\phi_n(x) = 0$ for all $n \in \mathbb{N}.$\\
 		One may verify that $y(x) = 0$ for all $x \in \mathbb{R}$ is indeed a solution to the given IVP.\\
-		However, one may note that $\frac{\partial f}{\partial y}$ is not continuous on any rectangle containing the point $(1, 0).$ (It is not even defined at $(1, 0)$.) Thus, the hypothesis of Picard's theorem is not satisfied. It is not surprising that we miss out on the solution $y(x) = x^2$ for $x \ge 0.$
+		However, one may note that $\frac{\partial f}{\partial y}$ is not continuous on any rectangle containing the point $(1, 0).$ (It is not even defined at $(1, 0)$.) Thus, the hypothesis of Picard's theorem is not satisfied. It is not surprising that we miss out on the solution $y(x) = (x - 1)^2$ for $x \ge 0.$
 		\item $y' = xy + 1$ and $y(0) = 1.$\\
 		We try to solve the integral equation
 		\[\phi(t) = 1 + \int_{0}^{t} (s\phi(s) + 1) \text{d}s.\]
