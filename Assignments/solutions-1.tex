@@ -1,0 +1,147 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsfonts, amsthm, mathtools}
+\usepackage[utf8]{inputenc}
+\usepackage[inline]{enumitem}
+\usepackage{cancel}
+\usepackage{soul}
+\usepackage{hyperref}
+\usepackage{centernot}
+\usepackage{pifont}
+\usepackage{fancyvrb}
+\newtheorem{theorem}{Theorem}
+\setlength\parindent{0pt}
+\let\emptyset\varnothing
+
+\usepackage{xcolor}
+\definecolor{mybgcolor}{RGB}{50, 50, 50} %46, 51, 63
+
+\usepackage{pagecolor}
+\pagecolor{mybgcolor}
+\color{white}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]
+  {\normalfont\scshape}{\S\thesection}{0.25cm}{\large}
+
+\usepackage{geometry}
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=20mm,
+	top=20mm,
+}
+
+\title{Solutions and Marking Scheme\\Assignment 1}	% change
+\author{Aryaman Maithani}
+\date{ }
+
+\begin{document}
+\maketitle
+
+\hrulefill
+
+\section{About the Marking Scheme}
+Grading and giving marks is often one of the necessary evils one must face while conducting a course. However, in this case, they can be avoided and that is precisely what I shall do.\\
+Thus, the assignment is of exactly zero (0) marks and that is what everyone (who submitted) will get. I did have half a mind of deducting marks for those who couldn't name the files properly despite me explicitly stating it but oh, well.\\\\
+Now, you might get disappointed if you felt that you did extremely well and needed a high score to validate that. In which case, my apologies.\\
+You might also get into a philosophical (or mathematical) crisis of what it \emph{means} to get $0/0.$ In which case, I request you to not think about it and move on to the next section.
+
+\hrulefill
+
+\section{Solutions}
+\begin{enumerate}[label = Q.\arabic*.] 
+	\setcounter{enumi}{-1}
+	\item Let $S \subset \mathbb{R}^2.$ State what it means for $S$ to be star-shaped.\\\\
+	\textbf{Solution.}\\
+	$S$ is said to be star-shaped if there exists a point $p_0 = (x_0, y_0) \in S$ such that for every point $p = (x, y) \in S,$ the line segment joining $p$ and $p_0$ lies in $S.$\\
+	More explicitly, $(1 - t)p_0 + tp \in S$ for all $t \in [0, 1].$
+	\item Show that $\mathbb{R}^2\setminus\{(0, 0)\}$ is not star shaped.\\
+	\emph{Bonus.} Let $S$ be any finite subset of $\mathbb{R}^2.$ \\
+	Prove or disprove that $\mathbb{R}^2\setminus S$ is star-shaped.\\\\
+	\textbf{Solution.}\\
+	Let $D = \mathbb{R}^2\setminus\{(0, 0)\}.$\\
+	Let us assume, for the sake of contradiction, that $D$ is star-shaped.\\
+	Thus, there exists a point $p_0 = (x_0, y_0) \in D$ with the property mentioned above.\\
+	Note that it is not possible for $x_0$ and $y_0$ to both be $0.$ Thus, we have that $(-x_0, -y_0) \neq (0, 0)$ and thus, $p = (-x_0, -y_0) \in D.$\\
+	By our assumption of $D$ being star-shaped, we get that the line segment joining $p_0$ and $p$ lies in $D.$\\
+	In particular, the midpoint obtained by setting $t = 0.5$ in the above definition must lie in $D.$ However, this midpoint is precisely $(0, 0).$ A contradiction. \hfill $\blacksquare$\\\\
+	\emph{Bonus.} We first consider the case that $S = \emptyset.$ In this case, we have that $\mathbb{R}^2\setminus S = \mathbb{R}^2,$ which is indeed star-shaped.\\
+	Now, let us consider the case that $S \neq \emptyset.$\\
+	Then, $S = \{(x_1,y_1),\;(x_2,y_2),\;\ldots,\;(x_n, y_n)\}$ for some $n \ge 1.$ Let $D = \mathbb{R}^2\setminus S.$\\
+	We claim that $D$ is not star-shaped. Once again, we proceed by contradiction.\\
+	Let us assume that $D$ is indeed star-shaped. Let $p_0 = (x_0, y_0) \in D$ be as before.\\
+	Let $p = (x_1, y_1) \in S.$ Consider the ray emanating from $p_0$ passing through $p.$ Now, consider the truncated ray obtained after excluding the line segment joining $p_0$ and $p.$ In other words, consider the following subset of $\mathbb{R}^2:$
+	\[R = \{(1 - t)p_0 + tp \mid t > 1\}.\]
+	Note that $R$ is infinite and hence, there exists $q \in R$ such that $q \notin S.$ Hence, $q \in D.$\\
+	As $p_0, q \in D$ and $D$ is star-shaped (by assumption), we get that the line segment joining $p_0$ and $q$ must lie in $D.$ However, this line segment contains $p \notin D.$ A contradiction.\hfill $\blacksquare$\\\\
+	\item Solve Q.10.(i) of Sheet-1 to completion.\\\\
+	\textbf{Solution.}\\
+	We make the substitution $X = x - h_0$ and $Y = y - k_0$ such that $(h, k) = (h_0, k_0)$ is a solution of
+	\begin{align*} 
+		-h + 2k - 1 &= 0,\\
+		4h - 3k - 6 &= 0.
+	\end{align*}
+	Solving the above gives us $h_0 = 3$ and $k_0 = 2.$\\
+	This gives us the ODE
+	\[\dfrac{dY}{dX} = \dfrac{-X + 2Y}{4X - 3Y}.\]
+	To solve this, we make the substitution $Y = vX$ which gives us $dY = vdX + Xdv.$ Thus, the ODE changes to
+	\begin{align*} 
+		& v + X\dfrac{dv}{dX} = \dfrac{2v - 1}{-3v + 4}\\
+		\implies & X\dfrac{dv}{dX} = \dfrac{3v^2 -2v - 1}{-3v + 4}\\
+		\implies & \dfrac{-3v + 4}{3v^2 - 2v - 1}dv = \dfrac{1}{X}dX\\
+		\implies & \left(-\frac{15}{4}\cdot\frac{1}{3v + 1} + \frac{1}{4}\cdot\frac{1}{v - 1}\right)dv = \frac{1}{X}dX\\
+		\implies & \int\left(-\frac{15}{4}\cdot\frac{1}{3v + 1} + \frac{1}{4}\cdot\frac{1}{v - 1}\right)dv = \int\frac{1}{X}dX\\
+		\implies & -\frac{5}{4}\ln|3v + 1| + \frac{1}{4}\ln|v - 1| = \ln|X| + C\\
+		\implies & 4\ln|X| - \ln|v - 1| + 5\ln|3v +  1| = C'\\
+		\implies & X^4|(v - 1)^{-1}(3v + 1)^5| = K\\
+		\implies & |(vX - X)^{-1}(3vX + X)^5| = K
+	\end{align*}
+	Recalling that $vX = Y$ gives us $|(Y - X)^{-1}(3Y + X)^5| = K.$\\
+	Substituting $X = x - 3$ and $Y = y - 2$ back gives us
+	\[|3y + x - 9|^5 = K |y - x + 1|.\]
+\end{enumerate}
+
+\section{Some Mistakes}
+\begin{enumerate}[label = Q.\arabic*.] 
+	\setcounter{enumi}{-1}
+	\item 
+	\begin{enumerate} 
+		\item It is important to say that ``there exists $(x_0, y_0) \in S$'' and not just ``there exists $(x_0, y_0)$.'' It belonging to $S$ is important.
+		\item Not a mistake per se but no need to write ``there exists \emph{at least} one point ...''. If you simply write ``there exits a point,'' it is implied that there is \emph{at least} one. We don't assume uniqueness or anything.\\
+		However, it is not wrong if you do write.
+		\item One more minor nitpicking is that you don't have to explicitly say that $p \neq p_0.$
+	\end{enumerate}
+	\item 
+	\begin{enumerate} 
+		\item Note that if $(x_0, y_0) \in D,$ then what you can say is that: $x_0 \neq 0$ \emph{\textbf{or}} $y_0 \neq 0.$\\
+		What you can \textbf{not} say is that: $x_0 \neq 0$ \emph{and} $y_0 \neq 0.$\\
+		If you do that, then you miss points like $(1, 0)$ or $(0, 1),$ which do indeed belong to $D.$
+		\item Make sure you write ``line segment'' instead of ``line''.
+		\item Notation: The symbol for set difference is $\setminus$ and not $/.$
+	\end{enumerate}
+	\emph{Bonus:}
+	\begin{enumerate}
+		\item Only one has taken care of the case $S = \emptyset.$ Note that your arguments require $S$ being nonempty because you say something like ``let $(a, b) \in S$'' which is not possible unless $S \neq \emptyset.$
+		\item For some reason, many have argued in the following manner: ``We may translate the situation so that $S$ contains $(0, 0)$ and then we are done by the previous part.''\\
+		This is \textbf{not} a valid argument because you seem to be implying that any subset of $\mathbb{R}^2$ not containing the origin is not star-shaped. This is not true. For example, consider the following subset of $\mathbb{R}^2:$
+		\[\mathbb{R}^2 \setminus ((-\infty, 0]\times\{0\}),\]
+		that is, $\mathbb{R}^2$ minus the non-positive $x-$axis. This is indeed star-shaped. (Prove!)\\
+		However, this does not contain the origin.\\\\
+		The fact that $S$ is finite is of crucial importance and you have to use that.
+	\end{enumerate}
+	\item 
+	\begin{enumerate} 
+		\item People have messed up whether $X = x + h$ or $-h.$ Note that the calculation done in class was under the substitution $x = X + h.$ If you take $X = x + h,$ then note that you'll get $h = -3.$
+		\item Many have made the common mistake of confusing the denominator to be $3v - 1$ even after writing $3v + 1$ in the previous step. Not sure why.
+		\item Some have forgotten the $1/3$ that comes from integrating $(3v + 1)^{-1}.$
+		\item Don't drop the modulus unnecessarily.
+	\end{enumerate}
+\end{enumerate}
+
+\section{\LaTeX\ Suggestions}
+\begin{enumerate} 
+	\item Always use the \verb+$ $+ environment for variables, even if you don't necessarily need a math symbol. For example, if you're referring to the subset $S$ of $\mathbb{R}^2,$ don't write S. Same goes for something like ``Y = y - 3''.
+	\item The command \verb+\setminus+ can be used for the $\setminus$ instead of using something else. Even if it looks the same, it's a question of being ``correct.''
+	\item Use the command \verb+\left(...\right)+ to make sure the brackets are big enough. This is a better alternative to \verb+\bigg(...\bigg)+.
+\end{enumerate}
+\end{document}
