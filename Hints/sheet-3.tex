@@ -1,0 +1,343 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsfonts, amsthm, mathtools}
+\usepackage[utf8]{inputenc}
+\usepackage[inline]{enumitem}
+\usepackage{cancel}
+\usepackage{soul}
+\usepackage{centernot}
+\usepackage{pifont}
+
+\newtheorem{theorem}{Theorem}
+\setlength\parindent{0pt}
+\let\emptyset\varnothing
+
+\usepackage{xcolor}
+\definecolor{mybgcolor}{RGB}{50, 50, 50} %46, 51, 63
+\definecolor{mylinkcolor}{RGB}{0, 255, 255}
+
+\usepackage{pagecolor}
+\pagecolor{mybgcolor}
+\color{white}
+
+\usepackage[colorlinks=true,linkcolor=mylinkcolor]{hyperref}
+\usepackage{titlesec}
+\titleformat{\section}[block]
+  {\normalfont\scshape}{\S\thesection}{0.25cm}{\large}
+
+\usepackage{geometry}
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=20mm,
+	top=20mm,
+}
+
+\title{Tutorial 3}				% change
+\author{Aryaman Maithani}
+\date{Post-Corona someday}		% change
+
+\begin{document}
+\maketitle
+
+\hrulefill
+
+\begin{center}
+	\textsc{Disclaimer}
+\end{center}
+These are \textbf{not} complete solutions and should not be regarded as such. The purpose of this is to basically get you started and you must fill in the gaps. To be more explicit, if what you care about is marks, then just the solutions written here won't suffice.
+
+\hrulefill
+
+\begin{enumerate}[label = Q.\arabic*.] 
+	\item We have the constant coefficients ODE $y'' - y' = 0$ to solve.\\
+	The tangent condition given tells us that $y(0) = 0$ and $y'(0) = 1.$\\
+	As it's a constant coefficients ODE, we substitute $y = e^{mx}$ and get the quadratic
+	\[m^2 - m = 0.\]
+	Clearly, the above has roots $0$ and $1.$ Thus, the general solution is given by $y = Ae^x + B.$ Substituting the initial conditions give us $A = 1$ and $B = 0.$\\
+	Thus, $y = e^x$ is the final solution.
+	\item \label{q2} Both of these are constant coefficients ODEs. We substitute $y = e^{mx}$ in each and get the quadratics.
+	\begin{enumerate}[label = (\roman*)] 
+		\item Here, we get
+		\[m^2 - m - 2 = 0.\]
+		Clearly, the above has roots $1$ and $2.$ Thus, the general solution is given by $y = Ae^x + Be^{2x}.$ 
+		\item Here, we get
+		\[m^2 - 2m + 5 = 0.\]
+		Clearly, the above has roots $r_1 = 1 + 2i$ and $r_2 = 1 - 2i.$ Thus, the general solution is given by $y = Ae^{r_1x} + Be^{r_2x}.$ However, we can write this in another more \emph{real} form as well.\\
+		Note that if $y_1$ and $y_2$ are solutions of the above, then so is $y_1 \pm y_2.$ Moreover, the solution space of the ODE is a two dimensional vector space. Thus, if we can find two linearly independent solutions of the ODE, we can easily write the general form.\\
+		Now, setting $y_1 = e^{r_1x}$ and $y_2 = e^{r_2x},$ we get that
+		\begin{align*} 
+			y_1 + y_2 &= 2e^x(\cos(2x))\\
+			y_1 - y_2 &= 2ie^x(\sin(2x)).
+		\end{align*}
+		Clearly, the above two are linearly independent. Thus, we may write the general solution as
+		\[y = e^x(A\cos2x + B\sin 2x).\]
+	\end{enumerate}
+	\item The idea in both is to reverse the thing done above.
+	\begin{enumerate}[label = (\roman*)] 
+		\item We are given the solution space to be spanned by $\{e^{-2x}, e^{0x}\}.$ Note that $(m + 2)m = m^2 + 2m$ is a quadratic expression with $0, -2$ as roots. Thus, we consider the ODE
+		\[y'' + 2y = 0.\]
+		The above is the desired ODE.
+		\item Like before, we construct the quadratic equation as
+		\begin{align*} 
+			(m + \alpha)^2 + \beta^2 &= 0\\
+			\iff m^2 + 2\alpha m + (\alpha^2 + \beta^2) &= 0.
+		\end{align*}
+		Thus, the desired ODE is
+		\[y'' + 2\alpha y' + \alpha^2 + \beta^2 = 0.\]
+		\emph{Remark.} The question could have also been given with the functions: $e^{-\alpha x}\cos\beta x, e^{-\alpha x}\sin\beta x.$
+	\end{enumerate}
+	\item Recall from Linear Algebra that functions $f$ and $g$ are said to be linearly independent on some interval $I$ if there exist scalars $\alpha, \beta$ not both $0$ such that
+	\[\alpha f(x) + \beta g(x) = 0 \quad \forall x \in I.\]
+	\begin{enumerate}[label = (\roman*)] 
+		\item Let $J$ be any arbitrary interval such that $I \subset J.$\\
+		The statement given reads:\\
+		$y_1$ and $y_2$ are linearly independent on $I$ $\implies$ $y_1$ and $y_2$ are linearly independent on $J.$\\\\
+		\emph{Claim.} The given statement is true.
+		\begin{proof} 
+			Assume that $y_1$ and $y_2$ are linearly independent on $I.$ We show that $y_1$ and $y_2$ are linearly independent on $J.$\\
+			Let $\alpha, \beta$ be scalars such that
+			\begin{equation} \label{eq:linJ}
+			\alpha y_1(x) + \beta y_2(x) = 0 \quad \forall x \in J.
+			\end{equation}
+				
+			We show that this is possible only if $\alpha = \beta = 0.$ This will prove linear independence.\\
+			From (\ref{eq:linJ}), we can deduce that
+			\begin{equation} \label{eq:linI}
+			\alpha y_1(x) + \beta y_2(x) = 0 \quad \forall x \in I.
+			\end{equation}
+			(Why?)\\
+			However, $y_1$ and $y_2$ were assumed to be linearly independent on $I.$ Thus, from (\ref{eq:linI}), we can conclude that $\alpha = \beta = 0,$ as desired.
+		\end{proof}
+		\item This is just the contrapositive of the above. Thus, this is true as well.
+		\item Pretty sure there's a typo in the question and it's supposed to read -\\
+		If $y_1(x)$ and $y_2(x)$ are linearly independent solutions of $L(y) = 0$ on an interval $I,$ they are linearly independent solutions of $L(y) = 0$ on any interval $J$ contained in $I.$\\\\
+		The statement is true.\\
+		It is easy to note that $y_1$ and $y_2$ will indeed continue being solutions. We just have to show that they are still linearly independent.\\
+		For this, we recall the following:\\
+		If $y_1$ and $y_2$ are solutions of $L(y) = 0,$ then they are linearly independent iff their Wronskian is zero at all points. Moreover, we recall that if the Wronskian is nonzero at one point, it's nonzero everywhere.\\
+		Now, since $y_1$ and $y_2$ are linearly independent on $I,$ we get that $W(y_1, y_2;x) \neq 0$ for all $x \in I.$\\
+		However, this implies that $W(y_1, y_2;x) \neq 0$ for all $x \in J.$ Thus, $y_1$ and $y_2$ are linearly independent on $J.$\\\\
+		\emph{Remarks.} We have assumed that $P$ and $Q$ are continuous to use the above result.\\
+		We also emphasise that we crucially required the above result. In general, it is not true that if two functions are linearly independent on some interval, then they are also linearly independent on every subinterval. For example, consider the functions $x, |x|$ with $I = \mathbb{R}$ and $J = (0, \infty).$
+		\item True. Contrapositive of the above.
+	\end{enumerate}
+	\item 
+	\begin{enumerate}[label = (\roman*)] 
+		\item No.
+		\begin{equation*} 
+			(1)\sin2x + (1)\cos\left(2x + \frac{\pi}{2}\right) = 0 \quad \forall x > 0.
+		\end{equation*}
+		\item No.
+		\item Yes. Suppose $\alpha, \beta \in \mathbb{R}$ are such that
+		\begin{equation} \label{eq:lindep2} 
+			\alpha x^3 + \beta x^2|x| = 0 \quad \forall x \in (-1, 1).
+		\end{equation}
+		We show that the above forces $\alpha = \beta = 0.$\\
+		As (\ref{eq:lindep2}) is true for all $x \in (-1, 1),$ we substitute $x = 1/2$ and $x = -1/2$ to get the above following equations,
+		\begin{align*} 
+			\alpha + \beta &= 0,\\
+			\alpha - \beta &= 0.
+		\end{align*}
+		Clearly, the only solution to the above is $(\alpha, \beta) = (0, 0).$
+		\item No.
+		\begin{equation*} 
+			(1)x|x| + (-1)x^2 = 0 \quad \forall x \in [0, 1].
+		\end{equation*}
+		\item No.
+		\begin{equation*} 
+			(-2)\log x + (1)\log x^2 = 0 \quad \forall x > 0.
+		\end{equation*}
+		\item Yes. Compute the Wronskian, it turns out to be
+		\[\det\begin{bmatrix}
+			x & x^2 & \sin x\\
+			1 & 2x & \cos x\\
+			0 & 2 & -\sin x
+		\end{bmatrix}.\]
+		Evaluate the above at $x = \pi.$ As the Wronskian is nonzero, we are done.
+	\end{enumerate}
+	\item Both of these are constant coefficients ODEs. We substitute $y = e^{mx}$ in each and get the quadratics to find the general solution. We then find the particular solution by using the initial conditions given.\\
+	Using the same idea as \ref{q2}, we can find the general solution and thus, I shall directly write that.
+	\begin{enumerate}[label = (\roman*)] 
+		\item The general solution is $y = Ae^{3x} + Be^x.$\\
+		$y(0) = 1 \implies A + B = 1.$\\
+		$y'(0) = -5 \implies 3A + B = -5.$\\
+		Thus, $A = -3$ and $B = 4.$\\
+		Hence, the desired solution is $y = -3e^{3x} + 4e^x.$
+		\item The general solution is $y = Ae^{2x} + B.$\\
+		$y(0) = -1 \implies A + B = -1.$\\
+		$y(0.5) = e - 2 \implies Ae + B = e-2.$\\
+		Thus, $A = 1$ and $B = -2.$\\
+		Hence, the desired solution is $y = e^{2x} + -2.$
+	\end{enumerate}
+	\item Same idea as above. Just do it. \checkmark
+	\item \label{q8} All of these are Cauchy-Euler equations. To solve these, we substitute $y = x^m$ and solve for $m.$ I shall directly write the equation obtained and then the general solution.
+	\begin{enumerate}[label = (\roman*)] 
+		\item Equation:
+		\begin{align*} 
+			m(m - 1) - 4m + 4 &= 0\\
+			\iff m^2 - 5m + 4 &= 0
+		\end{align*}
+		Thus, the general solution is
+		\begin{equation*} 
+			y = Ax^4 + Bx.
+		\end{equation*}
+		$y(1) = 1 \implies A + B = 4.$\\
+		$y'(1) = 1 \implies 4A + B = 1.$\\
+		Thus, $A = -1$ and $B = 5$ giving the final solution to be
+		\begin{equation*} 
+			y = 5x -x^4.
+		\end{equation*}
+		\item Equation:
+		\begin{align*} 
+			4m(m - 1) + 4m - 1 &= 0\\
+			\iff 4m^2 - 1 &= 0
+		\end{align*}
+		Thus, the general solution is
+		\begin{equation*} 
+			y = Ax^{1/2} + Bx^{-1/2}.
+		\end{equation*}
+		$y(4) = 2 \implies 2A + B/2 = 2.$\\
+		$y'(4) = -1/4 \implies A - B/4 = -1/4.$\\
+		Thus, $A = 3/8$ and $B = 5/2$ giving the final solution to be
+		\begin{equation*} 
+			y = \dfrac{3}{8}\sqrt{x} - \dfrac{5}{2}\cdot\frac{1}{\sqrt{x}}.
+		\end{equation*}
+		\item Equation:
+		\begin{align*} 
+			m(m - 1) - 5m + 8 &= 0\\
+			\iff m^2 - 6m + 8 &= 0
+		\end{align*}
+		Thus, the general solution is
+		\begin{equation*} 
+			y = Ax^2 + Bx^4.
+		\end{equation*}
+		$y(1) = 5 \implies A + B = 5.$\\
+		$y'(1) = 18 \implies 2A + 4B = 18.$\\
+		Thus, $A = 1$ and $B = 4$ giving the final solution to be
+		\begin{equation*} 
+			y = x^2 + 4x^4.
+		\end{equation*}
+	\end{enumerate}
+	\item \label{q9} I shall do the (viii)-th one. The idea is the same.
+	\begin{enumerate}[start = 8, label = (\roman*)] 
+		\item $2y'''' + 3y'' + y = x^2 + 3\sin x.$\\
+		First, we solve the associated homogeneous equations
+		\begin{equation} \label{eq:homo}
+		 	(2D^4 + 3D^2 + 1)y = 0.
+		\end{equation} 
+		This can be clearly solved by the substitution $y = e^{mx}.$ We get $m^2 = -1, -1/2.$ This gives us the four linearly independent solutions:
+		\[\cos x, \sin x, \cos\left(\frac{x}{\sqrt{2}}\right), \sin\left(\frac{x}{\sqrt{2}}\right).\]
+		Thus, the general solution is given by:
+		\begin{equation} \label{eq:solnhomo}
+		y_g = c_1\cos x + c_2\sin x + c_3\cos\left(\frac{x}{\sqrt{2}}\right) + c_4\sin\left(\frac{x}{\sqrt{2}}\right).
+		\end{equation}
+			
+		Now, we find a solution for
+		\begin{equation} \label{eq:x2}
+			(2D^4 + 3D^2 + 1)y = x^2.
+		\end{equation}
+		Note that $x^2 = x^2e^{0x}$ and thus, $D^3$ is an annihilator for it. Applying this to (\ref{eq:x2}) gives us
+		\begin{equation*} 
+			D^3(2D^4 + 3D^2 + 1)y = 0.
+		\end{equation*}
+		Now, we solve this. Note that any solution of (\ref{eq:homo}) is again a solution and will get annihilated by the LHS of (\ref{eq:x2}) and thus, we may ignore it here and only solve $D^3y = 0.$\\
+		This gives us the solution as $y_1 = a_1 + a_2x + a_3x^2.$\\
+		Substituting this in (\ref{eq:x2}) gives us
+		\begin{align*} 
+			3a_3 + a_1 + a_2x + a_3x^2 &= x^2.
+		\end{align*}
+		Thus, $a_3 = 1,\;a_2 = 0, a_1 = -3.$\\
+		This gives us the solution of (\ref{eq:x2})	as 
+		\begin{equation} \label{eq:solnx2}
+			y_1 = x^2 - 3.
+		\end{equation}
+		Now, we find a solution for
+		\begin{equation} \label{eq:sin}
+			(2D^4 + 3D^2 + 1)y = 3\sin x.
+		\end{equation}
+		Note that $2i\sin x = e^{ix} - e^{-ix}$ and thus, $D^2 + 1$ is an annihilator for it. Applying this to (\ref{eq:sin}) gives us
+		\begin{equation*} 
+			(D^2 + 1)(2D^4 + 3D^2 + 1)y = 0.
+		\end{equation*}
+		Now, we solve this. \\
+		In this case, note that we get repeated roots as the equation becomes
+		\begin{equation*} 
+			(D^2 + 1)^2(2D^2 + 1) = 0.
+		\end{equation*}
+		Like before, we ignore the functions that are solutions of (\ref{eq:homo}) to get $y_2 = b_1x\sin x + b_2x\cos x.$\\
+		Substituting this in (\ref{eq:sin}) gives us
+		\begin{align*} 
+			(2D^2 + 1)(D^2 + 1)y_2 &= 3\sin x\\
+			\implies (2D^2 + 1)(2b_1\cos x - 2b_2\sin x) &= 3\sin x\\
+			\implies (2D^2 + 2 -1)(2b_1\cos x - 2b_2\sin x) &= 3\sin x\\
+			\implies -(2b_1\cos x - 2b_2\sin x) &= 3\sin x\\
+		\end{align*}
+		Thus, $b_1 = 0$ and $b_2 = 3/2.$ This gives us
+		\begin{equation} \label{eq:solnsin}
+			y_2 = \frac{3}{2}\cos x.
+		\end{equation}
+		Using linearity of the original ODE, we get that the solution of the original ODE is given by the sums of (\ref{eq:solnhomo}), (\ref{eq:solnx2}) and (\ref{eq:solnsin}).
+	\end{enumerate}
+	\item Same idea as \ref{q9}. It's just that now you have to find a particular solution by substituting the initial values.
+	\item Same idea as \ref{q9}. However, here you don't have to do the substitutions to find the values of undetermined coefficients, that is, the values of $a_i$ and $b_i$ from \ref{q9}.
+	\item For the first two, simply substitute $y = x^m.$ Exactly like \ref{q8}. We do the third one with the similar spirit as \ref{q9}.
+	\begin{enumerate}[start = 3, label = (\roman*)] 
+		\item First, we solve the associated homogeneous equations
+		\begin{equation*}
+		 	(x^2D^2 + 2xD + 1/4)y = 0.
+		\end{equation*} 
+		This can be clearly solved by the substitution $y = x^{m}.$ We get $m(m - 1) + 2m + 1/4 = 0.$ This clearly give us $(2m + 1)^2 = 0.$\\
+		Thus, the general solution is given by:
+		\begin{equation*}
+		y_g = c_1x^{-1/2} + c_2x^{-1/2}\log x.
+		\end{equation*}
+			
+		Now, we find a solution for
+		\begin{equation} \label{eq:x12}
+			(x^2D^2 + 2xD + 1/4)y = x^{-1/2}.
+		\end{equation}
+		Note that $xD+1/2$ is an annihilator for the $x^{-1/2}.$ Applying this to (\ref{eq:x12}) gives us
+		\begin{equation*} 
+			(xD + 1/2)(x^2D^2 + 2xD + 1/4)y = 0.
+		\end{equation*}
+		Now, we solve this. \\
+		It can be seen that the substitution $y = e^{mx}$ yields the general solution along with $x^{-1/2}\log^2 x.$\\
+		We substitute $y_1 = ax^{-1/2}\log^2 x$ in (\ref{eq:x12}) to find the value of $a.$\\
+		Before that, we note the identity $x^2D^2 = (xD)(xD - 1).$ Thus, $x^2D^2 + 2xD + 1/4 = (xD)(xD - 1) + 2xD + 1/4 = (xD + 1/2)^2.$\\
+		Now, substituting gives us $(xD + 1/2)y_2 = x^{-1/2}.$ Evaluate the LHS to see that it equals $2a/\sqrt{x}.$ Thus, $a = 1/2$ giving us 
+		\begin{equation}
+			y_1 = \dfrac{1}{2}\frac{1}{\sqrt{x}}\log^2x.
+		\end{equation}
+		Using linearity, we get the general solution as
+		\[y = \frac{1}{\sqrt{x}}\left(a + b\log x + \frac{1}{2}\log^2x\right).\]
+
+	\end{enumerate}
+	\item Typical Cauchy-Euler, we find the general solution to be 
+	\begin{equation*} 
+		y = Ax^3 + Bx^{-1}.
+	\end{equation*}
+	As $\displaystyle\lim_{x\to \infty}y(x) = 0,$ we immediately get that $A = 0.$\\
+	$y(1) = 1$ then tells us that $B = 1.$ Thus the desired solution is
+	\begin{equation*} 
+		y = \dfrac{1}{x}.
+	\end{equation*}
+	\item Let the roots of the characteristic polynomial be $r_1$ and $r_2$ where $r_1, r_2 \in \mathbb{C}.$\\
+	(Note that $r_1$ and $r_2$ need not be conjugates even if they're nonreal as $\alpha$ and $\beta$ need not be real.)\\\\
+	%
+	Let us first assume the case that $r_1 \neq r_2.$\\
+	Then, any solution of the ODE is of the form
+	\begin{equation*} 
+		y(x) = ae^{r_1 x} + be^{r_2 x}
+	\end{equation*}
+	for some $a, b \in \mathbb{C}.$\\
+	Let $r_1 = \alpha_1 + i\beta_1$ and $r_2 = \alpha_2 + \beta_2$ where $\alpha_1, \alpha_2, \beta_1, \beta_2 \in \mathbb{R}.$\\
+	Now, if $\alpha_1 < 0$ and $\alpha_2 < 0,$ then it is clear that $\displaystyle\lim_{x\to \infty}y(x) = 0$ as $\displaystyle\lim_{x\to \infty}e^{r_1x} = 0 = \displaystyle\lim_{x\to \infty}e^{r_2x}.$ (Note that $e^{i\beta_1x}$ has unit modulus.)\\
+	Conversely, suppose that $y(x) \to 0$ as $x \to \infty$ for every choice of $a$ and $b.$ We wish to show that $\alpha_1$ and $\alpha_2$ are negative. In particular, we may take $a = 1$ and $b = 0.$ This tells us that $\alpha_1 < 0.$ Similarly, taking $a = 0$ and $b = 1$ gives us that $\alpha_2 < 0.$ Hence, we are done.\\\\
+	%
+	Now, let us assume that $r_1 = r_2 = r.$ Then, any solution of the ODE is of the form
+	\begin{equation*} 
+		y(x) = ae^{rx} + bxe^{rx}.
+	\end{equation*}
+	Noting that $\displaystyle\lim_{x\to \infty}xe^{rx} = 0$ iff $\Re(r) < 0$ again gives the answer with the same idea as before.
+\end{enumerate}
+\end{document}
