@@ -47,19 +47,25 @@
 These are \textbf{not} complete solutions and should not be regarded as such. The purpose of this is to basically get you started and you must fill in the gaps. To be more explicit, if what you care about is marks, then just the solutions written here won't suffice.
 
 \hrulefill
+\begin{center}
+	\textsc{Acknowledgment}
+\end{center}
+I would like to thank\footnote{``like to'', not saying that I actually am thanking} Harshda Saxena for pointing out my calculation mistakes and wrong numbering.
+
+\hrulefill
 
 \begin{enumerate}[label = Q.\arabic*.] 
 	\item We have the constant coefficients ODE $y'' - y' = 0$ to solve.\\
 	The tangent condition given tells us that $y(0) = 0$ and $y'(0) = 1.$\\
 	As it's a constant coefficients ODE, we substitute $y = e^{mx}$ and get the quadratic
 	\[m^2 - m = 0.\]
-	Clearly, the above has roots $0$ and $1.$ Thus, the general solution is given by $y = Ae^x + B.$ Substituting the initial conditions give us $A = 1$ and $B = 0.$\\
-	Thus, $y = e^x$ is the final solution.
+	Clearly, the above has roots $0$ and $1.$ Thus, the general solution is given by $y = Ae^x + B.$ Substituting the initial conditions give us $A = 1$ and $B = -1.$\\
+	Thus, $y = e^x - 1$ is the final solution.
 	\item \label{q2} Both of these are constant coefficients ODEs. We substitute $y = e^{mx}$ in each and get the quadratics.
 	\begin{enumerate}[label = (\roman*)] 
 		\item Here, we get
 		\[m^2 - m - 2 = 0.\]
-		Clearly, the above has roots $1$ and $2.$ Thus, the general solution is given by $y = Ae^x + Be^{2x}.$ 
+		Clearly, the above has roots $-1$ and $2.$ Thus, the general solution is given by $y = Ae^{-x} + Be^{2x}.$ 
 		\item Here, we get
 		\[m^2 - 2m + 5 = 0.\]
 		Clearly, the above has roots $r_1 = 1 + 2i$ and $r_2 = 1 - 2i.$ Thus, the general solution is given by $y = Ae^{r_1x} + Be^{r_2x}.$ However, we can write this in another more \emph{real} form as well.\\
@@ -127,7 +133,6 @@ These are \textbf{not} complete solutions and should not be regarded as such. Th
 		\begin{equation*} 
 			(1)\sin2x + (1)\cos\left(2x + \frac{\pi}{2}\right) = 0 \quad \forall x > 0.
 		\end{equation*}
-		\item No.
 		\item Yes. Suppose $\alpha, \beta \in \mathbb{R}$ are such that
 		\begin{equation} \label{eq:lindep2} 
 			\alpha x^3 + \beta x^2|x| = 0 \quad \forall x \in (-1, 1).
