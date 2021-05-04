@@ -1,0 +1,944 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts, amsthm, mathtools,mathrsfs}
+\usepackage{thmtools}
+\usepackage[utf8]{inputenc}
+\usepackage[inline]{enumitem}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{arrows.meta}
+\usepackage{witharrows}
+\usepackage{datetime2}
+
+\setlength\parindent{0pt}
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}
+\numberwithin{thm}{section}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{ex}{Example}
+
+
+\let\emptyset\varnothing
+
+\pagestyle{plain}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\sffamily\Large\filcenter\bfseries}{\S\thesection.}{0.25cm}{\Large}
+\titleformat{\subsection}[block]{\large\bfseries\sffamily}{\S\S\thesubsection.}{0.2cm}{\large}
+
+\usepackage[a4paper]{geometry}
+\usepackage{lipsum}
+
+\usepackage{cleveref}
+\crefname{thm}{Theorem}{Theorems}
+\crefname{lem}{Lemma}{Lemmas}
+\crefname{defn}{Definition}{Definitions}
+\crefname{prop}{Proposition}{Propositions}
+\crefname{cor}{Corollary}{Corollaries}
+\crefname{equation}{}{}
+
+\usepackage{mdframed}
+\newenvironment{blockquote}
+{\begin{mdframed}[skipabove=0pt, skipbelow=0pt, innertopmargin=4pt, innerbottommargin=4pt, bottomline=false,topline=false,rightline=false, linewidth=2pt]}
+{\end{mdframed}}
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+
+\usepackage{fancyhdr}
+\setlength{\headheight}{15.2pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily{\S\textbf{\nouppercase{\leftmark}}}}
+\fancyhead[R]{\sffamily{\thepage}}
+\definecolor{myupdatecolor}{RGB}{0, 0, 255}
+
+% \usepackage{xcolor}
+% \definecolor{mybgcolor}{RGB}{50, 50, 50} %46, 51, 63
+% \usepackage{pagecolor}
+% \pagecolor{mybgcolor}
+% \color{white}
+% \mdfsetup{backgroundcolor=mybgcolor, fontcolor=white}
+% \definecolor{myupdatecolor}{RGB}{0, 255, 0}
+
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand{\dd}{{\mathrm d}}
+
+\title{MA 108: Ordinary Differential Equations\\\large{Tutorial Solutions}}
+\author{Aryaman Maithani\\\url{https://aryamanmaithani.github.io/tuts/ma-108/}}
+\date{Spring Semester 2020-21\\~\\Last update: \DTMnow}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage\section{Tutorial 1}
+\begin{enumerate}[leftmargin=*, label = Q.\arabic*.] 
+	\item 
+	\begin{enumerate}[label = (\roman*)] 
+		\item Order: 3, non-linear. Non-linearity is due to the $\left(\dfrac{\dd y}{\dd x}\right)^2$ term.
+		\item Order: 1, linear.
+		\item Order: 2, non-linear. Non-linearity is due to the $y\dfrac{\dd^2y}{\dd x^2}$ term.
+		\item Order: 4, linear.
+		\item Order: 6, non-linear. Non-linearity is due to the $(1 + y^2)\left(\dfrac{\dd^2y}{\dd t^2}\right)$ term. In particular, the $y\dfrac{\dd^2y}{\dd t^2}$ term that one would get on multiplying out.
+	\end{enumerate}
+	Note that saying ``non-linearity is due to ...'' is not the mathematically precise justification. For an ODE to be linear, we should have that if $y_1$ and $y_2$ are solutions, then so is $\lambda y_1 + (1 - \lambda)y_2$ for any $\lambda \in \mathbb{R}.$
+	\item \begin{enumerate}[label = (\roman*)] 
+		\item \begin{align*} 
+			& y = ax^2\\
+			\implies & y' = 2ax\\
+			\implies & xy' = 2ax^2\\
+			\implies & xy' = 2y
+		\end{align*}
+		\item \begin{align*} 
+			& y - a^2 = a(x - b)^2\\
+			\implies & y' = 2a(x - b)\\
+			\implies & y^{(2)} = 2a
+		\end{align*}
+		Conclude from the above.
+		\item $x + yy' = 0.$
+		\item 
+		\begin{align} 
+			& (x - a)^2 + (y - b)^2 = a^2 \label{eq:1}\\
+			&\text{differentiate wrt } x: \nonumber\\
+			\implies & (x - a) + (y - b)y' = 0 \label{eq:2}\\
+			&\text{differentiate wrt } x: \nonumber\\
+			\implies & 1 + (y - b)y^{(2)} + y'^2 = 0 \nonumber\\
+			\implies & (y - b) = -\frac{y'^2 + 1}{y^{(2)}} \label{eq:3}
+		\end{align}
+		Substitute (\ref{eq:3}) into (\ref{eq:2}) and solve for $x - a$ in terms of $x, y, y', y^{(2)}.$ Call this relation (4).\\
+		Then, substitute (\ref{eq:3}) and 4 into (\ref{eq:1}) to get the desired second order ODE.
+		\item 
+		\begin{align} \label{eq:sincos}
+			y = a\sin x + b\cos x + a
+		\end{align}
+		\begin{align*} 
+			\implies & y' = a\cos x - b\sin x\\
+			\implies & y^{(2)} = -a\sin x - b\cos x
+		\end{align*}
+		Note that the last two equations allow us to solve for $a$ and $b$ in terms of $y'$ and $y^{(2)}.$\\
+		On solving, we get $a = (\cos x)y' - (\sin x)y^{(2)}$ and $b = (-\sin x)y' - (\cos x)y^{(2)}.$\\
+		Substituting this in (\ref{eq:sincos}) gives us the desired ODE.
+		\item 
+		\begin{align} \label{eq:cubic}
+			y = a(1 - x^2) + bx + cx^3
+		\end{align}
+		\begin{align*} 
+			\implies & y' = -2ax + b + 3cx^2\\
+			\implies & y^{(2)} = -2a + 6cx\\
+			\implies & y^{(3)} = 6c
+		\end{align*}
+		The above three equations let us solve for $a, b, c$ in terms of $x, y', y^{(2)}, y^{(3)}.$ Find them and substitute in (\ref{eq:cubic}) to get the desired ODE.
+		\item 
+		\begin{align*} 
+			& y = cx + f(c)\\
+			\implies & y' = c
+		\end{align*}
+		Thus, $y = y'x + f(y')$ is the desired ODE.
+	\end{enumerate}
+	%
+	\item 
+	\begin{align*} 
+		& (\sin y)y' = \frac{2}{x^3}\\
+		\implies & -\cos y = -\frac{1}{x^2} + C\\
+		\implies & \cos y = \frac{1}{x^2} + C'
+	\end{align*}
+	Letting $x \to \infty$ on both sides gives us that $C' = \cos\left(\frac{\pi}{2}\right) = 0.$
+	%
+	\item Let $C$ be a curve with the property that all normals pass through a fixed point. Let this point have coordinates $(x_0, y_0).$\\
+	Let $(x, y)$ be an arbitrary point on $C.$ The slope of the tangent at that point is given by $y'$ and the normal by $-\dfrac{1}{y'}.$\\
+	We know that this normal passes through $(x_0, y_0).$ Equating slopes gives us:
+	\[-\dfrac{1}{y'} = \dfrac{y_0 - y}{x_0 - x}.\]
+	Rearranging gives us
+	\[(x - x_0) + (y - y_0)y' = 0.\]
+	Conclude.
+	%
+	\item 
+	\begin{enumerate}[label = (\alph*)] 
+		\item These are constant coefficient linear ODEs which you will study in more detail later.
+		\begin{enumerate}[label = (\roman*)] 
+			\item Substitute $y = e^{mx}$ to get:
+			\[m^2e^{mx} + me^{mx} - 6e^{mx} = 0.\]
+			One may cancel $e^{mx}$ (how?) to get that:
+			\[m^2 + m - 6 = 0.\]
+			The above is a quadratic equation which can be solved to obtain that $m \in \{2, -3\}.$
+			\item Similar as before. This time, we get the equation $m^3 - 3m^2 + 2m = 0$ which can be easily reduced to a quadratic after noting that $m = 0$ is a root. We finally get $m \in \{0, 1, 2\}.$
+		\end{enumerate}	
+		\item These are called Cauchy-Euler equations which you will study in more detail later.
+		\begin{enumerate}[label = (\roman*)] 
+			\item Substitute $y = x^m$ to get:
+			\[m(m - 1)x^{m} - 4mx^{m} + 4x^{m} = 0.\]
+			One may cancel $x^m$ (how?) to get that:
+			\[m(m - 1) - 4m + 4 = 0.\]
+			The above is a quadratic equation which can be solved to obtain that $m \in \{1, 4\}.$
+			\item Similar as before. This time, we get the equation $m(m - 1)(m - 2) - m(m - 1) + m = 0$ which can be easily reduced to a quadratic after noting that $m = 0$ is a root. We finally get $m \in \{0, 2\}.$ \\
+			(Note that $2$ is a repeated root. One may note that $x^2\ln x$ is also a solution of the above. Any ideas in case of a triple root?)
+		\end{enumerate}	
+	\end{enumerate}
+	%
+	\item Just do it. \checkmark
+	%
+	\item To show that $\varphi_1 + \varphi_2$ is a solution:\\
+	\begin{align*} 
+		(\varphi_1 + \varphi_2)' + a(\varphi_1 + \varphi_2) &= \varphi_1' + \varphi_2' + a\varphi_1 + a\varphi_2\\
+		&= \varphi_1' + a\varphi_1 + \varphi_2 + a\varphi_2\\
+		&= b_1(x) + b_2(x) & \blacksquare
+	\end{align*}
+	Thus, it suffices to find solutions for $y' + y = \sin x$ and $y' + y = 3\cos 2x$ separately and then add.\\
+	(Note that the above shouldn't be surprising at all since all we're verifying is linearity.)\\
+	Either using linear ODE method or by simple observation, get that the solution of the first equation is of the form $\varphi_1(x) = ae^{-x} + \frac{1}{2}(\sin x - \cos x)$ and of the second is of the form $\varphi_2(x) = be^{-x} + \frac{3}{5}(\cos2x + 2\sin 2x).$\\~\\
+	Thus, a general solution of the equation given is $y(x) = ce^{-x} + \frac{1}{2}(\sin x - \cos x) + \frac{3}{5}(\cos2x + 2\sin 2x).$\\
+	The condition given is $y(0) = 0.$ Using this, find the value of $c.$
+	%
+	\item 
+	\begin{enumerate}[label = (\roman*)] 
+		\item 
+		\begin{align*} 
+			& (x^2 + 1)\dd y + (y^2 + 4)\dd x = 0\\
+			\implies & \dfrac{1}{y^2 + 4}\dd y + \dfrac{1}{x^2 + 1}\dd x = 0\\~\\
+			\implies & \dfrac{1}{2}\tan^{-1}\left(\dfrac{y}{2}\right) + \tan^{-1}x = C
+		\end{align*}
+		$y(1) = 0$ gives us that $C = \tan^{-1}(1) = \pi/4$ and we are done.
+		\item Simple integration. Separate the variables and integrate to get $\ln|y| = \ln|\sin x| + C.$\\
+		The condition given tells us that $C = 0$ and thus, $|y| = |\sin x|.$ As $y(\pi/2) = 1 > 0,$ we see that $y = \sin x$ is the desired solution.
+		\item First we note the following partial fractions decomposition:
+		\[\dfrac{1}{y(y^2 - 1)} = -\dfrac{1}{y} + \dfrac{1}{2}\dfrac{1}{y - 1} + \dfrac{1}{2}\dfrac{1}{y + 1},\]
+		for $y \notin \{0, 1, -1\}.$\\
+		Using that, one may integrate the ODE given to obtain
+		\[-\ln|y| + \dfrac{1}{2}\ln|y^2 - 1| = x + C.\]
+		For $y(0) = 2,$ one gets $C = \dfrac{1}{2}\ln 3 - \ln 2.$ Rearrange and ``open the mods with a positive sign" to get the answer. (Why positive?)\\
+		For $y(0) = 0$ or $1,$ note that the constant functions are solutions.
+		%
+		\item Linear ODE. Find the integrating factor as done in class.
+		%
+		\item Substitute $y = vx$ and solve. Note that $y' = v + v'x.$
+		\item Substitute $y - x = Y$ and solve. Note that $y' = Y' + 1.$
+		\item 
+		\begin{align*} 
+			& 2(y\sin 2x + \cos 2x)\dd x = \cos 2x\dd y\\
+			\implies & 2(y\sin 2x + \cos 2x)\dd x + (-\cos 2x)\dd y = 0
+		\end{align*}
+		Note that the above ODE is closed and hence, exact. \hfill (Why? What is the domain?)\\
+		Thus, we may find a scalar field $u$ such that $u_x = 2(y\sin 2x + \cos 2x)$ and $u_y = (-\cos 2x).$\\
+		Use whatever method you want and get that $u(x, y) = -y\cos 2x + \sin 2x$ is one such field.\\
+		Thus, the general solution is given by:
+		\[-y\cos 2x + \sin 2x = C.\]
+		Use the condition given to conclude that $C = 0.$
+		\item Partial fractions.
+	\end{enumerate}
+	%
+	\item Just do it. \checkmark
+	%
+	\item Let us first analyse the fraction given:
+	\[\frac{ax + by + m}{cx + d'y + n}.\]
+	(For obvious reasons, I'm just $d'$ instead of $d$ for the constant.)\\
+	Let us make the substitution $x = X + h$ and $y = Y + k$ in the fraction to get
+	\[\frac{aX + bY + (ah + bk + m)}{cX + d'Y + (ch + d'k + n)}.\]
+	Now, noting that $ad' - bc \neq 0,$ we get that there is a unique solution for $(h, k)$ to the following homogeneous system of linear equations:
+	\begin{align*} 
+		ah + bk + m &= 0\\
+		ch + d'k + n &= 0
+	\end{align*}
+	Let this solution be $(h_0, k_0).$ Then, for the substitution $X = x - h_0$ and $Y = y - k_0,$ we have:
+	\begin{align*} 
+		\dfrac{\dd Y}{\dd X} = \dfrac{aX + bY}{cX + d'Y}.
+	\end{align*}
+	\begin{enumerate}[label = (\roman*)] 
+		\item We have the following
+		\begin{align*} 
+			y' = \dfrac{-x + 2y - 1}{4x - 3y - 6}.
+		\end{align*}
+		With same notation as above, we get the following linear equations in $(h, k)$:
+		\begin{align*} 
+			-h + 2k - 1 &= 0\\
+			4h - 3k - 6 &= 0
+		\end{align*}
+		Solving the above gives us $h_0 = 3$ and $k_0 = 2.$\\
+		Then, we have the ODE
+		\[\dfrac{\dd Y}{\dd X} = \dfrac{-X + 2Y}{4X - 3Y}.\]
+		To solve this, we make the substitution $Y = vX$ which gives us $\dd Y = v\dd X + Xdv.$ Thus, the ODE changes to
+		\begin{align*} 
+			& v + X\dfrac{dv}{\dd X} = \dfrac{2v - 1}{-3v + 4}\\
+			\implies & X\dfrac{dv}{\dd X} = \dfrac{3v^2 -2v - 1}{-3v + 4}\\
+			\implies & \dfrac{-3v + 4}{3v^2 - 2v - 1}dv = \dfrac{1}{X}\dd X
+		\end{align*}
+		Solve the above to get $Y$ in terms of $X.$ Then, substitute $Y$ and $X$ back in terms of $y$ and $x.$
+		\item Not sure why in this category as $ad - bc$ is indeed $0.$ Simply substitute $y - x + 5 = t$ to get $y' = 1 + t'.$\\
+		The equation transforms to $t' = -4/t.$ Solve.
+		\item Same as above.
+	\end{enumerate}
+	\item The equation can be easily separated to get the ODE:
+	\[\frac{1}{\sqrt{1 - x^2}}\dd x + \frac{1}{\sqrt{1 - y^2}}\dd y = 0.\]
+	Integrating gives us $\sin^{-1}x + \sin^{-1}y = c.$\\
+	Substituting the two conditions gives us two curves:
+	\begin{align*} 
+		\sin^{-1}x + \sin^{-1}y &= \frac{\pi}{3}\\
+		\sin^{-1}x + \sin^{-1}y &= -\frac{\pi}{3}
+	\end{align*}
+	Let us now show that both the above curves are part of the same ellipse.
+	\begin{align*} 
+		\sin^{-1}x + \sin^{-1}y = c\\
+		\implies \cos\left(\sin^{-1}x + \sin^{-1}y\right) = \cos c\\
+		\implies \sqrt{1 - x^2}\sqrt{1 - y^2} - xy = \cos c\\
+		\implies \sqrt{1 - x^2}\sqrt{1 - y^2} = \cos c + xy\\
+		\implies (1 - x^2)(1 - y^2) = \cos^2c + 2xy\cos c + x^2y^2\\
+		\implies 1 - x^2 - y^2 = \cos^2c + 2xy\cos c
+	\end{align*}
+	Note for the curves given, we had $c = \pm \frac{1}{3}\pi.$ Thus, $\cos c = \frac{1}{2}$ for both curves. Substituting in the above gives
+	\begin{align*} 
+		x^2 + y^2 + xy = \frac{3}{4}\\
+		\iff 3\left(\dfrac{x + y}{\sqrt{2}}\right)^2 + \left(\dfrac{x - y}{\sqrt{2}}\right)^2 = \frac{3}{2}.
+	\end{align*}
+	Behold, an ellipse.\\
+	Now, note that the ODE given has $\dfrac{\dd y}{\dd x} \le 0.$ However, the remaining parts of the ellipse after removing the arcs has $\dfrac{\dd y}{\dd x} > 0.$ Thus, that part cannot satisfy the ODE.\\
+	(Note the ellipse \emph{is} contained in $[-1, 1] \times [-1, 1]$, so any argument saying $x \in [-1, 1]$ or $y \in [-1, 1]$ is not valid to justify why the remaining part does not satisfy.)
+	\item Differentiating the equation given gives
+	\begin{align*} 
+		y' &= xy'' + y' + f'(y')y''\\
+		\implies 0 &= xy'' + f'(y')y'' = (x + f'(y'))y''
+	\end{align*}
+	If $y'' = 0,$ then we get $y = cx + b.$ As $y$ satisfies the original ODE, we get that $cx + b = cx + f(c)$ or $b = f(c).$\\
+	Thus, the solution is $y = cx + f(c).$\\
+	The case $x + f'(y') = 0$ is precisely the singular solution described.
+	%
+	\item 
+	\begin{enumerate}[label = (\roman*)] 
+		\item This is a Clairaut equation with $f(x) = 1/x.$\\
+		Thus, the general solution is $x = cx + 1/c.$\\
+		Singular solution:\\
+		First, we compute $f'(x) = -1/x^2.$\\
+		Thus, we get $-1/y'^2 = -x$ or $y' = \frac{1}{\sqrt{x}}.$\\
+		Integrating gives us $y = 2\sqrt{x} + c.$\\
+		However, substituting the above in the original ODE gives us that $c = 0.$ \\
+		Now, note that if we take $y' = -\frac{1}{\sqrt{x}},$ then we get $y = -2\sqrt{x}.$\\
+		Conclude that the special solution is simply $y^2 = 4x.$
+		\item This is a Clairaut equation with $f(x) = -\dfrac{x}{\sqrt{1 + x^2}}.$\\~\\
+		Thus, the general solution is $x = cx -\dfrac{c}{\sqrt{1 + c^2}}.$\\~\\
+		Singular solution:\\
+		First, we compute $f'(x) = -\dfrac{1}{(1 + x^2)^{3/2}}.$\\~\\
+		Thus, we get $-\dfrac{1}{(1 + y'^2)^{3/2}} = -x$ or $\dfrac{1}{\sqrt{1 + y'^2}} = x^{1/3}$ or $y' = \pm\sqrt{\dfrac{1}{x^{2/3}} - 1}.$\\~\\
+		Taking the positive solution and substituting in the original ODE gives us:
+		\begin{align*} 
+			y &= x\sqrt{\dfrac{1}{x^{2/3}} - 1} - x^{1/3}\sqrt{\dfrac{1}{x^{2/3}} - 1}\\
+			& = (x - x^{1/3})\sqrt{\dfrac{1 - x^{2/3}}{x^{2/3}}}\\
+			&= (x^{2/3} - 1)\sqrt{1 - x^{2/3}}\\
+			y &= -(1 - x^{2/3})^{3/2}
+		\end{align*}
+		Taking the negative solution, we get $y = (1 - x^{2/3})^{3/2}.$\\
+		Conclude that the $y^2 = (1 - x^{2/3})^3$ is the solution.\\
+		Note that while both the solutions are defined on $[-1, 1],$ they only satisfy the ODE for $x \in [0, 1].$ \hfill (Why? In the calculations above, you can see where we need $x > 0.$)
+	\end{enumerate}
+	\item The desired equation of the tangent is $y - c^2 = 2c(x - c).$ (The slope $2c$ came from the fact that $y' = 2x.$)\\
+	Rearranging gives us $y = 2xc - c^2.$\\
+	Derive the ODE of the above to be $y = xy' - y'^2/4.$\\
+	This is a Clairaut equation with $f(x) = -x^2/4.$\\~\\
+	Do the same for your favourite curve. In fact, let $g:\mathbb{R}\to\mathbb{R}$ be any function. Take the curve $y = g(x)$ and perform this exercise.
+	%
+	\item Let us find the envelope to the above family.\\
+	Let $F(t, x, y) = y - 2xt + t^2.$ For shorthand, we denote this by $F.$\\~\\
+	Then, we have $\dfrac{\partial}{\partial t}F(t, x, y) = -2x + 2t.$ For shorthand, we denote this by $F_t.$\\~\\
+	We eliminate $t$ from the equations $F = 0$ and $F_t = 0$ to get the equation of the envelope.\\
+	$F_t = 0$ gives $t = x.$ Substituting this in $F = 0$ gives $y - 2x(x) + x^2 = 0$ or $y = x^2.$ \hfill (Interesting.)\\
+	Now, we verify that $y = x^2$ satisfies Clairaut's equation.\\
+	Note that $y' = 2x$ and thus, $xy' - y'^2 = x(2x) - (2x)^2/4 = x^2 = y,$ as desired.
+	%
+	\item Just plug $A/\sqrt{x}$ in the ODE given. This gives us
+	\[-\frac{1}{2}\frac{A}{x^{3/2}} - \frac{A^3}{x^{3/2}} = \dfrac{2}{x^{3/2}},\]
+	or
+	\[A^3 + \dfrac{1}{2}A + 2 = 0.\]
+	Let the expression on the left be $f(A).$ Then, $f(A) \to \infty$ as $A \to \infty$ and $f(A) \to -\infty$ as $A \to \infty.$ From this, we may conclude that $f(A) = 0$ for some $A \in \mathbb{R}.$ This shows the existence of a real solution.\\
+	For uniqueness, note that $f'(A) = 3A^2 + 0.5 > 0$ for all $A \in \mathbb{R}.$ If $f$ had two distinct real roots, then $A'$ would have to be zero between them, by Rolle's, but that is not possible. Thus, $f$ has a unique real root.\\
+	Argue that $f$ must have two distinct (non-real) complex roots concluding that there are three distinct solutions of $f(A) = 0.$\\~\\
+	As $A/\sqrt{x}$ is a solution iff $f(A) = 0,$ we are done.
+\end{enumerate}
+
+\newpage\section{Tutorial 2}
+\begin{enumerate}[leftmargin=*, label = Q.\arabic*.] 
+	\item All of the ODEs are of the form $M\dd x + N\dd y = 0.$\\
+	We just have to fine the condition where $N_x = M_y.$ Note that this implies that the ODE is closed. However, all the functions in the question are defined on $\mathbb{R}^2$, which is convex and thus, exact is the same as closed. (In fact, we only need the domain to be simply-connected.)
+	\begin{enumerate}[label = (\roman*)] 
+		\item $M = f(x) + g(y)$ and $M_y = g'(y).$ Similarly, $N_x = h'(x).$ Thus, we need $g'(y) = h'(x).$ However, note that the LHS is a function purely of $y$ and the RHS purely of $x.$ Thus, $g'(y) = h'(x) = c$ for some $c \in \mathbb{R}.$ Thus, $g(y) = cy + c_1$ and $h(x) = cx + c_2$ for some constants $c_1$ and $c_2.$
+		\item $M_y = 2xy$ and $N_x = 2axy + 2by^2.$ Thus, $a = 1$ and $b = 0.$
+		\item $M_y = 2bx + 2cy$ and $N_x = 2bx + 2cy.$ Thus, the ODE is exact for any real values of $a, b, c,$ and $g.$
+	\end{enumerate}
+	%
+	\item Given that $M\dd x + N\dd y = 0$ is exact, we need to find a scalar function $u(x, y)$ such that $u_x = M$ and $u_y = N.$ (The existence of such a $u$ is guaranteed by theory.)\\
+	Then, the general solution is given by $u(x, y) = c.$\\
+	The procedure to find such a $u$ is also not difficult and I illustrate it with one question. The other can similarly be solved.
+	\begin{enumerate}[label = (\roman*)] 
+		\item 
+		\begin{align} 
+			u_x &= 3x^2y - 6x \label{eq:ux}\\
+			u_y = x^3 + 2y \label{eq:uy}\\
+		\end{align}
+		Integrating the first equation with respect to $x$ gives us $u(x, y) = x^3y - 3x^2 + g(y).$\\
+		Calculating $u_y$ using this gives $u_y = x^3 + g'(y).$ \\
+		Substituting in (\ref{eq:uy}) gives us that $g'(y) = 2y.$\\
+		Thus, one choice of $u(x, y)$ is $u(x, y) = x^3y - 3x^2 + y^2.$\\
+		The general solution is thus, $x^3y - 3x^2 + y^2 = c.$
+	\end{enumerate}
+	\item In the following, $M$ and $N$ will have the usual meaning. That is, $M$ and $N$ will be chosen such that the ODE in question is $M\dd x + N\dd y.$
+	\begin{enumerate}[label = (\roman*)] 
+		\item Already exact.
+		\item Already exact.
+		\item $x^2$
+		\item Note that $M_y = e^{x/y}(1 - x/y)$ and $N_x = -e^{x/y}(1 + x/y).$\\
+		Thus, $\dfrac{N_x - M_y}{M} = -\dfrac{2}{y}$ is a function of $y$ alone.\\
+		Thus, we may assume $\mu$ to be an IF depending only on $y.$ This sets up the equation
+		\begin{align*} 
+			\frac{d\mu}{\dd y} &= -\frac{2}{y}\mu\\
+			\implies \frac{1}{\mu}d\mu &= -\frac{2}{y}\dd y\\
+			\implies \ln|\mu| &= -2\ln|y| + C
+		\end{align*}
+		Thus, $\mu = y^{-2}$ is one possible IF.\footnote{Note that there was originally a typo. Credits to saxophone for pointing it out.}\\
+		\item Already exact.
+		\item Note that $M_y = 2y$ and $N_x = y.$\\
+		Then, $\dfrac{M_y - N_x}{N} = \dfrac{y}{xy} = \dfrac{1}{x},$ is a function of $x$ only.\\
+		Same idea as before gives $\mu = x$ as a possible integrating factor.
+	\end{enumerate}
+	\item \begin{align*} 
+		& M\dd x + N\dd y = 0\\
+		\implies & Mx\frac{\dd x}{x} + Ny\frac{\dd y}{y} = 0\\
+		\implies & 2Mx\frac{\dd x}{x} + 2Ny\frac{\dd y}{y} = 0\\
+		\implies & Mx\frac{\dd x}{x} + Mx\frac{\dd x}{x} + Mx\frac{\dd y}{y} - Mx\frac{\dd y}{y} + Ny\frac{\dd x}{x} - Ny\frac{\dd x}{x} + Ny\frac{\dd y}{y} + Ny\frac{\dd y}{y} = 0\\
+		\implies & (Mx + Ny)\left(\frac{\dd x}{x} + \frac{\dd y}{y}\right) + (Mx - Ny)\left(\frac{\dd x}{x} - \frac{\dd y}{y}\right) = 0\\
+		\implies & (Mx + Ny)d(\ln(xy)) + (Mx - Ny)d\left(\ln\left(\frac{x}{y}\right)\right) = 0\\
+		\implies & \frac{1}{2}(Mx + Ny)d(\ln(xy)) + \frac{1}{2}(Mx - Ny)d\left(\ln\left(\frac{x}{y}\right)\right) = 0.		 
+	\end{align*}
+	\begin{enumerate}[label = (\roman*)] 
+		\item In the case that $Mx + Ny = 0,$ the given ODE transforms to $\dfrac{1}{2}(Mx - Ny)d\left(\ln\left(\frac{x}{y}\right)\right) = 0.$\\~\\
+		Multiplying with the given factor gives $\dfrac{1}{2}d\left(\ln\left(\frac{x}{y}\right)\right) = 0,$ which is clearly exact. Thus, the given factor is indeed an IF.
+		\item Same as above.
+	\end{enumerate}
+	%
+	\item If $\mu$ is an IF of the given ODE, we then have
+	\begin{align*} 
+		\mu_yM + \mu M_y &= \mu_xN + \mu N_x\\
+		\implies M_y - N_x &= N\frac{\mu_x}{\mu} - M\frac{\mu_y}{\mu}.
+	\end{align*}
+	Noting that $\dfrac{\partial}{\partial x}\ln|\mu| = \dfrac{\mu_x}{\mu}$ and $\dfrac{\partial}{\partial y}\ln|\mu| = \dfrac{\mu_y}{\mu}$ gives the result.\\
+	\begin{enumerate}[label = (\alph*)] 
+		\item $M_y - N_x = Nf(x).$\\
+		In this case, the above equation transforms to
+		\[M\left(\frac{\mu_y}{\mu}\right) = N\left(\frac{\mu_x}{\mu} - f(x)\right).\]
+		If $\mu = \exp\left(\displaystyle\int_{a}^{x} f(x') \text{d}x'\right),$ then the bracketed term on both sides is $0.$
+		\item Same as above.
+		\item $M_y - N_x = Nf(x) - Mg(y).$\\
+		In this case, the above equation transforms to
+		\[M\left(g(y) - \frac{\mu_y}{\mu}\right) = N\left(\frac{\mu_x}{\mu} - f(x)\right).\]
+		If $\mu = \exp\left(\displaystyle\int_{a}^{x} f(x') \text{d}x' + \int_{a}^{y'} g(y') \text{d}y'\right),$ then the bracketed term on both sides is $0.$
+	\end{enumerate}
+	\begin{enumerate}[label = (\roman*)] 
+		\item In this case, we have $M_y - N_x = 4(x - 3y) = \dfrac{2}{x}[2x(x - 3y)].$\\
+		Thus, this is case (a) with $f(x) = 2x^{-1}.$ Solve it.
+		\item In this case, we have $M_y - N_x = (-1)[3(x^2 + y^2)].$\\
+		Thus, this is case (b) with $g(y) = -1.$ Solve it. (Note that the $-$ will get canceled.)
+		\item In this case, we have $M_y - N_x = 2x + 4y = \dfrac{2}{x}[x(x + 2y)].$\\
+		Thus, this is case (a) with $f(x) = 2x^{-1}.$ Solve it.		
+	\end{enumerate}
+	\item 
+	\begin{enumerate}[label = (\roman*)] 
+		\item Can be rearranged to give
+		\[\frac{1}{x - a} = \frac{1}{y + ay^2}y'.\]
+		Solve using partial fractions.
+		\item Note that $\frac{1}{x^2 + y^2}$ is an IF.\\
+		I'm not sure if we can get a closed form, though. Also, note that $(0, 0)$ is a problem with using the above IF. However, removing the origin makes the domain not-simply connected. So this method would require solving it on a smaller domain. For example, only the top half plane.
+		\item We have $M_y - N_x = 4y\sqrt{x^2 + y^2} = \left(-\dfrac{4}{x}\right)N.$\\
+		Conclude.
+		\item Substitute $Y = x + y.$ Note that $y' = Y' - 1.$
+		\item Rearrange to get
+		\[\frac{1}{y + y^2}y' = \frac{1}{x}.\]\\
+		Solve using partial fractions.
+		\item 
+		\begin{align*} 
+			&x^2y' + 2xy = \sinh 3x\\
+			\implies &\frac{d}{\dd x}(x^2y) = \sinh 3x\\
+			\implies &x^2y = \frac{1}{3}\cosh 3x + c
+		\end{align*}
+		\item Multiplying both sides with $\sec x$ gives an exact ODE. Solve it.
+		\item Use Q. 10. from the previous sheet.
+	\end{enumerate}
+	\item Substitute $y = vx$ in each and solve. Note that $y' = v + v'x.$
+	\item All of the ODEs are first order linear ODEs of the form $y' + p(x)y = g(x).$\\
+	From the theory done in class, we know that $\exp\left(\displaystyle\int_{x_0}^{x} p(t) \text{d}t\right)$ is an IF.\\
+	Moreover, we know that the final solution is given as 
+	\[y = \exp\left(-\displaystyle\int_{x_0}^{x} p(t) \text{d}t\right)\left(\int_{x_1}^{x} \exp\left(-\displaystyle\int_{x_0}^{t} p(u) \text{d}u\right)g(t) \text{d}t + c\right).\]
+	Note that the constants $x_0$ and $x_1$ are arbitrary and one may choose them according to convenience. (This is effectively doing the same as indefinite integration without keeping the constant.)\\
+	The first has been done for illustration. The others are done similarly. Only the IFs have been written.
+	\begin{enumerate}[label = (\roman*)] 
+		\item In standard form, we have
+		\[y' + -\frac{2}{x}y = x^3.\]
+		Thus, the IF is $\displaystyle\exp\left(\int_{1}^{x} \left(-\frac{2}{t}\right) \text{d}t\right) = \dfrac{1}{x^2}.$\\~\\
+		Thus, the solution is given by
+		\[y = x^2\int x \text{d}x = x^3 + Cx^2.\]
+		\item IF = $e^{2x}.$
+		\item IF = $\cos^3 x.$
+		\item IF = $\operatorname{cosec} x.$
+		\item IF = $\sin x.$
+		\item IF = $e^{-mx}.$
+	\end{enumerate}
+	\item Under the transformation $y^{1 - \alpha} = u,$ we have that $(1 - \alpha)y^{-\alpha} y' = u'.$\\
+	Also, diving the original equation by $y^\alpha$ and multiplying with $1 - \alpha$ gives us
+	\[y^{-\alpha}(1 - \alpha)y' + f(x)(1 - \alpha)y^{1-\alpha} = (1 - \alpha)g(x).\]
+	The above is equivalent to
+	\[u' + (1 - \alpha)f(x)u = (1 - \alpha)g(x).\]
+	The above is a first order linear ODE.
+	\begin{enumerate}[label = (\roman*)] 
+		\item Not sure why this is given here as this is not a Bernoulli equation. However, the spirit of derivation is the same.\\
+		Make the substitution $e^y = u$ to arrive at
+		\[u' - u = 2x - x^2.\]
+		This is a first order linear ODE. Solve this and substitute back. (IF = $e^{-x}.$)
+		\item First make the substitution $y + 1 = Y$ to get $2YY' - \dfrac{2}{x}Y^2 = x^4.$\\
+		This is (almost) a Bernoulli equation. Substitute $Y^2 = u$ to get a first order linear ODE. Solve that then substitute back to get things in terms of $y.$
+		\item Divide by $x$ to get
+		\[y' + \left(\dfrac{1}{x} + 1\right)y = 1.\]
+		This is clearly a first order linear ODE. Solve.
+		\item Keep in mind that a change of perspective always helps in life.\\
+		Rewriting the equation as
+		\[\frac{\dd x}{\dd y} + (-y)x = y^3x^3\]
+		and viewing it as a Bernoulli in $x$ will lead to the answer.\\
+		In fact, this is the same as the next question with $x$ and $y$ replaced.
+		\item Clearly a Bernoulli equation after subtracting $xy$ from both sides. Do the substitution mentioned at the beginning with $\alpha = 3.$ Solve.
+		\item Divide by $x$ to get a Bernoulli equation with $\alpha = 4.$ Solve.
+		\item Rearrange to get
+		\[\frac{\dd x}{\dd y} + \left(-\frac{1}{6y}\right)x = \left(\frac{1}{3y^2}\right)x^4.\]
+		This is a Bernoulli equation (in the other way). Substitute $x^{-3} = v.$
+	\end{enumerate}
+	\item 
+	\begin{enumerate}[label = (\roman*)] 
+		\item Rearrange to get
+		\[\dfrac{\dd y}{\dd x} + \left(-\frac{3}{2x}\right)y = \frac{x}{4y}.\]
+		This is clearly a Bernoulli equation with $\alpha = -1.$ Substitute $y^2 = u$ and solve.
+		\item With separation of variables, we run into a problem as we divide by $y.$ We had seen this in the last tutorial's Q.8.(iii).\\
+		As a Bernoulli equation, we again have the problem of substituting $y^{-1} = u.$\\
+		Now, let us make the substitution given to obtain $-u' = (1 - u)u$ or $u' + u = u^2.$\\
+		Substituting $u^{-1} = v$ gives us $-v' + v = 1$ or $(e^{-x}v)' = -e^x.$\\
+		Thus, the solution is $v = 1 + Ce^x.$\\
+		Substituting back gives $u = (1 + Ce^x)^{-1}.$ The initial condition gives $1 = (1 + C)^{-1}$ or $C = 0.$ Thus, the solution is $u(x) = 1.$ This tells us that the solution of the original ODE was $y(x) = 0.$\\
+		No wonder dividing by $y$ was a problem.
+		\item Rearrange the given equation as
+		\[\frac{\dd x}{\dd y} +  \left(-\frac{1}{2y}\right)x = \left(-\frac{\ln y}{2y}\right)x^3.\]
+		This is clearly a Bernoulli equation. Substitute $x^{-2} = v.$
+		\item Following the hint given, we get
+		\[\cos ydz + (\cos^2y - z)\dd y = 0.\]
+		Rearrange to get
+		\[\frac{dz}{\dd y} + \left(-\sec y\right)z = -\cos y.\]
+		This is a linear first order ODE. Solve.
+	\end{enumerate}
+	\item The idea is to find the ODE of the given family of curves by eliminating the arbitrary constant. Then, we replace $y'$ with $-(y')^{-1}$ and then solve the ODE obtained to find the orthogonal family of curves.\\
+	I shall do the first example.
+	\begin{enumerate}[label = (\roman*)] 
+		\item $x^2 - y^2 = c^2.$ Differentiating wrt $x$ gives:\\
+		$x - yy' = 0.$\\
+		$y' \mapsto -\dfrac{1}{y'}$ gives us\\~\\
+		$xy' + y = 0.$ Dividing with $xy$ separates the variables to give\\
+		$\dfrac{1}{y}y' + \dfrac{1}{x} = 0.$\\~\\
+		Integrate to obtain $\ln|xy| = C$ or $xy = K.$
+	\end{enumerate}
+	\item First, let us find the ODE of the given family. Note that only $\lambda$ is to be eliminated. $a$ and $b$ are fixed. $\lambda$ is the parameter that varies to give us the family.\\~\\
+	\begin{align*} 
+		\frac{x^2}{a^2 + \lambda} & + \frac{y^2}{b^2 + \lambda} = 1\\
+		\text{Differentiating} & \text{ wrt } x\\
+		\frac{x}{a^2 + \lambda} & + \frac{yy'}{b^2 + \lambda} = 0\\
+		\frac{b^2 + \lambda}{a^2 + \lambda} & = -\frac{yy'}{x}\\
+		1 + \frac{b^2 - a^2}{a^2 + \lambda} & = -\frac{yy'}{x}\\
+		1 + \frac{yy'}{x} & = \frac{a^2 - b^2}{a^2 + \lambda}\\
+		a^2 + \lambda & = \frac{(a^2 - b^2)x}{x + yy'}\\
+		b^2 + \lambda & = b^2 - a^2 + \frac{(a^2 - b^2)x}{x + yy'} = \frac{(b^2 - a^2)yy'}{x + yy'}
+	\end{align*}
+	Now, we substitute the values of $a^2 + \lambda$ and $b^2 + \lambda$ from the last two equations in the original curve equation to get:
+	\begin{align*} 
+		\frac{x^2(x + yy')}{(a^2 - b^2)x} - \frac{y^2(x + yy')}{(a^2 - b^2)yy'} &= 1\\
+		x(x + yy') - \frac{y(x + yy')}{y'} &= a^2 - b^2\\
+		\frac{(xy' - y)(x + yy')}{y'} &= a^2 - b^2
+	\end{align*}
+	The above is the ODE of the given family of curves. Now, we substitute $y' \mapsto -\dfrac{1}{y'}.$\\~\\
+	However, before doing so, we take a good look at the ODE obtained.\\
+	Hopefully, you've taken a good look.\\
+	Now, without further adieu, we proceed to obtain the ODE of the orthogonal family of curves as:
+	\begin{align*} 
+		\frac{(-x/y' - y)(x - y/y')}{-1/y'} &= a^2 - b^2\\
+		\iff \frac{[(x + yy')/y'][(xy' - y)/y']}{1/y'} &= a^2 - b^2\\
+		\iff \frac{(x + yy')(xy' - y)}{y'} &= a^2 - b^2
+	\end{align*}
+	Et viola! If you had indeed taken a good look earlier, you may have noticed that we have obtained the same ODE. Thus, the family of orthogonal curves is
+	\[\frac{x^2}{a^2 + \lambda} + \frac{y^2}{b^2 + \lambda} = 1.\]
+	A paradox?
+	\item \begin{enumerate}[label = (\roman*)] 
+		\item We have $y' = 1 + (-x^3)y + x^2y^2.$ Thus, $P(x) = 1, Q(x) = -x^3,$ and $R(x) = x^2.$\\
+		The Bernoulli equation then reads
+		\[u' - x^3u = x^2u^2.\]
+		To solve this, we make the substitution $u^{-1} = v$ to obtain
+		\[v' + x^3v = -x^2.\]
+		We get the IF as $\exp\left(\dfrac{1}{4}x^4\right).$\\~\\
+		Thus, the solution is given by
+		\[v = -\exp\left(-\dfrac{1}{4}x^4\right)\int x^2\exp\left(\dfrac{x^4}{4}\right) \text{d}x.\]
+		The last integral cannot be explicitly solved in terms of elementary functions, so we leave it as it is.\\
+		Using $uv = 1$ gives us $u.$ Thus, the general solution $y(x) = y_1(x) + u(x)$ is given as
+		\[y(x) = x - \dfrac{\exp\left(\dfrac{1}{4}x^4\right)}{\displaystyle\int x^2\exp\left(\dfrac{x^4}{4}\right) \text{d}x}.\]
+		\item Same idea.
+	\end{enumerate}
+	\item 
+	\begin{enumerate}[label = (\roman*)] 
+		\item We have $y' = 2\sqrt{y} =: f(t, y).$\\
+		Thus, the corresponding integral equation is
+		\[\phi(t) = 0 + \int_{1}^{t} 2\sqrt{\phi(s)} \text{d}s\]
+		\begin{align*} 
+			\phi_0(t) &= 0\\
+			\phi_1(t) &= \int_{1}^{t} f(s, \phi_0(s)) \text{d}s\\
+			&= \int_{1}^{t} 0 \text{d}s\\
+			&= 0
+		\end{align*}
+		... oh. Clearly, we shall keep getting $\phi_n(x) = 0$ for all $n \in \mathbb{N}.$\\
+		One may verify that $y(x) = 0$ for all $x \in \mathbb{R}$ is indeed a solution to the given IVP.\\
+		However, one may note that $\frac{\partial f}{\partial y}$ is not continuous on any rectangle containing the point $(1, 0).$ (It is not even defined at $(1, 0)$.) Thus, the hypothesis of Picard's theorem is not satisfied. It is not surprising that we miss out on the solution $y(x) = (x - 1)^2$ for $x \ge 1.$
+		\item $y' = xy + 1$ and $y(0) = 1.$\\
+		We try to solve the integral equation
+		\[\phi(t) = 1 + \int_{0}^{t} (s\phi(s) + 1) \text{d}s.\]
+		We define the Picard iterates as
+		\begin{align*} 
+			\phi_0(t) &= 1\\
+			\phi_1(t) &= 1 + \int_{0}^{t} (s\phi_0(s) + 1) \text{d}s\\
+			&= 1 + \int_{0}^{t} (s + 1) \text{d}s\\
+			&= 1 + t + \frac{t^2}{2}\\~\\
+			\phi_2(t) &= 1 + \int_{0}^{t} \left(s\left(1 + s + \frac{s^2}{2}\right) + 1\right) \text{d}s\\
+			&= 1 + t + \frac{t^2}{2} + \frac{t^3}{3} + \frac{t^4}{8}\\~\\
+			\phi_3(t) &= 1 + t + \frac{t^2}{2} + \frac{t^3}{3} + \frac{t^4}{8} + \frac{t^5}{15} + \frac{t^6}{48}\\
+			&\vdots\\
+			\phi_n(t) &= \sum_{k=0}^{2n}\frac{t^{k}}{k!!}
+		\end{align*}
+		Where $n!!$ is the double factorial of $n.$ (Not the factorial of the factorial of $n.$)\\
+		The double factorial is recursively defined as $n!! = n\cdot(n - 2)!!$ with base cases $0!! = 1!! = 1.$\\~\\
+		To compare with the exact solution, notice that $y(x)$ defined as
+		\[y(x) = \sum_{n=0}^{\infty}\frac{x^n}{n!!}\]
+		satisfies the ODE given. To check, simply plug it in the equation and verify. Assume that the series does converge for all real $x$ and that term-by-term differentiation is valid.\\
+		(Instead of assuming convergence, show the convergence using the Ratio test.)
+		\item %TBD
+	\end{enumerate}
+	%
+	\item First we prove the following claim:\\
+	\textbf{Claim.} $|\sin y_2 - \sin y_1| \le |y_2 - y_1|$ for all $y_1, y_2 \in \mathbb{R}.$
+	\begin{proof} 
+		If $y_1 = y_2,$ then the claim is certainly true.\\
+		Assume $y_1 \neq y_2.$ Then, by LMVT, we have
+		\[\frac{\sin y_2 - \sin y_1}{y_2 - y_1} = \sin'(y_3) = \cos(y_3),\]
+		for some $y_3$ between $y_1$ and $y_2.$\\
+		(Note that we're not assuming $y_1 < y_2.$)\\
+		As $|\cos y_3| \le 1,$ the claim follows.
+	\end{proof}
+	Armed with this claim, we may proceed as follows:
+	\begin{align*} 
+		|f(x, y_1) - f(x, y_2)| &= ||\sin y_1| - |\sin y_2||\\
+		&\le |\sin y_1 - \sin y_2|\\
+		&\le |y_1 - y_2|.
+	\end{align*}
+	This proves the claim about being Lipschitz with $M = 1.$\\~\\
+	Now, we show that $f_y$ does not exist at $(x_0, 0)$ for any $x_0 \in \mathbb{R}.$\\
+	Recall, from calculus, the definition of $f_y$ as
+	\begin{align*} 
+		f_y(x_0, 0) = \lim_{k\to 0}\dfrac{f(x_0, 0 + k) - f(x_0, 0)}{k},
+	\end{align*}
+	if the limit exists. We show that it does not. For $k \neq 0,$ we may note that
+	\begin{align*} 
+		\dfrac{f(x_0, 0 + k) - f(x_0, 0)}{k} &= \dfrac{|\sin k| + x_0 - 0 - x_0}{k}\\
+		&= \frac{|\sin k|}{k}
+	\end{align*}
+	It is clear that the limit of the above expression as $k \to 0$ does not exist.
+\end{enumerate}
+
+\newpage\section{Tutorial 3}
+
+\begin{enumerate}[leftmargin=*, label = Q.\arabic*.] 
+	\item We have the constant coefficients ODE $y'' - y' = 0$ to solve.\\
+	The tangent condition given tells us that $y(0) = 0$ and $y'(0) = 1.$\\
+	As it's a constant coefficients ODE, we substitute $y = e^{mx}$ and get the quadratic
+	\[m^2 - m = 0.\]
+	Clearly, the above has roots $0$ and $1.$ Thus, the general solution is given by $y = Ae^x + B.$ Substituting the initial conditions give us $A = 1$ and $B = -1.$\\
+	Thus, $y = e^x - 1$ is the final solution.
+	\item \label{q2} Both of these are constant coefficients ODEs. We substitute $y = e^{mx}$ in each and get the quadratics.
+	\begin{enumerate}[label = (\roman*)] 
+		\item Here, we get
+		\[m^2 - m - 2 = 0.\]
+		Clearly, the above has roots $-1$ and $2.$ Thus, the general solution is given by $y = Ae^{-x} + Be^{2x}.$ 
+		\item Here, we get
+		\[m^2 - 2m + 5 = 0.\]
+		Clearly, the above has roots $r_1 = 1 + 2i$ and $r_2 = 1 - 2i.$ Thus, the general solution is given by $y = Ae^{r_1x} + Be^{r_2x}.$ However, we can write this in another more \emph{real} form as well.\\
+		Note that if $y_1$ and $y_2$ are solutions of the above, then so is $y_1 \pm y_2.$ Moreover, the solution space of the ODE is a two dimensional vector space. Thus, if we can find two linearly independent solutions of the ODE, we can easily write the general form.\\
+		Now, setting $y_1 = e^{r_1x}$ and $y_2 = e^{r_2x},$ we get that
+		\begin{align*} 
+			y_1 + y_2 &= 2e^x(\cos(2x))\\
+			y_1 - y_2 &= 2ie^x(\sin(2x)).
+		\end{align*}
+		Clearly, the above two are linearly independent. Thus, we may write the general solution as
+		\[y = e^x(A\cos2x + B\sin 2x).\]
+	\end{enumerate}
+	\item The idea in both is to reverse the thing done above.
+	\begin{enumerate}[label = (\roman*)] 
+		\item We are given the solution space to be spanned by $\{e^{-2x}, e^{0x}\}.$ Note that $(m + 2)m = m^2 + 2m$ is a quadratic expression with $0, -2$ as roots. Thus, we consider the ODE
+		\[y'' + 2y = 0.\]
+		The above is the desired ODE.
+		\item Like before, we construct the quadratic equation as
+		\begin{align*} 
+			(m + \alpha)^2 + \beta^2 &= 0\\
+			\iff m^2 + 2\alpha m + (\alpha^2 + \beta^2) &= 0.
+		\end{align*}
+		Thus, the desired ODE is
+		\[y'' + 2\alpha y' + \alpha^2 + \beta^2 = 0.\]
+		\emph{Remark.} The question could have also been given with the functions: $e^{-\alpha x}\cos\beta x, e^{-\alpha x}\sin\beta x.$
+	\end{enumerate}
+	\item Recall from Linear Algebra that functions $f$ and $g$ are said to be linearly independent on some interval $I$ if there exist scalars $\alpha, \beta$ not both $0$ such that
+	\[\alpha f(x) + \beta g(x) = 0 \quad \forall x \in I.\]
+	\begin{enumerate}[label = (\roman*)] 
+		\item Let $J$ be any arbitrary interval such that $I \subset J.$\\
+		The statement given reads:\\
+		$y_1$ and $y_2$ are linearly independent on $I$ $\implies$ $y_1$ and $y_2$ are linearly independent on $J.$\\\\
+		\emph{Claim.} The given statement is true.
+		\begin{proof} 
+			Assume that $y_1$ and $y_2$ are linearly independent on $I.$ We show that $y_1$ and $y_2$ are linearly independent on $J.$\\
+			Let $\alpha, \beta$ be scalars such that
+			\begin{equation} \label{eq:linJ}
+			\alpha y_1(x) + \beta y_2(x) = 0 \quad \forall x \in J.
+			\end{equation}
+				
+			We show that this is possible only if $\alpha = \beta = 0.$ This will prove linear independence.\\
+			From (\ref{eq:linJ}), we can deduce that
+			\begin{equation} \label{eq:linI}
+			\alpha y_1(x) + \beta y_2(x) = 0 \quad \forall x \in I.
+			\end{equation}
+			(Why?)\\
+			However, $y_1$ and $y_2$ were assumed to be linearly independent on $I.$ Thus, from (\ref{eq:linI}), we can conclude that $\alpha = \beta = 0,$ as desired.
+		\end{proof}
+		\item This is just the contrapositive of the above. Thus, this is true as well.
+		\item Pretty sure there's a typo in the question and it's supposed to read -\\
+		If $y_1(x)$ and $y_2(x)$ are linearly independent solutions of $L(y) = 0$ on an interval $I,$ they are linearly independent solutions of $L(y) = 0$ on any interval $J$ contained in $I.$\\\\
+		The statement is true.\\
+		It is easy to note that $y_1$ and $y_2$ will indeed continue being solutions. We just have to show that they are still linearly independent.\\
+		For this, we recall the following:\\
+		If $y_1$ and $y_2$ are solutions of $L(y) = 0,$ then they are linearly independent iff their Wronskian is zero at all points. Moreover, we recall that if the Wronskian is nonzero at one point, it's nonzero everywhere.\\
+		Now, since $y_1$ and $y_2$ are linearly independent on $I,$ we get that $W(y_1, y_2;x) \neq 0$ for all $x \in I.$\\
+		However, this implies that $W(y_1, y_2;x) \neq 0$ for all $x \in J.$ Thus, $y_1$ and $y_2$ are linearly independent on $J.$\\\\
+		\emph{Remarks.} We have assumed that $P$ and $Q$ are continuous to use the above result.\\
+		We also emphasise that we crucially required the above result. In general, it is not true that if two functions are linearly independent on some interval, then they are also linearly independent on every subinterval. For example, consider the functions $x, |x|$ with $I = \mathbb{R}$ and $J = (0, \infty).$
+		\item True. Contrapositive of the above.
+	\end{enumerate}
+	\item 
+	\begin{enumerate}[label = (\roman*)] 
+		\item No.
+		\begin{equation*} 
+			(1)\sin2x + (1)\cos\left(2x + \frac{\pi}{2}\right) = 0 \quad \forall x > 0.
+		\end{equation*}
+		\item Yes. Suppose $\alpha, \beta \in \mathbb{R}$ are such that
+		\begin{equation} \label{eq:lindep2} 
+			\alpha x^3 + \beta x^2|x| = 0 \quad \forall x \in (-1, 1).
+		\end{equation}
+		We show that the above forces $\alpha = \beta = 0.$\\
+		As (\ref{eq:lindep2}) is true for all $x \in (-1, 1),$ we substitute $x = 1/2$ and $x = -1/2$ to get the above following equations,
+		\begin{align*} 
+			\alpha + \beta &= 0,\\
+			\alpha - \beta &= 0.
+		\end{align*}
+		Clearly, the only solution to the above is $(\alpha, \beta) = (0, 0).$
+		\item No.
+		\begin{equation*} 
+			(1)x|x| + (-1)x^2 = 0 \quad \forall x \in [0, 1].
+		\end{equation*}
+		\item No.
+		\begin{equation*} 
+			(-2)\log x + (1)\log x^2 = 0 \quad \forall x > 0.
+		\end{equation*}
+		\item Yes. Compute the Wronskian, it turns out to be
+		\[\det\begin{bmatrix}
+			x & x^2 & \sin x\\
+			1 & 2x & \cos x\\
+			0 & 2 & -\sin x
+		\end{bmatrix}.\]
+		Evaluate the above at $x = \pi.$ As the Wronskian is nonzero, we are done.
+	\end{enumerate}
+	\item Both of these are constant coefficients ODEs. We substitute $y = e^{mx}$ in each and get the quadratics to find the general solution. We then find the particular solution by using the initial conditions given.\\
+	Using the same idea as \ref{q2}, we can find the general solution and thus, I shall directly write that.
+	\begin{enumerate}[label = (\roman*)] 
+		\item The general solution is $y = Ae^{3x} + Be^x.$\\
+		$y(0) = 1 \implies A + B = 1.$\\
+		$y'(0) = -5 \implies 3A + B = -5.$\\
+		Thus, $A = -3$ and $B = 4.$\\
+		Hence, the desired solution is $y = -3e^{3x} + 4e^x.$
+		\item The general solution is $y = Ae^{2x} + B.$\\
+		$y(0) = -1 \implies A + B = -1.$\\
+		$y(0.5) = e - 2 \implies Ae + B = e-2.$\\
+		Thus, $A = 1$ and $B = -2.$\\
+		Hence, the desired solution is $y = e^{2x} + -2.$
+	\end{enumerate}
+	\item Same idea as above. Just do it. \checkmark
+	\item \label{q8} All of these are Cauchy-Euler equations. To solve these, we substitute $y = x^m$ and solve for $m.$ I shall directly write the equation obtained and then the general solution.
+	\begin{enumerate}[label = (\roman*)] 
+		\item Equation:
+		\begin{align*} 
+			m(m - 1) - 4m + 4 &= 0\\
+			\iff m^2 - 5m + 4 &= 0
+		\end{align*}
+		Thus, the general solution is
+		\begin{equation*} 
+			y = Ax^4 + Bx.
+		\end{equation*}
+		$y(1) = 1 \implies A + B = 4.$\\
+		$y'(1) = 1 \implies 4A + B = 1.$\\
+		Thus, $A = -1$ and $B = 5$ giving the final solution to be
+		\begin{equation*} 
+			y = 5x -x^4.
+		\end{equation*}
+		\item Equation:
+		\begin{align*} 
+			4m(m - 1) + 4m - 1 &= 0\\
+			\iff 4m^2 - 1 &= 0
+		\end{align*}
+		Thus, the general solution is
+		\begin{equation*} 
+			y = Ax^{1/2} + Bx^{-1/2}.
+		\end{equation*}
+		$y(4) = 2 \implies 2A + B/2 = 2.$\\
+		$y'(4) = -1/4 \implies A - B/4 = -1/4.$\\
+		Thus, $A = 3/8$ and $B = 5/2$ giving the final solution to be
+		\begin{equation*} 
+			y = \dfrac{3}{8}\sqrt{x} - \dfrac{5}{2}\cdot\frac{1}{\sqrt{x}}.
+		\end{equation*}
+		\item Equation:
+		\begin{align*} 
+			m(m - 1) - 5m + 8 &= 0\\
+			\iff m^2 - 6m + 8 &= 0
+		\end{align*}
+		Thus, the general solution is
+		\begin{equation*} 
+			y = Ax^2 + Bx^4.
+		\end{equation*}
+		$y(1) = 5 \implies A + B = 5.$\\
+		$y'(1) = 18 \implies 2A + 4B = 18.$\\
+		Thus, $A = 1$ and $B = 4$ giving the final solution to be
+		\begin{equation*} 
+			y = x^2 + 4x^4.
+		\end{equation*}
+	\end{enumerate}
+	\item \label{q9} I shall do the (viii)-th one. The idea is the same.
+	\begin{enumerate}[start = 8, label = (\roman*)] 
+		\item $2y'''' + 3y'' + y = x^2 + 3\sin x.$\\
+		First, we solve the associated homogeneous equations
+		\begin{equation} \label{eq:homo}
+		 	(2D^4 + 3D^2 + 1)y = 0.
+		\end{equation} 
+		This can be clearly solved by the substitution $y = e^{mx}.$ We get $m^2 = -1, -1/2.$ This gives us the four linearly independent solutions:
+		\[\cos x, \sin x, \cos\left(\frac{x}{\sqrt{2}}\right), \sin\left(\frac{x}{\sqrt{2}}\right).\]
+		Thus, the general solution is given by:
+		\begin{equation} \label{eq:solnhomo}
+		y_g = c_1\cos x + c_2\sin x + c_3\cos\left(\frac{x}{\sqrt{2}}\right) + c_4\sin\left(\frac{x}{\sqrt{2}}\right).
+		\end{equation}
+			
+		Now, we find a solution for
+		\begin{equation} \label{eq:x2}
+			(2D^4 + 3D^2 + 1)y = x^2.
+		\end{equation}
+		Note that $x^2 = x^2e^{0x}$ and thus, $D^3$ is an annihilator for it. Applying this to (\ref{eq:x2}) gives us
+		\begin{equation*} 
+			D^3(2D^4 + 3D^2 + 1)y = 0.
+		\end{equation*}
+		Now, we solve this. Note that any solution of (\ref{eq:homo}) is again a solution and will get annihilated by the LHS of (\ref{eq:x2}) and thus, we may ignore it here and only solve $D^3y = 0.$\\
+		This gives us the solution as $y_1 = a_1 + a_2x + a_3x^2.$\\
+		Substituting this in (\ref{eq:x2}) gives us
+		\begin{align*} 
+			3a_3 + a_1 + a_2x + a_3x^2 &= x^2.
+		\end{align*}
+		Thus, $a_3 = 1,\;a_2 = 0, a_1 = -3.$\\
+		This gives us the solution of (\ref{eq:x2})	as 
+		\begin{equation} \label{eq:solnx2}
+			y_1 = x^2 - 3.
+		\end{equation}
+		Now, we find a solution for
+		\begin{equation} \label{eq:sin}
+			(2D^4 + 3D^2 + 1)y = 3\sin x.
+		\end{equation}
+		Note that $2i\sin x = e^{ix} - e^{-ix}$ and thus, $D^2 + 1$ is an annihilator for it. Applying this to (\ref{eq:sin}) gives us
+		\begin{equation*} 
+			(D^2 + 1)(2D^4 + 3D^2 + 1)y = 0.
+		\end{equation*}
+		Now, we solve this. \\
+		In this case, note that we get repeated roots as the equation becomes
+		\begin{equation*} 
+			(D^2 + 1)^2(2D^2 + 1) = 0.
+		\end{equation*}
+		Like before, we ignore the functions that are solutions of (\ref{eq:homo}) to get $y_2 = b_1x\sin x + b_2x\cos x.$\\
+		Substituting this in (\ref{eq:sin}) gives us
+		\begin{align*} 
+			(2D^2 + 1)(D^2 + 1)y_2 &= 3\sin x\\
+			\implies (2D^2 + 1)(2b_1\cos x - 2b_2\sin x) &= 3\sin x\\
+			\implies (2D^2 + 2 -1)(2b_1\cos x - 2b_2\sin x) &= 3\sin x\\
+			\implies -(2b_1\cos x - 2b_2\sin x) &= 3\sin x\\
+		\end{align*}
+		Thus, $b_1 = 0$ and $b_2 = 3/2.$ This gives us
+		\begin{equation} \label{eq:solnsin}
+			y_2 = \frac{3}{2}\cos x.
+		\end{equation}
+		Using linearity of the original ODE, we get that the solution of the original ODE is given by the sums of (\ref{eq:solnhomo}), (\ref{eq:solnx2}) and (\ref{eq:solnsin}).
+	\end{enumerate}
+	\item Same idea as \ref{q9}. It's just that now you have to find a particular solution by substituting the initial values.
+	\item Same idea as \ref{q9}. However, here you don't have to do the substitutions to find the values of undetermined coefficients, that is, the values of $a_i$ and $b_i$ from \ref{q9}.
+	\item For the first two, simply substitute $y = x^m.$ Exactly like \ref{q8}. We do the third one with the similar spirit as \ref{q9}.
+	\begin{enumerate}[start = 3, label = (\roman*)] 
+		\item First, we solve the associated homogeneous equations
+		\begin{equation*}
+		 	(x^2D^2 + 2xD + 1/4)y = 0.
+		\end{equation*} 
+		This can be clearly solved by the substitution $y = x^{m}.$ We get $m(m - 1) + 2m + 1/4 = 0.$ This clearly give us $(2m + 1)^2 = 0.$\\
+		Thus, the general solution is given by:
+		\begin{equation*}
+		y_g = c_1x^{-1/2} + c_2x^{-1/2}\log x.
+		\end{equation*}
+			
+		Now, we find a solution for
+		\begin{equation} \label{eq:x12}
+			(x^2D^2 + 2xD + 1/4)y = x^{-1/2}.
+		\end{equation}
+		Note that $xD+1/2$ is an annihilator for the $x^{-1/2}.$ Applying this to (\ref{eq:x12}) gives us
+		\begin{equation*} 
+			(xD + 1/2)(x^2D^2 + 2xD + 1/4)y = 0.
+		\end{equation*}
+		Now, we solve this. \\
+		It can be seen that the substitution $y = e^{mx}$ yields the general solution along with $x^{-1/2}\log^2 x.$\\
+		We substitute $y_1 = ax^{-1/2}\log^2 x$ in (\ref{eq:x12}) to find the value of $a.$\\
+		Before that, we note the identity $x^2D^2 = (xD)(xD - 1).$ Thus, $x^2D^2 + 2xD + 1/4 = (xD)(xD - 1) + 2xD + 1/4 = (xD + 1/2)^2.$\\
+		Now, substituting gives us $(xD + 1/2)y_2 = x^{-1/2}.$ Evaluate the LHS to see that it equals $2a/\sqrt{x}.$ Thus, $a = 1/2$ giving us 
+		\begin{equation}
+			y_1 = \dfrac{1}{2}\frac{1}{\sqrt{x}}\log^2x.
+		\end{equation}
+		Using linearity, we get the general solution as
+		\[y = \frac{1}{\sqrt{x}}\left(a + b\log x + \frac{1}{2}\log^2x\right).\]
+
+	\end{enumerate}
+	\item Typical Cauchy-Euler, we find the general solution to be 
+	\begin{equation*} 
+		y = Ax^3 + Bx^{-1}.
+	\end{equation*}
+	As $\displaystyle\lim_{x\to \infty}y(x) = 0,$ we immediately get that $A = 0.$\\
+	$y(1) = 1$ then tells us that $B = 1.$ Thus the desired solution is
+	\begin{equation*} 
+		y = \dfrac{1}{x}.
+	\end{equation*}
+	\item Let the roots of the characteristic polynomial be $r_1$ and $r_2$ where $r_1, r_2 \in \mathbb{C}.$\\
+	(Note that $r_1$ and $r_2$ need not be conjugates even if they're nonreal as $\alpha$ and $\beta$ need not be real.)\\\\
+	%
+	Let us first assume the case that $r_1 \neq r_2.$\\
+	Then, any solution of the ODE is of the form
+	\begin{equation*} 
+		y(x) = ae^{r_1 x} + be^{r_2 x}
+	\end{equation*}
+	for some $a, b \in \mathbb{C}.$\\
+	Let $r_1 = \alpha_1 + i\beta_1$ and $r_2 = \alpha_2 + \beta_2$ where $\alpha_1, \alpha_2, \beta_1, \beta_2 \in \mathbb{R}.$\\
+	Now, if $\alpha_1 < 0$ and $\alpha_2 < 0,$ then it is clear that $\displaystyle\lim_{x\to \infty}y(x) = 0$ as $\displaystyle\lim_{x\to \infty}e^{r_1x} = 0 = \displaystyle\lim_{x\to \infty}e^{r_2x}.$ (Note that $e^{i\beta_1x}$ has unit modulus.)\\
+	Conversely, suppose that $y(x) \to 0$ as $x \to \infty$ for every choice of $a$ and $b.$ We wish to show that $\alpha_1$ and $\alpha_2$ are negative. In particular, we may take $a = 1$ and $b = 0.$ This tells us that $\alpha_1 < 0.$ Similarly, taking $a = 0$ and $b = 1$ gives us that $\alpha_2 < 0.$ Hence, we are done.\\\\
+	%
+	Now, let us assume that $r_1 = r_2 = r.$ Then, any solution of the ODE is of the form
+	\begin{equation*} 
+		y(x) = ae^{rx} + bxe^{rx}.
+	\end{equation*}
+	Noting that $\displaystyle\lim_{x\to \infty}xe^{rx} = 0$ iff $\Re(r) < 0$ again gives the answer with the same idea as before.
+\end{enumerate}
+\end{document}
