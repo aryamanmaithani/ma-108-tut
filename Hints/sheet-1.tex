@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[12pt]{article}
 \usepackage{amsmath, amssymb, amsfonts, amsthm, mathtools}
 \usepackage[utf8]{inputenc}
 \usepackage[inline]{enumitem}
@@ -31,6 +31,10 @@
 	top=20mm,
 }
 
+\renewcommand{\familydefault}{\sfdefault}
+
+\newcommand{\dd}{{\mathrm d}}
+
 \title{Tutorial 1}				% change
 \author{Aryaman Maithani}
 \date{11th March 2020}		% change
@@ -50,11 +54,11 @@ These are \textbf{not} complete solutions and should not be regarded as such. Th
 \begin{enumerate}[label = Q.\arabic*.] 
 	\item 
 	\begin{enumerate}[label = (\roman*)] 
-		\item Order: 3, non-linear. Non-linearity is due to the $\left(\dfrac{dy}{dx}\right)^2$ term.
+		\item Order: 3, non-linear. Non-linearity is due to the $\left(\dfrac{\dd y}{\dd x}\right)^2$ term.
 		\item Order: 1, linear.
-		\item Order: 2, non-linear. Non-linearity is due to the $y\dfrac{d^2y}{dx^2}$ term.
+		\item Order: 2, non-linear. Non-linearity is due to the $y\dfrac{\dd^2y}{\dd x^2}$ term.
 		\item Order: 4, linear.
-		\item Order: 6, non-linear. Non-linearity is due to the $(1 + y^2)\left(\dfrac{d^2y}{dt^2}\right)$ term. In particular, the $y\dfrac{d^2y}{dt^2}$ term that one would get on multiplying out.
+		\item Order: 6, non-linear. Non-linearity is due to the $(1 + y^2)\left(\dfrac{\dd^2y}{\dd t^2}\right)$ term. In particular, the $y\dfrac{\dd^2y}{\dd t^2}$ term that one would get on multiplying out.
 	\end{enumerate}
 	Note that saying ``non-linearity is due to ...'' is not the mathematically precise justification. For an ODE to be linear, we should have that if $y_1$ and $y_2$ are solutions, then so is $\lambda y_1 + (1 - \lambda)y_2$ for any $\lambda \in \mathbb{R}.$
 	\item \begin{enumerate}[label = (\roman*)] 
@@ -168,8 +172,8 @@ These are \textbf{not} complete solutions and should not be regarded as such. Th
 	\begin{enumerate}[label = (\roman*)] 
 		\item 
 		\begin{align*} 
-			& (x^2 + 1)dy + (y^2 + 4)dx = 0\\
-			\implies & \dfrac{1}{y^2 + 4}dy + \dfrac{1}{x^2 + 1}dx = 0\\~\\
+			& (x^2 + 1)\dd y + (y^2 + 4)\dd x = 0\\
+			\implies & \dfrac{1}{y^2 + 4}\dd y + \dfrac{1}{x^2 + 1}\dd x = 0\\~\\
 			\implies & \dfrac{1}{2}\tan^{-1}\left(\dfrac{y}{2}\right) + \tan^{-1}x = C
 		\end{align*}
 		$y(1) = 0$ gives us that $C = \tan^{-1}(1) = \pi/4$ and we are done.
@@ -189,8 +193,8 @@ These are \textbf{not} complete solutions and should not be regarded as such. Th
 		\item Substitute $y - x = Y$ and solve. Note that $y' = Y' + 1.$
 		\item 
 		\begin{align*} 
-			& 2(y\sin 2x + \cos 2x)dx = \cos 2xdy\\
-			\implies & 2(y\sin 2x + \cos 2x)dx + (-\cos 2x)dy = 0
+			& 2(y\sin 2x + \cos 2x)\dd x = \cos 2x\dd y\\
+			\implies & 2(y\sin 2x + \cos 2x)\dd x + (-\cos 2x)\dd y = 0
 		\end{align*}
 		Note that the above ODE is closed and hence, exact. \hfill (Why? What is the domain?)\\
 		Thus, we may find a scalar field $u$ such that $u_x = 2(y\sin 2x + \cos 2x)$ and $u_y = (-\cos 2x).$\\
@@ -215,7 +219,7 @@ These are \textbf{not} complete solutions and should not be regarded as such. Th
 	\end{align*}
 	Let this solution be $(h_0, k_0).$ Then, for the substitution $X = x - h_0$ and $Y = y - k_0,$ we have:
 	\begin{align*} 
-		\dfrac{dX}{dY} = \dfrac{aX + bY}{cX + d'Y}.
+		\dfrac{\dd Y}{\dd X} = \dfrac{aX + bY}{cX + d'Y}.
 	\end{align*}
 	\begin{enumerate}[label = (\roman*)] 
 		\item We have the following
@@ -229,12 +233,12 @@ These are \textbf{not} complete solutions and should not be regarded as such. Th
 		\end{align*}
 		Solving the above gives us $h_0 = 3$ and $k_0 = 2.$\\
 		Then, we have the ODE
-		\[\dfrac{dY}{dX} = \dfrac{-X + 2Y}{4X - 3Y}.\]
-		To solve this, we make the substitution $Y = vX$ which gives us $dY = vdX + Xdv.$ Thus, the ODE changes to
+		\[\dfrac{\dd Y}{\dd X} = \dfrac{-X + 2Y}{4X - 3Y}.\]
+		To solve this, we make the substitution $Y = vX$ which gives us $\dd Y = v\dd X + Xdv.$ Thus, the ODE changes to
 		\begin{align*} 
-			& v + X\dfrac{dv}{dX} = \dfrac{2v - 1}{-3v + 4}\\
-			\implies & X\dfrac{dv}{dX} = \dfrac{3v^2 -2v - 1}{-3v + 4}\\
-			\implies & \dfrac{-3v + 4}{3v^2 - 2v - 1}dv = \dfrac{1}{X}dX
+			& v + X\dfrac{dv}{\dd X} = \dfrac{2v - 1}{-3v + 4}\\
+			\implies & X\dfrac{dv}{\dd X} = \dfrac{3v^2 -2v - 1}{-3v + 4}\\
+			\implies & \dfrac{-3v + 4}{3v^2 - 2v - 1}dv = \dfrac{1}{X}\dd X
 		\end{align*}
 		Solve the above to get $Y$ in terms of $X.$ Then, substitute $Y$ and $X$ back in terms of $y$ and $x.$
 		\item Not sure why in this category as $ad - bc$ is indeed $0.$ Simply substitute $y - x + 5 = t$ to get $y' = 1 + t'.$\\
@@ -242,7 +246,7 @@ These are \textbf{not} complete solutions and should not be regarded as such. Th
 		\item Same as above.
 	\end{enumerate}
 	\item The equation can be easily separated to get the ODE:
-	\[\frac{1}{\sqrt{1 - x^2}}dx + \frac{1}{\sqrt{1 - y^2}}dy = 0.\]
+	\[\frac{1}{\sqrt{1 - x^2}}\dd x + \frac{1}{\sqrt{1 - y^2}}\dd y = 0.\]
 	Integrating gives us $\sin^{-1}x + \sin^{-1}y = c.$\\
 	Substituting the two conditions gives us two curves:
 	\begin{align*} 
@@ -264,7 +268,7 @@ These are \textbf{not} complete solutions and should not be regarded as such. Th
 		\iff 3\left(\dfrac{x + y}{\sqrt{2}}\right)^2 + \left(\dfrac{x - y}{\sqrt{2}}\right)^2 = \frac{3}{2}.
 	\end{align*}
 	Behold, an ellipse.\\
-	Now, note that the ODE given has $\dfrac{dy}{dx} \le 0.$ However, the remaining parts of the ellipse after removing the arcs has $\dfrac{dy}{dx} > 0.$ Thus, that part cannot satisfy the ODE.\\
+	Now, note that the ODE given has $\dfrac{\dd y}{\dd x} \le 0.$ However, the remaining parts of the ellipse after removing the arcs has $\dfrac{\dd y}{\dd x} > 0.$ Thus, that part cannot satisfy the ODE.\\
 	(Note the ellipse \emph{is} contained in $[-1, 1] \times [-1, 1]$, so any argument saying $x \in [-1, 1]$ or $y \in [-1, 1]$ is not valid to justify why the remaining part does not satisfy.)
 	\item Differentiating the equation given gives
 	\begin{align*} 
