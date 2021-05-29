@@ -5,6 +5,7 @@
 \usepackage[inline]{enumitem}
 \usepackage[colorlinks=true]{hyperref}
 \usepackage{tikz}
+\usepackage{soul}
 \usetikzlibrary{decorations.markings}
 \usetikzlibrary{arrows.meta}
 \usepackage{witharrows}
@@ -55,13 +56,13 @@
 \fancyhead[R]{\sffamily{\thepage}}
 \definecolor{myupdatecolor}{RGB}{0, 0, 255}
 
-% \usepackage{xcolor}
-% \definecolor{mybgcolor}{RGB}{50, 50, 50} %46, 51, 63
-% \usepackage{pagecolor}
-% \pagecolor{mybgcolor}
-% \color{white}
-% \mdfsetup{backgroundcolor=mybgcolor, fontcolor=white}
-% \definecolor{myupdatecolor}{RGB}{0, 255, 0}
+\usepackage{xcolor}
+\definecolor{mybgcolor}{RGB}{50, 50, 50} %46, 51, 63
+\usepackage{pagecolor}
+\pagecolor{mybgcolor}
+\color{white}
+\mdfsetup{backgroundcolor=mybgcolor, fontcolor=white}
+\definecolor{myupdatecolor}{RGB}{0, 255, 0}
 
 \renewcommand{\familydefault}{\sfdefault}
 \newcommand{\dd}{{\mathrm d}}
@@ -721,7 +722,16 @@
 		However, this implies that $W(y_1, y_2;x) \neq 0$ for all $x \in J.$ Thus, $y_1$ and $y_2$ are linearly independent on $J.$\\\\
 		\emph{Remarks.} We have assumed that $P$ and $Q$ are continuous to use the above result.\\
 		We also emphasise that we crucially required the above result. In general, it is not true that if two functions are linearly independent on some interval, then they are also linearly independent on every subinterval. For example, consider the functions $x, |x|$ with $I = \mathbb{R}$ and $J = (0, \infty).$
-		\item True. Contrapositive of the above.
+		\item True. {\color{myupdatecolor}\st{Contrapositive of the above.} }It is \emph{not} the contrapositive of the above. \\
+		Here is the correction solution:
+
+		Suppose $y_1$ and $y_2$ are linearly dependent on $I.$ Then, there exist $a_1, a_2 \in \mathbb{R}$ not both zero such that
+		\begin{equation*} 
+			a_1y_1(x) + a_2y_2(x) = 0
+		\end{equation*}
+		for all $x \in I.$
+
+		But then, the above holds for all $x \in J$ as well, since $J \subset I.$ Thus, $y_1$ and $y_2$ are linearly dependent over $J$ as well.
 	\end{enumerate}
 	\item 
 	\begin{enumerate}[label = (\roman*)] 
