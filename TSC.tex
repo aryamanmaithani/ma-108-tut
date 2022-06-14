@@ -1,0 +1,455 @@
+\documentclass[dvipsnames]{beamer}
+% \documentclass[dvipsnames, handout]{beamer}
+% \mode<presentation>{}
+% \usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsfonts, amsthm, mathtools, mathrsfs}
+
+% \usepackage{enumitem}
+\setbeamertemplate{theorems}[numbered]
+\title{ODEs TSC}
+\author[Aryaman Maithani]{\texorpdfstring{Aryaman Maithani\\\url{https://aryamanmaithani.github.io/tuts/ma-108}}{Aryaman Maithani}}
+\date{Spring 2022}
+\institute{IIT Bombay}
+\usetheme{Madrid}
+\usepackage{parskip}
+\usepackage{tcolorbox}
+% \usepackage{tikz-cd}
+\usepackage{commands}
+
+\hypersetup{colorlinks=true}
+% \usepackage{graphicx}
+\usepackage{soul}
+
+
+% for getting bold ----------
+\DeclareFontShape{OT1}{cmss}{b}{n}{<->ssub * cmss/bx/n}{}
+% --------------------------
+
+% \usepackage{tikz}
+% \usetikzlibrary{topaths,calc}
+% \usepackage{caption}
+% \usepackage{subcaption}
+% \usepackage{pgfplots}  
+% \pgfplotsset{compat=1.17}
+% \usepackage{cancel}
+% \usepgfplotslibrary{polar}   
+% \usepgflibrary{shapes.geometric}  
+% \usetikzlibrary{calc}  
+% \pgfplotsset{posQuad/.append style={grid=both, xlabel={$x$}, ylabel={$y$}, line width=2pt, mark size=3pt,draw=NordWhite}}
+
+% \tikzset{
+%     invisible/.style={opacity=0},
+%     visible on/.style={alt={#1{}{invisible}}},
+%     alt/.code args={<#1>#2#3}{%
+%       \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}%
+%   }
+% }
+
+% \newcommand\mynum[1]{%
+%   \usebeamercolor{enumerate item}%
+%   \tikzset{beameritem/.style={circle,inner sep=0,minimum size=2ex,text=enumerate item.bg,fill=enumerate item.fg,font=\footnotesize}}%
+%   \tikz[baseline=(n.base)]\node(n)[beameritem]{#1};%
+% }
+
+% \makeatletter
+% \newenvironment<>{proofs}[1][\proofname]{%
+%     \par
+%     \def\insertproofname{#1\@addpunct{.}}%
+%     \usebeamertemplate{proof begin}#2}
+%   {\usebeamertemplate{proof end}}
+% \makeatother
+
+% \setbeamercolor{footline}{fg=brown}
+% \setbeamerfont{footline}{series=\bfseries}
+% \addtobeamertemplate{navigation symbols}{}{%
+%     \usebeamerfont{footline}%
+%     \usebeamercolor[fg]{footline}%
+%     \hspace{1em}%
+%     [\insertframenumber/\inserttotalframenumber]
+% }
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{caution}[thm]{Caution}
+\newtheorem*{ques}{Question}
+\newtheorem{rem}[thm]{Remark}
+% \newtheorem*{fac}{Fact}
+% \newtheorem*{ex}{Example}
+
+\let\subset\subseteq
+\let\supset\supseteq
+\let\ge\geqslant
+\let\le\leqslant
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% \begin{frame}
+%     \frametitle{Table of Contents}
+%     \tableofcontents
+% \end{frame}
+
+
+\section{Basics}
+
+\begin{frame}{ODEs}
+    We know what an ODE is. \pause The \deff{order} of an ODE is the order of the highest derivative in the equation. \pause
+
+    $\sin\left(\dfrac{d^{2}y}{dx^{2}}\right) = \left(\dfrac{dy}{dx}\right)^{3}$ has order \underline{\phantom{hello}}. \pause
+
+    The ODE is said to be \deff{linear} if it of the form
+    \begin{equation*} 
+      a_{n}(x) y^{(n)}(x) + \cdots + a_{0}(x) y = b(x) 
+    \end{equation*}
+    for some $n \ge 0$ and functions $a_{0}, \ldots, a_{n}, b$ of $x$. 
+\end{frame}
+\begin{frame}{Solutions}
+  Consider the ODE to be given as
+  \begin{equation*} 
+    y^{(n)} = f(x, y, y', \ldots, y^{(n - 1)}).
+  \end{equation*} \pause
+  For example, $y' = -x/y$. \pause
+
+  An \deff{explicit solution} of the above ODE on an interval $I$ is a \underline{function} $\phi$ defined on $I$ \pause such that 
+  \begin{equation*} 
+    \phi^{(n)}(x) = f(x, \phi(x), \ldots, \phi^{(n - 1)}(x))
+  \end{equation*}
+  for all $x \in I$. \pause Example: $\phi(x) = \sqrt{25 - x^{2}}$ on the interval $(-5, 5)$. \pause
+
+  An \deff{implicit solution} is a \underline{relation} $g(x, y) = 0$ \pause if this relation defines at least one function $\phi$ which is an explicit solution on some nonempty interval. \pause Example: $x^{2} + y^{2} = 25$.
+\end{frame}
+
+\begin{frame}{Orthogonal trajectories}
+  Suppose we are given a family of curves, indexed by a parameter $\lambda$: $F(x, y, \lambda) = 0$. We wish to find the family of orthogonal trajectories. \pause
+
+  First, differentiate the above and eliminate the parameter $\lambda$. \pause This will now give you an equation involving $x, y, y'$. \pause Replace $y'$ with $-1/y'$. \pause Solving this ODE now gives you the family of orthogonal trajectories. \pause
+
+  Example: $x^{2} + y^{2} = \lambda^{2}$. \pause Differentiating gives $x + yy' = 0$. \pause Replacing $y$ with $-1/y'$ gives
+  \begin{equation*} 
+    xy' = y.
+  \end{equation*} \pause
+  Solving it gives $y = cx$ ($c \in \mathbb{R}$) as the family of orthogonal trajectories.
+\end{frame}
+
+\section{Specific (JEE) ODEs}
+
+\begin{frame}{Separable ODEs}
+  An ODE of the form
+  \begin{equation*} 
+    M(x) + N(y) y' = 0
+  \end{equation*}
+  is called a \deff{separable ODE}. \pause It may also be suggestively written as
+  \begin{equation*} 
+    M(x) dx + N(y) dy = 0.
+  \end{equation*} \pause
+  The above is solved by ``simply integrating''. \pause More precisely, if $H_{1}$ and $H_{2}$ are functions such that $H_{1}'(x) = M(x)$ and $H_{2}'(y) = N(y)$, \pause then the general solution is
+  \begin{equation*} 
+    H_{1}(x) + H_{2}(y) = c
+  \end{equation*}
+  for $c \in \mathbb{R}$.
+\end{frame}
+\begin{frame}{Homogeneous functions}
+  Recall that a function $f$ of $n$-variables is called \deff{homogeneous of degree $d$} if \pause
+  \begin{equation*} 
+    f(tx_{1}, \ldots, tx_{n}) = t^{d} f(x_{1}, \ldots, x_{n})
+  \end{equation*}
+  for all $t \neq 0$. \pause Examples: $f(x, y) = (x - y)^{2} + xy$, \pause $f(x, y) = y^{2} + x^{2} \exp(x/y)$. \pause
+
+  \begin{defn}
+    The first order ODE
+    \begin{equation*} 
+      M(x, y) + N(x, y) y' = 0
+    \end{equation*}
+    is called \deff{homogeneous} if $M$ and $N$ are homogeneous of equal degree.
+  \end{defn} \pause
+
+  To solve: put $y = xv$ and things ``magically'' fall in place by becoming a separable ODE in $v$.
+\end{frame}
+
+\section{Exact ODEs}
+
+\begin{frame}{Definition}
+  \begin{defn}
+    A first order ODE
+    \begin{equation*} 
+      M(x, y) + N(x, y) y' = 0
+    \end{equation*}
+    is called \deff{exact} \pause if there exists a function $u(x, y)$ such that
+    \begin{equation*} 
+      u_{x} = M \andd u_{y} = N.
+    \end{equation*}
+  \end{defn} \pause
+  The general solution to the above ODE is then $u(x, y) = c$ for $c \in \mathbb{R}$. \pause
+
+  A \underline{necessary} condition for the ODE to be exact is $M_{y} = N_{x}$. \pause
+
+  The above is \emph{also} \underline{sufficient} if the domain is ``nice'': for example, if the domain is convex. \pause (More generally, it suffices for the domain to be simply-connected, if you still remember what that means.)
+\end{frame}
+\begin{frame}{Solving}
+  The question is: how to find $u$? \pause This is simple, just go by instincts. \pause
+
+  You know that $u_{x}(x, y) = M(x, y)$. \pause So, integrate $M$ with respect to $x$. \pause Remember that the arbitrary constant you add will be a function of $y$ now. \pause This will leave you with something like 
+  \begin{equation*} 
+    u(x, y) = \int M(x, y) dx + k(y).
+  \end{equation*} \pause
+  Now, differentiate the above with respect to $y$ and equate it to $N(x, y)$. \pause Things will ``magically'' get cancelled and you will be left with \pause
+  \begin{equation*} 
+    k'(y) = \text{some function of $y$}.
+  \end{equation*} \pause
+  Just integrate the above to get $k(y)$ and in turn, get $u(x, y)$. 
+\end{frame}
+\begin{frame}{Integrating Factors}
+  Sometimes, the ODE $M(x, y) dx + N(x, y) dy = 0$ may not be exact. \pause To combat this, we try to find an \deff{integrating factor}, \pause $\mu(x, y)$, \pause such that the equation
+  \begin{equation*} 
+    \mu M dx + \mu N dy = 0
+  \end{equation*}
+  is exact. \pause The above gives us the equation
+  \begin{equation*} 
+    \mu_{y} M + \mu M_{y} = \mu_{x} N + \mu N_{x}.
+  \end{equation*} \pause
+  Now, we typically assume either $\mu_{y} = 0$ (or $\mu_{x} = 0$) and hope that the remaining terms cancel out nicely in a way that we are actually left with $\mu_{x}/\mu$ being only a function of $x$ (or the other way around). \pause More precisely, if $\frac{M_{y} - N_{x}}{N}$ is a function of $x$, \pause then we have an integrating factor $\mu$ given by
+  \begin{equation*} 
+    \mu = \exp\left(\int \frac{M_{y} - N_{x}}{N} dx\right).
+  \end{equation*}
+\end{frame}
+
+\section{IVP}
+\begin{frame}{Definition and existence}
+  \begin{defn}
+    An \deff{initial value problem} (IVP) is an ODE of the form
+    \begin{equation} \label{eq:01}
+      y' = f(x, y),\, y(x_{0}) = y_{0}.
+    \end{equation}
+  \end{defn} \pause
+  % More generally, one could also prescribe more initial conditions such as $y'(x_{0})$, et cetera. \pause
+  We now see a condition telling us when the above has a solution. \pause
+
+  \begin{thm}[Existence]
+    Let $R$ be a rectangle of the form $(x_{0} - a, x_{0} + a) \times (y_{0} - b, y_{0} + b)$. \pause Suppose that $f$ is continuous and bounded on $R$, \pause say $\md{f(x, y)} \le K$ for all $(x, y) \in R$. \pause
+
+    Then, (\ref{eq:01}) has an explicit solution defined on $(x_{0} - \delta, x_{0} + \delta)$, \pause where $\delta \vcentcolon= \min\{a, b/K\}$. \pause
+  \end{thm}
+  Note that a solution \emph{may} exist on a larger interval. \pause Furthermore, there may be multiple solutions on that given interval itself. \pause We now see when the solution is unique.
+\end{frame}
+\begin{frame}{Lipschitz}
+  Let $f$ be a function of one variable defined on some interval $I \subset \mathbb{R}$. \pause $f$ is said to be \deff{Lipschitz continuous} \pause if there exists some $L \ge 0$ \pause such that
+  \begin{equation*} 
+    \md{f(x_{1}) - f(x_{2})} \le L \md{x_{1} - x_{2}}
+  \end{equation*}
+  for all $x_{1}, x_{2} \in I$. \pause
+
+  Now, if $f$ is a function of two variables defined on some $D \subset \mathbb{R}^{2}$, \pause then we say that $f$ is \deff{Lipschitz continuous with respect to $y$} if \pause there exists some $L \ge 0$ \pause such that
+  \begin{equation*} 
+    \md{f(x, y_{1}) - f(x, y_{2})} \le L \md{y_{1} - y_{2}}
+  \end{equation*}
+  for all $(x, y_{1}), (x, y_{2}) \in D$. \pause
+\end{frame}
+\begin{frame}{Remarks and examples}
+  Any Lipschitz continuous function (of one variable) is continuous. \pause Consequently, if $f$ is Lipschitz continuous with respect to $y$, then for every fixed $x$, the function $f(x, y)$ is a continuous in $y$. \pause However, $f$ may not be continuous in $x$. \pause For example,
+  \begin{equation*} 
+    f(x, y) = \fl{x} + y
+  \end{equation*}
+  is Lipschitz continuous in $y$ but $f(x, 1)$ is not continuous function. \pause
+
+  If $f$ is a differentiable function of one variable with $f'$ bounded, then $f$ is Lipschitz. \pause Consequently, if $f$ is a function of two variables with $\frac{\partial f}{\partial y}$ bounded, then $f$ is Lipschitz with respect to $y$. \pause
+
+  An non-example of Lipschitz function (in $y$) is: $f(x, y) = \sqrt{\md{y}}$ defined on $[-1, 1] \times [-1, 1]$. \pause Similarly, $f(x, y) = y^{2}$ is not Lipschitz w.r.t. $y$ on $\mathbb{R}^{2}$ but is so on bounded domains.
+\end{frame}
+\begin{frame}{Back to uniqueness}
+  
+  \begin{thm}[Uniqueness]
+    Suppose that we have the IVP
+    \begin{equation*} 
+      y' = f(x, y),\, y(x_{0}) = y_{0}.
+    \end{equation*} \pause
+    As before, suppose $f$ is continuous on $R = (x_{0} - a, x_{0} + a) \times (y_{0} - b, y_{0} + b)$ and bounded by $K$. \pause We already saw that the above IVP has \emph{a} solution defined on $(x_{0} - \delta, x_{0} + \delta)$. \pause Furthermore, if $f$ also satisfies the Lipschitz condition with respect to $y$ on $R$, \pause then the solution is \emph{unique} on that interval.  
+  \end{thm} \pause
+  As before, there may a solution on a larger interval. \pause Moreover, there may still be a larger interval where the solution is unique.
+\end{frame}
+\begin{frame}{Picard's iteration method}
+  As before, suppose we have the IVP: $y' = f(x, y),\, y(x_{0}) = y_{0}.$ \pause
+
+  The above differential equation is equivalent to solving the integral equation
+  \begin{equation*} 
+    y(x) = y_{0} + \int_{x_{0}}^{x} f(t, y(t)) \,dt.
+  \end{equation*} \pause
+
+  We define the \deff{Picard's iterates} recursively as \pause
+  \begin{align*} 
+    y_{0}(x) &\vcentcolon= y_{0}, \\
+    y_{n + 1}(x) &\vcentcolon= y_{0} + \int_{x_{0}}^{x} f(t, y_{n - 1}(t)) \,dt.
+  \end{align*} \pause
+  Under the assumptions of the existence-uniqueness theorem, the above converges to the solution $y$ of the IVP defined by $y(x) \vcentcolon= \displaystyle\lim_{n \to \infty} y_{n}(x)$.
+\end{frame}
+
+\section{Linear ODEs}
+
+\begin{frame}{Definition and convention}
+  We had seen what a linear ODE was. \pause A linear ODE of degree $n$ in \deff{standard form} is one of the form
+  \begin{equation*} 
+    y^{(n)} + a_{n - 1}(x) y^{(n - 1)} + \cdots + a_{0}(x) y = b(x).
+  \end{equation*} \pause
+  For example, $xy' - 10y = 0$ is \emph{not} in standard form. \pause However, if we are interested in solving the ODE on $(0, \infty)$, then we can put it in standard form as \pause $y' - \frac{10}{x} y = 0$. \pause
+
+  \begin{tcolorbox}[colback=red!5,colframe=red!75!,title=Disclaimer]
+    \textbf{Our results will always assume that the ODE is in standard form. This is crucial.}
+  \end{tcolorbox}
+\end{frame}
+\begin{frame}{Homogeneous}
+  The standard ODE is said to be \deff{homogeneous} if $b(x) = 0$, i.e., it is of the form
+  \begin{equation*} 
+    y^{(n)} + a_{n - 1}(x) y^{(n - 1)} + \cdots + a_{0}(x) y = 0.
+  \end{equation*} \pause
+
+  From now on, ``homogeneous'' will refer to the above, not the one we had defined earlier.
+\end{frame}
+
+\begin{frame}{First order}
+  A first order linear ODE is particular simple, \pause it is of the form
+  \begin{equation*} 
+    y' + P(x) y = Q(x).
+  \end{equation*}
+  \pause The above can be solved by multiplying with the integrating factor
+  \begin{equation*} 
+    \mu(x) \vcentcolon= \exp\left(\int_{x_{0}}^{x} P(t) \,dt\right).
+  \end{equation*} \pause
+  The final solution is also explicitly given by
+  \begin{equation*} 
+    y(x) = \frac{1}{\mu(x)} \left(\int Q(x) \mu(x) \,dx + c\right).
+  \end{equation*} \pause
+  (Bernoulli) If the ODE was instead $y' + P(x)y = Q(x) y^{n}$ for some $n \neq 0, 1$, then substitute $v = y^{1 - n}$ and it will ``magically'' get reduced to the above.
+\end{frame}
+
+\begin{frame}{Second order}
+  Consider the following second order homogeneous linear ODE:
+  \begin{equation} \label{eq:02}
+    y'' + p(x) y' + q(x) y = 0,
+  \end{equation}
+  where the functions $p$ and $q$ are continuous on some open interval $I$. \pause
+
+  \begin{thm}[Existence-uniqueness result]
+    Let $x_{0} \in I$, and fix $a, b \in \mathbb{R}$. \pause There is a unique solution $y$, defined on $I$, satisfying (\ref{eq:02}) along with $y(x_{0}) = a$ and $y'(x_{0}) = b$.
+  \end{thm} \pause
+
+  \begin{thm}[Dimension result]
+    The solution space of (\ref{eq:02}) is a two-dimensional real vector space.
+  \end{thm}
+\end{frame}
+\begin{frame}{Wronskian}
+  \begin{defn}
+    Let $y_{1}$ and $y_{2}$ be differentiable on $I$. \pause The \deff{Wroskian} of $y_{1}$ and $y_{2}$ is defined by \pause
+    \begin{equation*} 
+      W(y_{1}, y_{2})(x) \vcentcolon= \det 
+      \begin{bmatrix}
+        y_{1}(x) & y_{2}(x) \\
+        y_{1}'(x) & y_{2}'(x)
+      \end{bmatrix}.
+    \end{equation*}
+  \end{defn} \pause
+
+  Note that the Wronskian is defined for any two functions, without any mention of any DE.
+\end{frame}
+\begin{frame}{Wronskian and linear dependence}
+  Recall that two functions $y_{1}$ and $y_{2}$ are said to be linearly dependent (LD) \underline{on $I$} \pause if there exists constants $c_{1}, c_{2} \in \mathbb{R}$ \emph{not both zero} such that \pause
+  \begin{equation*} 
+    c_{1} y_{1}(x) + c_{2} y_{2}(x) = 0
+  \end{equation*} \pause
+  \underline{for all $x \in I$}. \pause 
+
+  \begin{thm}
+    If $y_{1}$ and $y_{2}$ are LD on $I$, then $W(y_{1}, y_{2})(x) = 0$ for all $x \in I$.
+  \end{thm} \pause
+
+  However, even if $W(y_{1}, y_{2})(x) = 0$ for all $x \in I$, it is \textbf{not} necessary that $y_{1}$ and $y_{2}$ are linearly dependent on $I$. \pause
+
+  Consider $I = (-1, 1)$ and the functions $y_{1}(x) = x^{3}$ and $y_{2}(x) = \md{x}^{3}$. \pause
+
+  Again, note that no reference to any DE has been made.
+\end{frame}
+\begin{frame}{Wronskian, linear dependence, and an ODE}
+  Now we make reference to an ODE and also see a (strong!) converse to the previous theorem. \pause
+
+  \begin{thm}
+    Let $y_{1}$ and $y_{2}$ be solutions to $y'' + p(x) y' + q(x) y = 0$ on an open interval $I$ \pause (as before, $p$ and $q$ are continuous on $I$). \pause The following are equivalent: \pause
+    \begin{enumerate}[<+->]
+      \item $y_{1}$ and $y_{2}$ are linearly dependent on $I$.
+      \item Their Wronskian vanishes everywhere on $I$.
+      \item Their Wronskian vanishes \underline{at one point} in $I$.
+    \end{enumerate}
+  \end{thm} \pause
+
+  What the above theorem tells us about $x^{3}$ and $\md{x}^{3}$ is that they cannot be the solutions to a \underline{standard linear ODE} on $(-1, 1)$. \pause Note that they \emph{are} solutions to $x^{2} y'' - 5xy' + 6y = 0$. \pause
+
+  Similarly, $x^{2}$ and $x^{3}$ are not LD on $(-1, 1)$ but their Wronskian vanishes at $0$. \pause (Again, both of them are solutions to that non-standard ODE written above.)
+\end{frame}
+\begin{frame}{Abel's formula}
+  On the previous slide, we saw that if the Wronskian is nonzero at a point, then it must nonzero everywhere. \pause We actually have a more precise relation given by Abel's formula. \pause The notations $I$, $p$, $q$ continue to be as before. \pause
+
+  \begin{thm}[Abel-Liouville]
+    Let $y_{1}$ and $y_{2}$ be any two solutions of $y'' + p(x) y' + q(x) y = 0$. \pause Then, the Wronskian $W \vcentcolon= W(y_{1}, y_{2})$ satisfies the differential equation \pause 
+    % The Wronskian $W = W(y_{1}, y_{2})$ of any two solutions $y_{1}$ and $y_{2}$ of $y'' + p(x) y' + q(x) y = 0$ \pause satisfies the differential equation
+    \begin{equation*} 
+      W'(x) = -p(x) W(x).
+    \end{equation*}
+    \pause Consequently, if $x_{0} \in I$, then
+    \begin{equation*} 
+      W(x) = W(x_{0}) \exp\left(-\int_{x_{0}}^{x} p(t) \,dt\right).
+    \end{equation*}
+  \end{thm}
+\end{frame}
+\begin{frame}{Getting a second solution}
+  A consequence of the earlier is the following: \pause If $y_{1}$ is one solution of
+  \begin{equation*} 
+    y'' + p(x) y' + q(x) y = 0,
+  \end{equation*} \pause 
+  then a linearly independent solution $y_{2}$ to the above (\emph{homogeneous}) equation is given by \pause
+  \begin{equation*} 
+    y_{2}(x) = y_{1}(x) \int \frac{\exp\left(-\int p(x) \, dx\right)}{y_{1}(x)^{2}} \, dx.
+  \end{equation*}
+\end{frame}
+
+\section{Specific second order linear ODEs}
+
+\begin{frame}{Constant coefficients}
+  ODE in question:
+  \begin{equation*} 
+    y'' + p y' + qy = 0. \pause
+  \end{equation*}
+  Here $p$ and $q$ are real numbers. \pause 
+
+  Solution: Find the roots of the quadratic $m^{2} + pm + q = 0$. \pause Call them $m_{1}$ and $m_{2}$. \pause
+
+  Case 1: Roots are real and distinct. \pause A basis for solution is $\{e^{m_{1} x}, e^{m_{2} x}\}$. \pause \newline
+  Case 2: Real repeated root. \pause A basis for solution is $\{e^{m_{1} x}, x e^{m_{1} x}\}$. \pause \newline
+  Case 3: Roots are distinct and not real. \pause In this case, the roots are of the form $a \pm \iota b$. \pause A basis for solution is $\{e^{a x} \cos(bx), e^{a x} \sin(bx)\}$. \pause
+  
+  Note that basis being $\{y_{1}, y_{2}\}$ means that the general solution is given by $c_{1} y_{1} + c_{2} y_{2}$ for $c_{1}, c_{2} \in \mathbb{R}$.
+\end{frame}
+\begin{frame}{Cauchy-Euler}
+  ODE in question:
+  \begin{equation*} 
+    x^{2} y'' + p xy' + qy = 0. \pause
+  \end{equation*}
+  Here $p$ and $q$ are real numbers. \pause The above is \textbf{not} in standard form. \pause However, we wish to solve the above on $(0, \infty)$, where it can be put in standard form by dividing by $x^{2}$. \pause
+
+  Solution: Find the roots of the quadratic $m(m - 1) + pm + q = 0$. \pause Call them $m_{1}$ and $m_{2}$. \pause
+
+  Case 1: Roots are real and distinct. \pause A basis for solution is $\{x^{m_{1}}, x^{m_{2}}\}$. \pause \newline
+  Case 2: Real repeated root. \pause A basis for solution is $\{x^{m_{1}}, x^{m_{1}} \log(x)\}$. \pause \newline
+  Case 3: Roots are distinct and not real. \pause In this case, the roots are of the form $a \pm \iota b$. \pause A basis for solution is $\{x^{a} \cos(b \log(x)), x^{a} \sin(b \log(x))\}$.
+\end{frame}
+
+\end{document}
