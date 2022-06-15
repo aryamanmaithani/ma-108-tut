@@ -1,5 +1,5 @@
-\documentclass[dvipsnames]{beamer}
-% \documentclass[dvipsnames, handout]{beamer}
+% \documentclass[dvipsnames]{beamer}
+\documentclass[dvipsnames, handout]{beamer}
 % \mode<presentation>{}
 % \usepackage[utf8]{inputenc}
 \usepackage{amsmath, amssymb, amsfonts, amsthm, mathtools, mathrsfs}
@@ -290,7 +290,7 @@
   We define the \deff{Picard's iterates} recursively as \pause
   \begin{align*} 
     y_{0}(x) &\vcentcolon= y_{0}, \\
-    y_{n + 1}(x) &\vcentcolon= y_{0} + \int_{x_{0}}^{x} f(t, y_{n - 1}(t)) \,dt.
+    y_{n + 1}(x) &\vcentcolon= y_{0} + \int_{x_{0}}^{x} f(t, y_{n}(t)) \,dt.
   \end{align*} \pause
   Under the assumptions of the existence-uniqueness theorem, the above converges to the solution $y$ of the IVP defined by $y(x) \vcentcolon= \displaystyle\lim_{n \to \infty} y_{n}(x)$.
 \end{frame}
