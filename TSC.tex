@@ -1,5 +1,5 @@
-% \documentclass[dvipsnames]{beamer}
-\documentclass[dvipsnames, handout]{beamer}
+\documentclass[dvipsnames]{beamer}
+% \documentclass[dvipsnames, handout]{beamer}
 % \mode<presentation>{}
 % \usepackage[utf8]{inputenc}
 \usepackage{amsmath, amssymb, amsfonts, amsthm, mathtools, mathrsfs}
@@ -450,6 +450,230 @@
   Case 1: Roots are real and distinct. \pause A basis for solution is $\{x^{m_{1}}, x^{m_{2}}\}$. \pause \newline
   Case 2: Real repeated root. \pause A basis for solution is $\{x^{m_{1}}, x^{m_{1}} \log(x)\}$. \pause \newline
   Case 3: Roots are distinct and not real. \pause In this case, the roots are of the form $a \pm \iota b$. \pause A basis for solution is $\{x^{a} \cos(b \log(x)), x^{a} \sin(b \log(x))\}$.
+\end{frame}
+
+\section{\texorpdfstring{$n$}{n}-th order linear ODE}
+\begin{frame}{Basics}
+  We have the $n$-th order linear homogeneous ODE in standard form given by
+  \begin{equation} \label{eq:03}
+    y^{(n)} + p_{n - 1}(x) y^{(n - 1)} + \cdots + p_{0}(x) y = 0.
+  \end{equation} \pause
+  Here, the coefficients $p_{0}, \ldots, p_{n - 1}$ are assumed to be continuous on an open interval $I$. \pause 
+
+  (Existence-uniqueness) Let $x_{0} \in I$. \pause Suppose that $k_{0}, \ldots, k_{n - 1}$ are arbitrary real numbers. \pause (\ref{eq:03}) has a unique solution $y$, defined on $I$, such that $y(x_{0}) = k_{0}$, $y'(x_{0}) = k_{1}$, $\ldots$, $y^{(n - 1)}(x_{0}) = k_{n - 1}$. \pause
+
+  (Dimension result) The solution space of (\ref{eq:03}) is $n$-dimensional. 
+\end{frame}
+\begin{frame}{Wronskian}
+  The Wronskian of $n$ nice function $y_{1}, \ldots, y_{n - 1}$ is defined by
+  \begin{equation*} 
+    W(y_{1}, \ldots, y_{n})(x) \vcentcolon= 
+    \det\begin{bmatrix}
+      y_{1}(x) & y_{2}(x) & \cdots & y_{n}(x) \\
+      y_{1}'(x) & y_{2}'(x) & \cdots & y_{n}'(x) \\
+      \vdots & \vdots & \ddots & \vdots \\
+      y_{1}^{(n - 1)}(x) & y_{2}^{(n - 1)}(x) & \cdots & y_{n}^{(n - 1)}(x) \\
+    \end{bmatrix}.
+  \end{equation*} \pause
+
+  Suppose $y_{1}, \ldots, y_{n}$ are solutions to the earlier homogeneous linear ODE in standard form, and $x_{0} \in I$. \pause Then, $y_{1}, \ldots, y_{n}$ are LD iff their Wronskian vanishes at $x_{0}$ iff their Wronskian vanishes everywhere on $I$.
+\end{frame}
+\begin{frame}{Abel's formula}
+  \begin{thm}[Abel-Liouville]
+    Let $y_{1}, \ldots, y_{n}$ be solutions of $y^{(n)} + p_{n - 1}(x) y^{(n - 1)} + \cdots + p_{0}(x) y = 0$. \pause Then, the Wronskian $W \vcentcolon= W(y_{1}, \ldots, y_{n})$ satisfies the differential equation \pause 
+    \begin{equation*} 
+      W'(x) = -p_{n - 1}(x) W(x).
+    \end{equation*}
+    \pause Consequently, if $x_{0} \in I$, then
+    \begin{equation*} 
+      W(x) = W(x_{0}) \exp\left(-\int_{x_{0}}^{x} p_{n - 1}(t) \,dt\right).
+    \end{equation*}
+  \end{thm} \pause
+
+  Note that the coefficient of $y^{(n - 1)}$ is the one that appears above. 
+\end{frame}
+
+\begin{frame}{Constant coefficients ODE}
+  To solve:
+  \begin{equation*} 
+    y^{(n)} + p_{n - 1} y^{(n - 1)} + \cdots + p_{0} y = 0,
+  \end{equation*}
+  where $p_{0}, \ldots, p_{n - 1}$ are real numbers. \pause
+
+  Method: Find the solutions of the characteristic equation
+  \begin{equation*} 
+    m^{n} + p_{n - 1} m^{n - 1} + \cdots + p_{0} m = 0.
+  \end{equation*} \pause
+  If $m_{0}$ is a root with multiplicity $k + 1$ (here $k \ge 0$), \pause then the solutions are $e^{m_{0} x}, x e^{m_{0} x}, \ldots, x^{k} e^{m_{0} x}$. \pause 
+  Since there are $n$ roots with multiplicity (over $\mathbb{C}$), we get $n$ LI solutions. \pause
+
+  If $m_{0} = a + \iota b$, then its conjugate is also a root. \pause Replace $x^{k} e^{(a \pm \iota b) x}$ with $x^{k} e^{ax} \cos(bx)$ and $x^{k} e^{ax} \sin(bx)$.
+\end{frame}
+\begin{frame}{Cauchy-Euler ODE}
+  To solve:
+  \begin{equation*} 
+    x^{n} y^{(n)} + p_{n - 1} x^{n - 1} y^{(n - 1)} + \cdots + p_{0} y = 0,
+  \end{equation*}
+  where $p_{0}, \ldots, p_{n - 1}$ are real numbers. \pause
+
+  Method: Find the solutions of the characteristic equation
+  \begin{equation*} 
+    m(m - 1) \cdots (m - (n - 1)) + m(m - 1)\cdots(m - (n - 2)) p_{n - 1} + \cdots + p_{0} m = 0.
+  \end{equation*} \pause
+  If $m_{0}$ is a root with multiplicity $k + 1$ (here $k \ge 0$), \pause then the solutions are $x^{m_{0}}, x^{m_{0}} \log(x), \ldots, x^{m_{0}} (\log(x))^{k}$. \pause 
+
+  As before, in case of complex roots, we have the following replacement: \pause \newline
+  $x^{a \pm \iota b} (\log(x))^{k} \leadsto x^{a} \cos(b \log(x)) (\log(x))^{k}, x^{a} \sin(b \log(x)) (\log(x))^{k}$.
+\end{frame}
+
+\begin{frame}{Method of Undetermined Coefficients}
+  Consider the non-homogeneous ODE
+  \begin{equation} \label{eq:04}
+    y^{(n)} + p_{n - 1} y^{(n - 1)} + \cdots + p_{0} y = x^{k} e^{mx},
+  \end{equation}
+  where $p_{0}, \ldots, p_{n - 1}$ are real numbers. \pause
+
+  We already know how to find the general solution of the homogeneous part. \pause We now try to find a particular solution $y_{p}$ of the non-homogeneous ODE. \pause 
+
+  Let $\mu$ be the multiplicity of $m$ as a root of the characteristic polynomial. \pause ($\mu = 0$ if $m$ is not a root.) \pause Then, the guess solution is
+  \begin{equation*} 
+    y_{p} = x^{\mu}(a_{0} + a_{1} x + \cdots + a_{k} x^{k}) e^{mx}.
+  \end{equation*} \pause
+  The coefficients $a_{0}, \ldots, a_{k}$ are obtained by plugging $y_{p}$ in (\ref{eq:04}) and comparing coefficients.
+\end{frame}
+\begin{frame}{Method of Undetermined Coefficients}
+  Instead of $e^{mx}$, we may have $e^{ax} \sin(bx)$ or $e^{ax} \cos(bx)$. \pause In this case, the guess is of the form
+  \begin{align*} 
+    y_{p} &= x^{\mu}(a_{0} + a_{1} x + \cdots + a_{k} x^{k}) e^{ax} \cos(bx) \\
+    & + x^{\mu}(b_{0} + b_{1} x + \cdots + b_{k} x^{k}) e^{ax} \sin(bx).
+  \end{align*} \pause
+
+  Alternately, you may want to break the problem of $e^{ax} \sin(bx)$ into two complex problems of $e^{(a + \iota b)x}$ and $e^{(a - \iota b)x}$. \pause
+
+  The method of undetermined coefficients for Cauchy-Euler is the same with obvious modifications.
+\end{frame}
+
+\begin{frame}{Method of Variation of Parameters}
+  Suppose we wish to solve
+  \begin{equation*} 
+    y^{(n)} + p_{n - 1}(x) y^{(n - 1)} + \cdots + p_{0}(x) y = r(x),
+  \end{equation*}
+  \pause and we already have LI solutions $y_{1}, \ldots, y_{n}$ of the homogeneous part. \pause 
+
+  Then, a particular solution is given by
+  \begin{equation*} 
+    y_{p} = v_{1} y_{1} + \cdots + v_{n} y_{n},
+  \end{equation*} \pause
+  where $v_{1}, \ldots, v_{n}$ are determined by solving \pause
+  \begin{equation*} 
+    \begin{bmatrix}
+      y_{1}(x) & y_{2}(x) & \cdots & y_{n}(x) \\
+      y_{1}'(x) & y_{2}'(x) & \cdots & y_{n}'(x) \\
+      \vdots & \vdots & \ddots & \vdots \\
+      y_{1}^{(n - 1)}(x) & y_{2}^{(n - 1)}(x) & \cdots & y_{n}^{(n - 1)}(x) \\
+    \end{bmatrix}
+    \begin{bmatrix}
+      v_{1}'(x) \\
+      v_{2}'(x) \\
+      \vdots \\
+      v_{n}'(x)
+    \end{bmatrix} 
+    = 
+    \begin{bmatrix}
+      0 \\
+      0 \\
+      \vdots \\
+      r(x)
+    \end{bmatrix}.
+  \end{equation*}
+\end{frame}
+
+\section{Laplace transform}
+
+\begin{frame}{Definition}
+  \begin{defn}
+    Let $f : (0, \infty) \to \mathbb{R}$ be a function. \pause The \deff{Laplace transform} of $f$, denoted $\mathcal{L}(f)$, is defined by \pause
+    \begin{equation*} 
+      \mathcal{L}(f)(s) \vcentcolon= \int_{0}^{\infty} e^{-st} f(t) \,dt.
+    \end{equation*}
+  \end{defn} \pause
+  This function is typically defined on $(a, \infty)$ for some $a > 0$. \pause The Laplace transform of a function of $t$ is typically written as a function of $s$, using the corresponding capital letter. \pause
+
+  If $f$ is piecewise continuous and of exponential order, then $\mathcal{L}(f)(s)$ exists for $s$ large enough. \pause 
+
+  More precisely: if there exist $a, t_{0}, K > 0$ \pause such that $\md{f(t)} \le K e^{at}$ for all $t > t_{0}$, \pause then $\mathcal{L}(f)(s)$ exists for all $s > a$.
+\end{frame}
+\begin{frame}{Heaviside and Convolution}
+  For $c \ge 0$, define the Heaviside function $u_{c}$ by
+  \begin{equation*} 
+    u_{c}(t) \vcentcolon= 
+    \begin{cases}
+      0 & t < c, \\
+      1 & t \ge c.
+    \end{cases}
+  \end{equation*} \pause
+
+  The \deff{convolution} of two functions $f$ and $g$ defined on $(0, \infty)$ is defined by \pause
+  \begin{equation*} 
+    (f \ast g)(t) \vcentcolon= \int_{0}^{t} f(\tau) g(t - \tau) \,d\tau. 
+  \end{equation*} \pause
+  Note that $f \ast g$ is itself a new function. \pause $\ast$ is commutative, associative, and distributes over addition. \pause $1 \ast f = f$ is \textbf{not} true in general.
+\end{frame}
+\begin{frame}{Properties of Laplace}
+  Linearity: $\mathcal{L}(af + bg) = a \mathcal{L}(f) + b \mathcal{L}(g)$ for functions $f, g$ and reals $a, b$. \pause 
+
+  Shifting I: If $\mathcal{L}(f(t)) = F(s)$, then $\mathcal{L}(e^{at} f(t)) = F(s - a)$. \pause 
+
+  Shifting II: $\mathcal{L}(u_{c}(t) f(t - c)) = e^{-cs} F(s)$, where $c \ge 0$. \pause 
+
+  Scaling: $\mathcal{L}(f(ct)) = \frac{1}{c} F\left(\frac{s}{c}\right)$. \pause 
+
+  Derivative I: $\mathcal{L}(f')(s) = sF(s) - f(0)$, $\mathcal{L}(f'')(s) = s^{2}F(s) - sf(0) - f''(0)$. \pause 
+
+  Derivative II: $\mathcal{L}(t f(t)) = -F'(s)$. \pause 
+ 
+  Convolution: $\mathcal{L}(f \ast g) = \mathcal{L}(f) \mathcal{L}(g)$. \pause 
+\end{frame}
+\begin{frame}{Laplace of common functions}
+  \begin{center}
+  \bgroup
+  \def\arraystretch{2}
+  \begin{tabular}{|c|c||c|c|} 
+  \hline
+  $f(t)$ & $F(s)$ & $f(t)$ & $F(s)$ \\
+  \hline
+  \hline
+  $t$ & $1/s^2$ & $t^a$ & $\dfrac{\Gamma(a + 1)}{s^{a + 1}}$\\
+  $u_c(t)$ & $e^{-cs}/s$ & $e^{at}$ & $\dfrac{1}{s - a}$\\
+  $\sin(\omega t)$ & $\dfrac{\omega}{s^2 + \omega^2}$ & $\cos(\omega t)$ & $\dfrac{s}{s^2 + \omega^2}$\\
+  $t\sin(\omega t)$ & $\dfrac{2\omega s}{(s^2 + \omega^2)^2}$ & $t\cos(\omega t)$ & $\dfrac{s^2 - \omega^2}{(s^2 + \omega^2)^2}$\\
+  $e^{at}\sin(\omega t)$ & $\dfrac{\omega}{(s - a)^2 + \omega^2}$ & $e^{at}\cos(\omega t)$ & $\dfrac{s - a}{(s - a)^2 + \omega^2}$\\
+  $\sinh(\omega t)$ & $\dfrac{\omega}{s^2 - \omega^2}$ & $\cosh(\omega t)$ & $\dfrac{s}{s^2 - \omega^2}$\\
+  $e^{at}\sinh(\omega t)$ & $\dfrac{\omega}{(s - a)^2 - \omega^2}$ & $e^{at}\cosh(\omega t)$ & $\dfrac{s - a}{(s - a)^2 - \omega^2}$\\
+  \hline
+  \end{tabular}
+  \egroup
+\end{center}
+\end{frame}
+\begin{frame}{Inverse Laplace transforms}
+  Lerch's theorem tells us that if $f$ and $g$ are good enough functions with $\mathcal{L}(f) = \mathcal{L}(g)$, \pause then $f(t) = g(t)$ at all points of continuity of $f$ and $g$. \pause
+
+  It then makes sense to talk about $\mathcal{L}^{-1}$. \pause It is checked that $\mathcal{L}^{-1}$ is also linear. \pause
+
+  We have another theorems which says that if $F = \mathcal{L}(f)$, then $\lim_{s \to \infty} F(s) = 0$. \pause For example, this rules out $1$, $\sin(s)$, $\log(s^{2} + 1)$, $\log(s^{-1})$ from being Laplace transforms.
+\end{frame}
+\begin{frame}{Examples of some Laplace inverses}
+  For $a \in \mathbb{R}$ and $n \ge 1$, we have
+  \begin{equation*} 
+    \mathcal{L}^{-1}\left(\frac{1}{(s - a)^{n}}\right) = \frac{1}{n!} e^{at} t^{n - 1}.
+  \end{equation*} \pause
+
+  Similarly,
+  \begin{equation*} 
+    \mathcal{L}^{-1}\left(\frac{c_{1}(s - a) + c_{2}}{(s - a)^{2} + b^{2}}\right) = e^{at} \left(c_{1} \cos(bt) + \frac{c_{2}}{b} \sin(bt)\right).
+  \end{equation*} \pause
+
+  Sometimes, it may be useful to use derivatives. For example, if we wish to compute the Laplace inverse of $F(s) = \log\left(\dfrac{s^{2} + 1}{s^{2} + 4}\right)$, we note that $F'(s) = \frac{2s}{s^{2} + 1} - \frac{2s}{s^{2} + 4}$. \pause Now, we can take Laplace inverse and using $\mathcal{L}(t f(t)) = -F'(s)$, we get the desired $f$.
 \end{frame}
 
 \end{document}
